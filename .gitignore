@@ -1,0 +1,7 @@
+packages
+bin
+obj
+*.suo
+node_modules
+*.dll
+*.pdb

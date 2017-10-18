@@ -1,8 +1,0 @@
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\bin\Debug\netstandard2.0\PaliCanon.Loader.deps.json
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\bin\Debug\netstandard2.0\PaliCanon.Loader.dll
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\bin\Debug\netstandard2.0\PaliCanon.Loader.pdb
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\obj\Debug\netstandard2.0\PaliCanon.Loader.csproj.CoreCompileInputs.cache
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\obj\Debug\netstandard2.0\PaliCanon.Loader.AssemblyInfoInputs.cache
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\obj\Debug\netstandard2.0\PaliCanon.Loader.AssemblyInfo.cs
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\obj\Debug\netstandard2.0\PaliCanon.Loader.dll
-c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Loader\obj\Debug\netstandard2.0\PaliCanon.Loader.pdb

@@ -1,0 +1,12 @@
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Api.deps.json
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Api.runtimeconfig.json
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Api.runtimeconfig.dev.json
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Api.dll
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Api.pdb
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Common.dll
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\bin\Debug\netcoreapp2.0\PaliCanon.Common.pdb
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\obj\Debug\netcoreapp2.0\PaliCanon.Api.csproj.CoreCompileInputs.cache
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\obj\Debug\netcoreapp2.0\PaliCanon.Api.AssemblyInfoInputs.cache
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\obj\Debug\netcoreapp2.0\PaliCanon.Api.AssemblyInfo.cs
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\obj\Debug\netcoreapp2.0\PaliCanon.Api.dll
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Api\obj\Debug\netcoreapp2.0\PaliCanon.Api.pdb

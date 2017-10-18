@@ -1,0 +1,8 @@
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\bin\Debug\netstandard2.0\PaliCanon.Common.deps.json
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\bin\Debug\netstandard2.0\PaliCanon.Common.dll
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\bin\Debug\netstandard2.0\PaliCanon.Common.pdb
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\obj\Debug\netstandard2.0\PaliCanon.Common.csproj.CoreCompileInputs.cache
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\obj\Debug\netstandard2.0\PaliCanon.Common.AssemblyInfoInputs.cache
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\obj\Debug\netstandard2.0\PaliCanon.Common.AssemblyInfo.cs
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\obj\Debug\netstandard2.0\PaliCanon.Common.dll
+c:\development\Demo\ASP.NET Core\AccessToInsight\PaliCanon.Common\obj\Debug\netstandard2.0\PaliCanon.Common.pdb

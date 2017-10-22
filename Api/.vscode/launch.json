@@ -18,7 +18,7 @@
             "args": "${auto-detect-url}",
             "windows": {
                 "command": "cmd.exe",
-                "args": "/C start ${auto-detect-url}"
+                "args": "/C start ${auto-detect-url}/api/quote/dhp"
             },
             "osx": {
                 "command": "open"

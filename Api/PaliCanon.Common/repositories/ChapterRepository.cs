@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using PaliCanon.Common.Model;
+using System.Linq;
 
 namespace PaliCanon.Common.Repository
 {
@@ -41,6 +43,32 @@ namespace PaliCanon.Common.Repository
             }
             
             return chapters;
+        }
+
+        public Chapter Quote(string bookCode)
+        { 
+            Random rnd = new Random();
+            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            
+            var maxChapter = collection.AsQueryable<Chapter>()
+                .OrderByDescending(x => x.ChapterNumber)
+                .Select(x => x.ChapterNumber)
+                .FirstOrDefault();
+
+            int randomChapterNumber = rnd.Next(1, maxChapter + 1);
+
+            var randomChapter = collection.AsQueryable<Chapter>()
+                .Where(x => x.ChapterNumber == randomChapterNumber)
+                .FirstOrDefault();
+
+            //.. this is now LINQ to Objects
+            var maxVerse = randomChapter.Verses.Max(x => x.VerseNumber);
+            var minVerse = randomChapter.Verses.Min(x => x.VerseNumber);
+            int randomVerse = rnd.Next(minVerse, maxVerse + 1);
+            randomChapter.Verses.RemoveAll(x => x.VerseNumber != randomVerse);
+
+
+            return randomChapter;
         }
     }
 }

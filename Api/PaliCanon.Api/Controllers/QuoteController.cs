@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,22 +10,22 @@ using PaliCanon.Common.Repository;
 namespace PaliCanon.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class SuttaController : Controller
+    public class QuoteController : Controller
     {
 
         IChapterRepository chapterRepository;
 
-        public SuttaController()
+        public QuoteController()
         {
             //..TB TODO implement windsor
             var database = new DBConnect().Connect();
             chapterRepository = new ChapterRepository(database);
         }
 
-        [HttpGet("{bookCode}/{chapter?}/{verse?}")]
-        public List<Chapter> Get(string bookCode, int? chapter, int? verse)
+        [HttpGet("{bookCode}")]
+        public Chapter Get(string bookCode)
         {
-            return chapterRepository.Get(bookCode, chapter, verse);        
+            return chapterRepository.Quote(bookCode);        
         }
 
     

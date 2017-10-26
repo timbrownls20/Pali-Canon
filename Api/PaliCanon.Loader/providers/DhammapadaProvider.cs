@@ -15,7 +15,7 @@ namespace PaliCanon.Loader.Provider
     internal class DhammapadaProvider: IProvider
     {
 
-        private const string SITEBASE = @"source\tipitaka\kn\dhp";
+        private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
         private ChapterRepository chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;

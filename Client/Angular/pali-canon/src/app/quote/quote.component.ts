@@ -9,19 +9,22 @@ import { QuoteService } from '../quote.service';
 })
 export class QuoteComponent implements OnInit {
 
-  constructor(private quoteService: QuoteService) { }
+  quote: Quote; 
 
-  quote: Quote = {
-    id: 1,
-    text: 'this works !!'
+  constructor(private quoteService: QuoteService) { 
+    this.quote = new Quote();    
   }
 
   getQuote(): void  {
-    alert(this.quoteService.getQuote());
+
+    this.quoteService.getQuote()
+        .subscribe(quote => this.quote = quote);
+
+    //alert(this.quote.text);
   }
 
   ngOnInit() {
-
+  
   }
 
 }

@@ -28,7 +28,6 @@ export class QuoteComponent implements OnInit {
     this.quoteService.getQuote()
         .subscribe(quote => this.quote = quote);
 
-    //alert(this.quote.text);
   }
 
   ngOnInit() {

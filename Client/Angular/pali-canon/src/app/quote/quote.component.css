@@ -1,0 +1,15 @@
+
+.quote {
+    margin-top: 50px;
+    height:80px;
+}
+
+.quote-info {
+    height:80px
+}
+
+.quote-action{
+    opacity: 0.8; 
+    font-size: 12px;
+    color:black;
+}

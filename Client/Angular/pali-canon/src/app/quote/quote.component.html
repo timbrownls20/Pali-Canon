@@ -1,21 +1,19 @@
 
 <div class="row">
-    <div class="col">
+    <div class="col quote" >
       <p>{{quote.text}}</p>
+     
     </div>
 </div>
-
+<div class="row">
+    <div class="col quote-info" >
+        <small>{{quote.book}}</small><br>
+        <small>{{quote.chapter}}:{{quote.verse}}. {{quote.title}} </small><br>
+        <small>{{quote.author}}</small><br>
+    </div>
+</div>
 <div class="row">
     <div class="col">
-  <!-- <label>name:
-    <input [(ngModel)]="quote.text" placeholder="text">
-  </label> -->
-  <button (click)="getQuote()" type="button" class="btn btn-primary">Get Quote</button>
+    <a (click)="getQuote()" href="#" class="quote-action" >Get Quote</a>
   </div>
 </div>
-
-<!-- <p>
-  <ngb-alert [dismissible]="false">
-    <strong>Warning!</strong> Better check yourself, you're not looking too good.
-  </ngb-alert>
-</p> -->

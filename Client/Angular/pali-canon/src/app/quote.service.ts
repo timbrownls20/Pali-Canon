@@ -21,55 +21,29 @@ export class QuoteService {
 
   getQuote(): Observable<Quote> {
 
-    debugger;
-
     return this.http.get(this.url) 
     .map(res => { 
       
+     
       let quote = new Quote();
       var response = (res as any);
       
+      quote.title = response.title;
+      quote.chapter = response.chapterNumber;
+      quote.author = response.author;
+      quote.book = response.book;
+
       if(response.verses.length > 0)
       {
           quote.text = response.verses[0].text;
+          quote.verse = response.verses[0].verseNumber;
       }
 
       return quote;
   
     });
 
-    // return this.http.get(this.url). 
-    // map((res: HttpResponse<any>) => 
-    
-    //   res.body.json().results.map(item => {
-
-    //   debugger;
-
-    //   let quote = new Quote();
-    //   if(item.verses.length > 0)
-    //   {
-    //       quote.text = item.verses[0].text;
-    //   }      
-    //   return quote;
-    // }
-    // )); 
-
-
-    // .map(res => { 
-    //   return res.json().results.map(item => { 
-
-    //     return this.url; 
-
-    //     // return new SearchItem( 
-    //     //     item.trackName,
-    //     //     item.artistName,
-    //     //     item.trackViewUrl,
-    //     //     item.artworkUrl30,
-    //     //     item.artistId
-    //     // );
-    //   });
-    // });
-
+   
 
   }
 

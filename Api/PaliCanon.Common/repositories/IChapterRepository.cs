@@ -7,5 +7,9 @@ namespace PaliCanon.Common.Repository
     {
         List<Chapter> Get(string bookCode, int? chapter, int? verse);
         Chapter Quote(string bookCode);
+        Chapter Next(string bookCode, int chapter, int verse);
+        Chapter First(string bookCode);
+        Chapter Last(string bookCode);
+
     }
 }

@@ -28,6 +28,23 @@ namespace PaliCanon.Api.Controllers
             return chapterRepository.Quote(bookCode);        
         }
 
-    
+        [HttpGet("next/{bookCode}/{chapter}/{verse}")]
+        public Chapter Next(string bookCode, int chapter, int verse)
+        {
+            return chapterRepository.Next(bookCode, chapter, verse);        
+        }
+   
+        [HttpGet("first/{bookCode}")]
+        public Chapter First(string bookCode)
+        {
+            return chapterRepository.First(bookCode);        
+        }
+
+        [HttpGet("last/{bookCode}")]
+        public Chapter Last(string bookCode)
+        {
+            return chapterRepository.Last(bookCode);        
+        }
+
     }
 }

@@ -31,11 +31,14 @@ namespace PaliCanon.Common.Repository
             if(chapterId.HasValue)
             {
                 var chapter = query.Where(x => x.ChapterNumber == chapterId).SingleOrDefault();
-                if(verse.HasValue)
+                if(chapter != null)
                 {
-                    chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
+                    if(verse.HasValue)
+                    {
+                        chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
+                    }
+                    chapters.Add(chapter);
                 }
-                chapters.Add(chapter);
             }
             else
             {
@@ -45,16 +48,45 @@ namespace PaliCanon.Common.Repository
             return chapters;
         }
 
+        public Chapter Next(string bookCode, int chapterId, int verse)
+        { 
+
+            var chapter = Get(bookCode, chapterId, verse + 1).FirstOrDefault();
+
+            if(chapter == null || !chapter.Verses.Any()){
+                chapter = Get(bookCode, chapterId + 1, verse + 1).FirstOrDefault();
+            }
+
+            if(chapter == null || !chapter.Verses.Any()){
+                chapter = Last(bookCode);
+            }
+
+            return chapter;
+        }
+
+        public Chapter First(string bookCode)
+        { 
+            return Get(bookCode, 1, 1).FirstOrDefault();
+        }
+
+        public Chapter Last(string bookCode)
+        { 
+            int chapterId = LastChapterId(bookCode);
+            int verseId = LastVerseId(bookCode);
+            return Get(bookCode, chapterId, verseId).FirstOrDefault();
+        }
+
         public Chapter Quote(string bookCode)
         { 
             Random rnd = new Random();
             var collection = database.GetCollection<Chapter>(nameof(Chapter));
             
-            var maxChapter = collection.AsQueryable<Chapter>()
-                .OrderByDescending(x => x.ChapterNumber)
-                .Select(x => x.ChapterNumber)
-                .FirstOrDefault();
+            // var maxChapter = collection.AsQueryable<Chapter>()
+            //     .OrderByDescending(x => x.ChapterNumber)
+            //     .Select(x => x.ChapterNumber)
+            //     .FirstOrDefault();
 
+            int maxChapter = LastChapterId(bookCode);
             int randomChapterNumber = rnd.Next(1, maxChapter + 1);
 
             var randomChapter = collection.AsQueryable<Chapter>()
@@ -69,6 +101,34 @@ namespace PaliCanon.Common.Repository
 
 
             return randomChapter;
+        }
+
+        private int LastChapterId(string bookCode){
+            
+            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            
+            var maxChapter = collection.AsQueryable<Chapter>()
+                .Where(x => x.BookCode == bookCode)
+                .OrderByDescending(x => x.ChapterNumber)
+                .Select(x => x.ChapterNumber)
+                .FirstOrDefault();
+
+            return maxChapter;
+        }
+
+        private int LastVerseId(string bookCode){
+            
+            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            
+            var verses = collection.AsQueryable<Chapter>()
+                .Where(x => x.BookCode == bookCode)
+                .OrderByDescending(x => x.ChapterNumber)
+                .SelectMany(x => x.Verses).ToList();
+
+
+            var maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
+
+            return maxVerse.VerseNumber;
         }
     }
 }

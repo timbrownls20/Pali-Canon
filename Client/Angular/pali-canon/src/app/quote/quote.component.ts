@@ -1,12 +1,7 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Quote } from '../quote'
 import { QuoteService } from '../quote.service';
-//import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-// @NgModule({
-//   declarations: [NgbModule],
-//   imports: [NgbModule]
-// })
 
 @Component({
   selector: 'app-quote',

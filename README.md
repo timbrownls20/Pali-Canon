@@ -13,6 +13,44 @@ Example:
 
 Random quote from the Dhammapada
 
+### First quote
+
+*http://localhost:5000/api/quote/first/{bookCode}*
+
+Example:
+
+*http://localhost:5000/api/quote/first/dhp*
+
+Gets first verse from Dhammapada
+
+
+### Last quote
+
+*http://localhost:5000/api/quote/last/{bookCode}*
+
+Example:
+
+*http://localhost:5000/api/quote/last/dhp*
+
+Gets last verse from Dhammapada
+
+
+### Next quote
+
+*http://localhost:5000/api/quote/next/{bookCode}/{chapter}/{verse}*
+
+Examples:
+
+*http://localhost:5000/api/quote/next/dhp/1/2*
+
+Gets next verse from Dhammapada for chapter 1 verse 2 - so chapter 1 verse 3
+
+
+*http://localhost:5000/api/quote/next/dhp/26/424*
+
+Gets next verse from Dhammapada for chapter 26 verse 424 - this is out of range so will return last chapter i.e. chpater 26 verse 423
+
+
 ### Get specific quote
 *http://localhost:5000/api/sutta/{bookCode}/{chapterNumber?}/{verseNumber?}*
 
@@ -33,6 +71,8 @@ plus metadata
 *http://localhost:5000/api/sutta/dhp*
 
 Gets all text for Dhammapada
+
+
 
 ## Supported books and text
 

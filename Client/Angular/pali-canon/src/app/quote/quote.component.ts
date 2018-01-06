@@ -33,7 +33,10 @@ export class QuoteComponent implements OnInit {
     }
 
   ngOnInit() {
-     this.randomQuote();
+     //this.randomQuote();
+     this.quoteService.getQuote(19, 271)
+     .subscribe(quote => this.quote = quote);
+  
   }
 
 }

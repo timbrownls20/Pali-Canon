@@ -18,15 +18,22 @@ export class QuoteComponent implements OnInit {
     this.quote = new Quote();    
   }
 
-  getQuote(): void  {
+  randomQuote(): void  {
 
-    this.quoteService.getQuote()
+    this.quoteService.randomQuote()
         .subscribe(quote => this.quote = quote);
 
   }
 
+  nextQuote(): void  {
+    
+      this.quoteService.nextQuote(this.quote)
+          .subscribe(quote => this.quote = quote);
+  
+    }
+
   ngOnInit() {
-     this.getQuote();
+     this.randomQuote();
   }
 
 }

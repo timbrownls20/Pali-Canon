@@ -9,42 +9,59 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 @Injectable()
 export class QuoteService {
 
-  private url: string = "http://localhost:49200/api/quote/dhp";
+  private baseUrl: string = "http://localhost:49200/api/";
 
   constructor(private http: HttpClient) { }
 
-  test(): string {
-    return "hello from service"
-  }
+  // test(): string {
+  //   return "hello from service"
+  // }
 
 
 
-  getQuote(): Observable<Quote> {
+  randomQuote(): Observable<Quote> {
 
-    return this.http.get(this.url) 
+    let url = this.baseUrl + "/quote/dhp";
+
+    return this.http.get(url) 
     .map(res => { 
       
+      return this.mapResponse(res);
      
-      let quote = new Quote();
-      var response = (res as any);
-      
-      quote.title = response.title;
-      quote.chapter = response.chapterNumber;
-      quote.author = response.author;
-      quote.book = response.book;
-
-      if(response.verses.length > 0)
-      {
-          quote.text = response.verses[0].text;
-          quote.verse = response.verses[0].verseNumber;
-      }
-
-      return quote;
-  
     });
 
+  }
+
+  nextQuote(quote: Quote): Observable<Quote> {
    
+        let url = `${this.baseUrl}quote/next/dhp/${quote.chapter}/${quote.verse}` ;
+    
+        return this.http.get(url) 
+        .map(res => { 
+          
+          return this.mapResponse(res);
+         
+        });
+    
+      }
+  
+  private mapResponse(response: any): Quote{
+    let quote = new Quote();
+      
+    quote.title = response.title;
+    quote.chapter = response.chapterNumber;
+    quote.author = response.author;
+    quote.book = response.book;
+
+    if(response.verses.length > 0)
+    {
+        quote.text = response.verses[0].text;
+        quote.verse = response.verses[0].verseNumber;
+    }
+
+    return quote;
 
   }
+    
 
 }

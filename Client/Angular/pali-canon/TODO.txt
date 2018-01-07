@@ -1,0 +1,5 @@
+1. Saving favourites
+2. Uddana data provider
+3. Settings page to select books that quotes are drawn from
+4. Copyright information held at Chapter level
+5. Register to permanently save favourites

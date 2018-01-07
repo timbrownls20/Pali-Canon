@@ -50,35 +50,7 @@ namespace PaliCanon.Common.Repository
 
         public Chapter Next(string bookCode, int chapterId, int verse)
         { 
-
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
-            var chapter = collection.AsQueryable<Chapter>().Where(x => x.BookCode == bookCode
-                        && x.Verses.Any(y => y.VerseNumber > verse))
-                        .OrderBy(x => x.ChapterNumber)
-                        .FirstOrDefault();
-
-            if(chapter != null){
-                 var selectedVerse = chapter.Verses
-                                        .Where(x => x.VerseNumber > verse)
-                                        .OrderBy(x => x.VerseNumber)
-                                        .FirstOrDefault();
-
-                int selectedVerseId = selectedVerse?.VerseNumber ?? 0;
-                chapter.Verses.RemoveAll(x => x.VerseNumber != selectedVerseId);
-            }
-
-
-            // var chapter = Get(bookCode, chapterId, verse + 1).FirstOrDefault();
-
-            // if(chapter == null || !chapter.Verses.Any()){
-            //     chapter = Get(bookCode, chapterId + 1, verse + 1).FirstOrDefault();
-            // }
-
-            if(chapter == null || !chapter.Verses.Any()){
-                chapter = Last(bookCode);
-            }
-
-            return chapter;
+            return GetNearestVerse(bookCode, verse + 1);
         }
 
         public Chapter First(string bookCode)
@@ -95,24 +67,41 @@ namespace PaliCanon.Common.Repository
 
         public Chapter Quote(string bookCode)
         { 
+            var lastVerse = LastVerseId(bookCode);
+
             Random rnd = new Random();
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
            
-            int maxChapter = LastChapterId(bookCode);
-            int randomChapterNumber = rnd.Next(1, maxChapter + 1);
-
-            var randomChapter = collection.AsQueryable<Chapter>()
-                .Where(x => x.ChapterNumber == randomChapterNumber)
-                .FirstOrDefault();
-
-            //.. this is now LINQ to Objects
-            var maxVerse = randomChapter.Verses.Max(x => x.VerseNumber);
-            var minVerse = randomChapter.Verses.Min(x => x.VerseNumber);
-            int randomVerse = rnd.Next(minVerse, maxVerse + 1);
-            randomChapter.Verses.RemoveAll(x => x.VerseNumber != randomVerse);
-
+            int randomVerse = rnd.Next(1, lastVerse);
+            var randomChapter = GetNearestVerse(bookCode, randomVerse);
 
             return randomChapter;
+        }
+
+        private Chapter GetNearestVerse(string bookCode, int verse)
+        {
+            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            var chapter = collection.AsQueryable<Chapter>().Where(x => x.BookCode == bookCode
+                        && x.Verses.Any(y => y.VerseNumber >= verse))
+                        .OrderBy(x => x.ChapterNumber)
+                        .FirstOrDefault();
+
+            if(chapter != null){
+                 var selectedVerse = chapter.Verses
+                                        .Where(x => x.VerseNumber >= verse)
+                                        .OrderBy(x => x.VerseNumber)
+                                        .FirstOrDefault();
+
+                int selectedVerseId = selectedVerse?.VerseNumber ?? 0;
+                chapter.Verses.RemoveAll(x => x.VerseNumber != selectedVerseId);
+            }
+
+
+
+            if(chapter == null || !chapter.Verses.Any()){
+                chapter = Last(bookCode);
+            }
+
+            return chapter;
         }
 
         private int LastChapterId(string bookCode){

@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 @Injectable()
 export class QuoteService {
 
+  //..TODO drive this from config
   private baseUrl: string = "http://localhost:49200/api/";
 
   constructor(private http: HttpClient) { }
@@ -16,8 +17,6 @@ export class QuoteService {
   
    getQuote(chapterId:number, verseId:number): Observable<Quote> {
     
-        debugger;
-
         let url = `${this.baseUrl}/sutta/dhp/${chapterId}/${verseId}`;
     
         return this.http.get(url) 
@@ -69,6 +68,7 @@ export class QuoteService {
     {
         quote.text = response.verses[0].text;
         quote.verse = response.verses[0].verseNumber;
+        quote.verseLast = response.verses[0].verseNumberLast;
     }
 
     return quote;

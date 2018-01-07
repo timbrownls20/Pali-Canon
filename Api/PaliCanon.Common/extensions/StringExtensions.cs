@@ -16,10 +16,17 @@ namespace PaliCanon.Common.Extensions
 
             public static string Clean(this string text)
             {
+                string cleanedText = text;
+
                 //.. remove reference notation i.e. [5]
                 Regex referenceNotation = new Regex(@"\[\d+\]");
-                string cleanedText = referenceNotation.Replace(text, "");
-                return cleanedText;
+                cleanedText = referenceNotation.Replace(cleanedText, "");
+
+                 //.. remove verse ranges i.e. 271-272.
+                Regex verseRange = new Regex(@"\d+-\d+(\.?)");
+                cleanedText = verseRange.Replace(cleanedText, "");
+
+                return cleanedText.Trim();
             }
 
     }

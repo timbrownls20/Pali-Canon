@@ -16,6 +16,8 @@ namespace PaliCanon.Loader.Provider
     {
 
         private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
+        //private const string SITEBASE = @"source\ati_website\debug";
+        
         private ChapterRepository chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
@@ -75,11 +77,21 @@ namespace PaliCanon.Loader.Provider
                 foreach(var verse in verses)
                 {
                     var verseNumberString = verse.Descendants("b").FirstOrDefault().InnerText;
-                    if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
+
+                    var verseNumbers = Regex.Matches(verseNumberString, @"\d+").Where(x => int.TryParse(x.Value, out int dummy))
+                                                                                .Select(x => int.Parse(x.Value))
+                                                                                .ToList();
+
+                    //if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
+                    if(verseNumbers.Any())
                     {
                         var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();
                         var verseText = string.Join("", verseNodes);
-                        chapter.Verses.Add(new Verse{ VerseNumber = verseNumber, Text = verseText});
+                        var verseToAdd = new Verse{ VerseNumber = verseNumbers.First(), Text = verseText};
+
+                        if(verseNumbers.Count > 1) verseToAdd.VerseNumberLast = verseNumbers.Last();
+ 
+                        chapter.Verses.Add(verseToAdd);
                     }
         
                 }

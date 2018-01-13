@@ -13,37 +13,46 @@ namespace PaliCanon.Api.Controllers
     public class QuoteController : Controller
     {
 
-        IChapterRepository chapterRepository;
+        IChapterRepository _chapterRepository;
+        IBookRepository _bookRepository;
+
 
         public QuoteController()
         {
-            //..TB TODO implement windsor
             var database = new DBConnect().Connect();
-            chapterRepository = new ChapterRepository(database);
+            _chapterRepository = new ChapterRepository(database);
+            _bookRepository = new BookRepository();
+        }
+
+        [HttpGet]
+        public Chapter Get()
+        {
+            var bookCode =_bookRepository.Random();
+            return _chapterRepository.Quote(bookCode);        
         }
 
         [HttpGet("{bookCode}")]
         public Chapter Get(string bookCode)
         {
-            return chapterRepository.Quote(bookCode);        
+            return _chapterRepository.Quote(bookCode);        
         }
 
         [HttpGet("next/{bookCode}/{chapter}/{verse}")]
         public Chapter Next(string bookCode, int chapter, int verse)
         {
-            return chapterRepository.Next(bookCode, chapter, verse);        
+            return _chapterRepository.Next(bookCode, chapter, verse);        
         }
    
         [HttpGet("first/{bookCode}")]
         public Chapter First(string bookCode)
         {
-            return chapterRepository.First(bookCode);        
+            return _chapterRepository.First(bookCode);        
         }
 
         [HttpGet("last/{bookCode}")]
         public Chapter Last(string bookCode)
         {
-            return chapterRepository.Last(bookCode);        
+            return _chapterRepository.Last(bookCode);        
         }
 
     }

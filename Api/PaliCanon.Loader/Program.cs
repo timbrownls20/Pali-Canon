@@ -15,12 +15,15 @@ namespace PaliCanon.Loader
             mongo.Drop();
             var database = mongo.Connect();
             
-            //IProvider provider = new DhammapadaProvider(new ChapterRepository(database));
-            IProvider provider = new TheragathaProvider(new ChapterRepository(database));
+            IProvider[] providers = new IProvider[]{
+                new TheragathaProvider(new ChapterRepository(database)),
+                new DhammapadaProvider(new ChapterRepository(database)) 
+            };
 
-            provider.OnNotify += ConsoleNotify;
-
-            provider.Load();
+            foreach(var provider in providers){
+                provider.OnNotify += ConsoleNotify;
+                provider.Load();
+            }
         }
 
         public static void ConsoleNotify(object sender, NotifyEventArgs args)

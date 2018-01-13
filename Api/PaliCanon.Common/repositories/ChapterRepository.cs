@@ -129,7 +129,7 @@ namespace PaliCanon.Common.Repository
 
             var maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
 
-            return maxVerse.VerseNumber;
+            return (maxVerse != null) ? maxVerse.VerseNumber : 0;
         }
     }
 }

@@ -28,7 +28,10 @@ namespace PaliCanon.Loader
 
         public static void ConsoleNotify(object sender, NotifyEventArgs args)
         {
-            Console.WriteLine(args.Message);
+            if(args.IsError)
+                Console.Error.WriteLine(args.Message);
+            else
+                Console.WriteLine(args.Message);
         }
     }
 }

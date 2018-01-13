@@ -45,7 +45,7 @@ namespace PaliCanon.Loader.Provider
         public void GetChapter(HtmlNode chapterNode)
         {
                var titleNode = chapterNode.Descendants("a").FirstOrDefault();
-               var textNode = chapterNode.SelectNodes("//div[contains(@class, 'freeverse')]").FirstOrDefault();
+               var textNode = chapterNode.SelectNodes("div[contains(@class, 'freeverse')]").FirstOrDefault();
 
                 if(titleNode == null || textNode == null) return;
 

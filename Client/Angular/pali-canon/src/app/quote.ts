@@ -7,6 +7,7 @@ export class Quote {
     verse: number;
     verseLast: number;
     book: string;
+    bookCode: string;
 
     get verseDisplay (): string{
     

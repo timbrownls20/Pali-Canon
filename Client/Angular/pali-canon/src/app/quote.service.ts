@@ -30,7 +30,7 @@ export class QuoteService {
 
   randomQuote(): Observable<Quote> {
 
-    let url = this.baseUrl + "/quote/dhp";
+    let url = this.baseUrl + "/quote";
 
     return this.http.get(url) 
     .map(res => { 
@@ -43,7 +43,7 @@ export class QuoteService {
 
   nextQuote(quote: Quote): Observable<Quote> {
    
-        let url = `${this.baseUrl}quote/next/dhp/${quote.chapter}/${quote.verse}` ;
+        let url = `${this.baseUrl}quote/next/${quote.bookCode}/${quote.chapter}/${quote.verse}` ;
     
         return this.http.get(url) 
         .map(res => { 
@@ -61,6 +61,7 @@ export class QuoteService {
     quote.chapter = response.chapterNumber;
     quote.author = response.author;
     quote.book = response.book;
+    quote.bookCode = response.bookCode;
 
     if(response.verses.length > 0)
     {

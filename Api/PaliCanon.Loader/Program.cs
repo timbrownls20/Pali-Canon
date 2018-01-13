@@ -14,7 +14,10 @@ namespace PaliCanon.Loader
             var mongo = new DBConnect();
             mongo.Drop();
             var database = mongo.Connect();
-            IProvider provider = new DhammapadaProvider(new ChapterRepository(database));
+            
+            //IProvider provider = new DhammapadaProvider(new ChapterRepository(database));
+            IProvider provider = new TheragathaProvider(new ChapterRepository(database));
+
             provider.OnNotify += ConsoleNotify;
 
             provider.Load();

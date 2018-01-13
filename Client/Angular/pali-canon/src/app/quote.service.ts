@@ -21,9 +21,7 @@ export class QuoteService {
     
         return this.http.get(url) 
         .map(res => { 
-          
-          debugger;
-
+         
           return this.mapResponse(res[0]);
          
         });

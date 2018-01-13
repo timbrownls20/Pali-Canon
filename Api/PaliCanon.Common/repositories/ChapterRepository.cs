@@ -69,6 +69,9 @@ namespace PaliCanon.Common.Repository
         { 
             var lastVerse = LastVerseId(bookCode);
 
+            if(lastVerse == 0) return BlankChapter();
+
+
             Random rnd = new Random();
            
             int randomVerse = rnd.Next(1, lastVerse);
@@ -130,6 +133,10 @@ namespace PaliCanon.Common.Repository
             var maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
 
             return (maxVerse != null) ? maxVerse.VerseNumber : 0;
+        }
+
+        private Chapter BlankChapter(){
+            return new Chapter{ Verses = new List<Verse>{ new Verse{ Text = "No verse found" }}};
         }
     }
 }

@@ -34,7 +34,17 @@ namespace PaliCanon.Loader.Provider
             _chapterRepository = chapterRepository;
             _sources = new List<SourceFile>();
             _sources.Add(new SourceFile { Type = ChapterType.ThagSingleVerse, Location = "thag.01.00x.than.html"});
-            _sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.13.than.html"});
+
+            DirectoryInfo dir = new DirectoryInfo(SITEBASE.ToApplicationPath());
+            foreach(var file in dir.GetFiles())
+            {
+                Regex fileMatch = new Regex(@"thag\.(\d+\.\d+)\.than.html");
+                if(fileMatch.IsMatch(file.Name) && file.Name != "thag.01.00x.than.html")
+                    _sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = file.Name});
+            }
+
+            //_sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.13.than.html"});
+            //_sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.24.than.html"});
 
         }
 
@@ -48,20 +58,24 @@ namespace PaliCanon.Loader.Provider
             {
                 index.Load(Path.Combine(SITEBASE, source.Location).ToApplicationPath());  
 
-                if(source.Type == ChapterType.ThagSingleVerse)
+                try
                 {
-                    GetChapterSingleVerse(index);
+                     if(source.Type == ChapterType.ThagSingleVerse)
+                    {
+                        GetChapterSingleVerse(index);
+                    }
+                    else if(source.Type == ChapterType.ThagMultipleVerse)
+                    {
+                        GetChapterMultipleVerse(index, source.Location);
+                    }
                 }
-                else if(source.Type == ChapterType.ThagMultipleVerse)
+                catch(Exception ex)
                 {
-                    GetChapterMultipleVerse(index, source.Location);
+                    var message = $"ERROR {source.Location} {ex.Message}";
+                    if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message, true));
                 }
-              
-
-                
+   
             }
-            
-          
         }
 
         public void GetChapterMultipleVerse(HtmlDocument index, string location)
@@ -96,21 +110,51 @@ namespace PaliCanon.Loader.Provider
                     chapter.Title = titleNode.InnerText.Trim();
                     chapter.ChapterNumber = chapterNumber;
 
-                    var verseToAdd = new Verse
-                    { 
-                        VerseNumber = firstVerseNumber, 
-                        VerseNumberLast = lastVerseNumber,
-                        Text = textNode.InnerText
-                    };
-                    chapter.Verses.Add(verseToAdd);
-                    _chapterRepository.Insert(chapter);
+                    var parsedVerses = ParseFreeVerse(textNode.InnerText);
 
-                    var message = $"loading thag {chapterNumber} {firstVerseNumber}";
-                    if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+                    if(parsedVerses.Count == lastVerseNumber - firstVerseNumber + 1)
+                    {
+                        //.. successfully parsed free verse into correct number of verses
+                        var thisVerse = firstVerseNumber;
+                        foreach(var parsedVerse in parsedVerses)
+                        {
+                             var verseToAdd = new Verse
+                            { 
+                                VerseNumber = thisVerse,
+                                Text = parsedVerse
+                            };
+                            chapter.Verses.Add(verseToAdd);
+                            thisVerse++;
+                        }
+
+                        var message = $"loading thag {chapterNumber} {firstVerseNumber}";
+                        if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+
+                         
+                        _chapterRepository.Insert(chapter);
+                    }
+                    else
+                    {
+                        var message = $"PARSE ERROR. Cannot parse free text verse {location}";
+                        if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+
+                        // //.. else insert verse into range
+
+                        // var verseToAdd = new Verse
+                        // { 
+                        //     VerseNumber = firstVerseNumber, 
+                        //     VerseNumberLast = lastVerseNumber,
+                        //     Text = textNode.InnerText
+                        // };
+                        // chapter.Verses.Add(verseToAdd);
+                    
+                    }
+
+                  
             }
             else
             {
-                var message = $"Cannot process thag {location}";
+                var message = $"INCOMPLETE INFORMATION. Cannot parse thag {location}";
                 if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message, true));
             }
                      
@@ -160,6 +204,13 @@ namespace PaliCanon.Loader.Provider
             };
     
             return chapter;
+        }
+
+        private List<String> ParseFreeVerse(string freeVerse)
+        {
+            Regex parser = new Regex(@"\n{2,}");
+            var returnValue = parser.Split(freeVerse).ToList();
+            return returnValue;
         }
     }
 

@@ -5,6 +5,7 @@
     margin-top: 50px;
     opacity: 0.8; 
     font-size: 12px;
+    padding: 0px;
 }
 
 .navbar a:first-child{

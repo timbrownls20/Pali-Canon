@@ -27,8 +27,8 @@ namespace PaliCanon.Api.Controllers
         [HttpGet]
         public Chapter Get()
         {
-            var bookCode =_bookRepository.Random();
-            return _chapterRepository.Quote(bookCode);        
+            var book =_bookRepository.Random();
+            return _chapterRepository.Quote(book.Code);        
         }
 
         [HttpGet("{bookCode}")]

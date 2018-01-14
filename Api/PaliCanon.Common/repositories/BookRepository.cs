@@ -1,27 +1,33 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using PaliCanon.Common.Model;
 
 namespace PaliCanon.Common.Repository
 {
     public class BookRepository: IBookRepository
     {
         
-        private string[] _codes;
+        private List<Book> _books;
 
         public BookRepository()
         {
-            _codes = new string[]{"dhp", "thag"};
+            _books = new List<Book>{
+                new Book { Code = "dhp", Description="dhammapada"},
+                new Book { Code = "thag", Description="theragatha"}
+            };
         }
 
-        public string[] Codes()
+        public List<Book> List()
         {
-            return _codes;
+            return _books;
         }
-        public string Random()
+        public Book Random()
         {
             Random rnd = new Random();
            
-            int randomCode = rnd.Next(0, _codes.Length);
-            return _codes[randomCode];
+            int randomCode = rnd.Next(0, _books.Count);
+            return _books.ElementAt(randomCode);
         }
     }
 

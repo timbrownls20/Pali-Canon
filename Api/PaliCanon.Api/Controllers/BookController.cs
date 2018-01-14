@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PaliCanon.Common.Repository;
+using PaliCanon.Common.Model;
 
 
 namespace PaliCanon.Api.Controllers
@@ -26,13 +27,13 @@ namespace PaliCanon.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> Codes()
+        public List<Book> List()
         {
-            return _bookRepository.Codes();
+            return _bookRepository.List();
         }
 
         [HttpGet]
-        public string Random()
+        public Book Random()
         {
             return _bookRepository.Random();
         }

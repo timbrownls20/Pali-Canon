@@ -5,8 +5,8 @@ namespace PaliCanon.Common.Repository
 {
     public interface IBookRepository
     {
-        string[] Codes();
-        string Random();
+        List<Book> List();
+        Book Random();
         
 
     }

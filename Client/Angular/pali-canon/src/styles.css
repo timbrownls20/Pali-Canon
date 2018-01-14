@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+.navbar {
+    margin-top: 50px;
+    opacity: 0.8; 
+    font-size: 12px;
+}
+
+.navbar a:first-child{
+    padding: 0 10px 0 0;
+    color:black; 
+}
+
+.navbar a:not(:first-child){
+    padding: 0 10px 0 10px;
+    color:black;
+}

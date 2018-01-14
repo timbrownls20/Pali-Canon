@@ -1,25 +1,9 @@
 
 .quote {
     margin-top: 50px;
-    height:80px;
+    height:120px;
 }
 
 .quote-info {
     height:80px
-}
-
-.quote-action {
-    margin-top: 50px;
-    opacity: 0.8; 
-    font-size: 12px;
-}
-
-.quote-action a:first-child{
-    padding: 0 10px 0 0;
-    color:black; 
-}
-
-.quote-action a:not(:first-child){
-    padding: 0 10px 0 10px;
-    color:black;
 }

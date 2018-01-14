@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { Quote } from './quote'
+import { Quote } from '../model/quote'
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Injectable()

@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { QuoteComponent } from './quote/quote.component';
-import { QuoteService } from './quote.service';
+import { QuoteService } from './services/quote.service';
 import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [

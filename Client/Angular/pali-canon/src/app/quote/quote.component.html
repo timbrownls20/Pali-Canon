@@ -11,10 +11,11 @@
         <small>{{quote.author}}</small><br>
     </div>
 </div>
-<div class="row quote-action">
+<div class="row navbar">
     <div class="col">
     <a (click)="nextQuote()" href="#">Next</a>
     |<a (click)="randomQuote()" href="#">Random</a>
+    |<a routerLink="/settings" routerLinkActive="active">Settings</a>
     <!-- <a (click)="getQuote()" href="#">Save</a>|
     <a (click)="getQuote()" href="#">Favourites</a> -->
   </div>

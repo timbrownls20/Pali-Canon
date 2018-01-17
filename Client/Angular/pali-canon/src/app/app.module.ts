@@ -5,9 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { QuoteComponent } from './quote/quote.component';
+import { QuoteComponent } from './components/quote/quote.component';
 import { QuoteService } from './services/quote.service';
-import { SettingsComponent } from './settings/settings.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent },

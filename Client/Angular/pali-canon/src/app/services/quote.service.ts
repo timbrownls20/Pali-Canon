@@ -5,19 +5,18 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Quote } from '../model/quote'
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class QuoteService {
 
-  //..TODO drive this from config
-  private baseUrl: string = "http://localhost:49200/api/";
-
+  
   constructor(private http: HttpClient) { }
 
   
    getQuote(chapterId:number, verseId:number): Observable<Quote> {
     
-        let url = `${this.baseUrl}/sutta/dhp/${chapterId}/${verseId}`;
+        let url = `${environment.apiEndpoint}/sutta/dhp/${chapterId}/${verseId}`;
     
         return this.http.get(url) 
         .map(res => { 
@@ -30,7 +29,7 @@ export class QuoteService {
 
   randomQuote(): Observable<Quote> {
 
-    let url = this.baseUrl + "/quote";
+    let url = environment.apiEndpoint + "/quote";
 
     return this.http.get(url) 
     .map(res => { 
@@ -43,7 +42,7 @@ export class QuoteService {
 
   nextQuote(quote: Quote): Observable<Quote> {
    
-        let url = `${this.baseUrl}quote/next/${quote.bookCode}/${quote.chapter}/${quote.verse}` ;
+        let url = `${environment.apiEndpoint}quote/next/${quote.bookCode}/${quote.chapter}/${quote.verse}` ;
     
         return this.http.get(url) 
         .map(res => { 

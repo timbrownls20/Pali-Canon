@@ -6,8 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { QuoteComponent } from './components/quote/quote.component';
-import { QuoteService } from './services/quote.service';
 import { SettingsComponent } from './components/settings/settings.component';
+
+import { QuoteService } from './services/quote.service';
+import { BookService } from './services/book.service';
 
 const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent },
@@ -41,7 +43,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [QuoteService],
+  providers: [QuoteService, BookService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

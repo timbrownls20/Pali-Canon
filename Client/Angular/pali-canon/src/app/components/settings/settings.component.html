@@ -1,22 +1,18 @@
 
 <div class="row">
 
-    
     <div class="col-4 settings-form" >
       <p>Select active books</p>
       <form>
 
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1"><small>Check me out</small></label>
-          </div>
+ 
+            <div class="form-check" *ngFor="let book of books">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1"><small>{{book.description}}</small></label>
+              </div>
 
-          <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1"><small>Check me out 2</small></label>
-            </div>
         </form>
-  </div>
+    </div>
 </div>
 <div class="row navbar">
   <div class="col">

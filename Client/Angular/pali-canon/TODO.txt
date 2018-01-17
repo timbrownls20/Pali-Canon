@@ -7,4 +7,3 @@ FEATURES
 
 CODE IMPROVEMENTS
 1. Windsor 
-2. Base url driven from config

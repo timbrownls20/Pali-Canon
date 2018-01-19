@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
+import { SettingsService } from './services/settings.service';
 import { QuoteService } from './services/quote.service';
 import { BookService } from './services/book.service';
 
@@ -43,7 +44,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [QuoteService, BookService],
+  providers: [QuoteService, BookService, SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

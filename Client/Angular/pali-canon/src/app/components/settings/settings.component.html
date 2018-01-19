@@ -2,13 +2,15 @@
 <div class="row">
 
     <div class="col-4 settings-form" >
+      <!-- <p>{{diagnostic}}</p> -->
       <p>Select active books</p>
-      <form>
+      <form #settingsForm="ngForm">
 
  
-            <div class="form-check" *ngFor="let book of books">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1"><small>{{book.description}}</small></label>
+            <div class="form-check" *ngFor="let book of books; let i = index">
+                <input type="checkbox" class="form-check-input" [name]="book.code" [value]="book.code"  [(ngModel)]="model[book.code].available">
+
+                <label class="form-check-label" for="ck{{book.description}}"><small>{{book.description}}</small></label>
               </div>
 
         </form>
@@ -17,6 +19,6 @@
 <div class="row navbar">
   <div class="col">
     <a routerLink="/" routerLinkActive="active">Back</a>
-    |<a routerLink="/" routerLinkActive="active">Save</a>
+    |<a (click)="saveSettings()" href="#">Save</a>
 </div>
 </div>

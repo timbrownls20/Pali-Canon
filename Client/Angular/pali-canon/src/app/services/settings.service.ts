@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Settings } from '../model/settings'
 
 @Injectable()
 export class SettingsService {
 
-  bookCodes: string[]
+  private _settings: Settings;
 
-  constructor() { 
-    this.bookCodes = ["dhp", "thag"];
+  get settings():Settings {
+    return this._settings;
   }
+  set settings(settings:Settings) {
+      this._settings = settings;
+  }
+ 
 
 }

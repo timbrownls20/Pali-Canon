@@ -14,7 +14,7 @@ export class Quote {
       if(this.verseLast === null)
         return this.verse + "";
       else
-        return this.verse + "-" + this.verseLast;
+        return `${this.verse}-${this.verseLast}`;
       
     }
 

@@ -16,17 +16,13 @@ export class SettingsComponent implements OnInit {
 
   constructor(private bookService:BookService, 
               private settingsService: SettingsService) { 
-      this.bookService.list().subscribe(books => {
-        this.books = books;
 
-        this.model = new Settings();
-        for(let book of this.books){
-          this.model[book.code] = { available : true, book: book};
-        }
+      this.model = settingsService.settings;
+      this.books = [];
 
+      for(let key in this.model)
+          this.books.push(this.model[key].book)
 
-      });
-      
           
   }
 

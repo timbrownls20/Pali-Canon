@@ -5,14 +5,10 @@
       <!-- <p>{{diagnostic}}</p> -->
       <p>Select active books</p>
       <form #settingsForm="ngForm">
-
- 
             <div class="form-check" *ngFor="let book of books; let i = index">
                 <input type="checkbox" class="form-check-input" [name]="book.code" [value]="book.code"  [(ngModel)]="model[book.code].available">
-
                 <label class="form-check-label" for="ck{{book.description}}"><small>{{book.description}}</small></label>
               </div>
-
         </form>
     </div>
 </div>

@@ -30,10 +30,14 @@ export class SettingsComponent implements OnInit {
   
   }
 
+ 
+
   saveSettings(){
     console.log("saving settings");
     return false;
   }
+
+ 
 
   get diagnostic() { return JSON.stringify(this.model); }
 }

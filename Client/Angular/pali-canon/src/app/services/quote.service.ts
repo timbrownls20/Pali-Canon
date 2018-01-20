@@ -13,23 +13,10 @@ export class QuoteService {
   
   constructor(private http: HttpClient) { }
 
-  
-   getQuote(chapterId:number, verseId:number): Observable<Quote> {
-    
-        let url = `${environment.apiEndpoint}/sutta/dhp/${chapterId}/${verseId}`;
-    
-        return this.http.get(url) 
-        .map(res => { 
-         
-          return this.mapResponse((<any>res)[0]);
-         
-        });
-    
-      }
 
-  randomQuote(): Observable<Quote> {
+  randomQuote(bookCode: string): Observable<Quote> {
 
-    let url = environment.apiEndpoint + "/quote";
+    let url = `${environment.apiEndpoint}/quote/${bookCode}`;
 
     return this.http.get(url) 
     .map(res => { 

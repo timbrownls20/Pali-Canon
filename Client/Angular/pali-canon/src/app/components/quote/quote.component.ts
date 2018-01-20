@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Quote } from '../../model/quote'
 import { QuoteService } from '../../services/quote.service';
+import { SettingsService } from '../../services/settings.service';
 
 
 @Component({
@@ -14,13 +15,16 @@ export class QuoteComponent implements OnInit {
 
   quote: Quote; 
 
-  constructor(private quoteService: QuoteService) { 
+  constructor(private quoteService: QuoteService,
+              private settingsService: SettingsService) { 
     this.quote = new Quote();    
   }
 
   randomQuote(): void  {
 
-    this.quoteService.randomQuote()
+    var randomBook = this.settingsService.getRandomBook();
+
+    this.quoteService.randomQuote(randomBook.code)
         .subscribe(quote => this.quote = quote);
 
   }

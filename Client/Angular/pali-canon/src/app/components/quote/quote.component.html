@@ -2,7 +2,7 @@
 <div *ngIf="!quote.isEmpty">
     <div class="row">
         <div class="col quote" >
-          <p [innerHTML]="quote.text" ></p>
+          <p [innerHTML]="quote.text | truncatetext:250" ></p>
         </div>
     </div>
     <div class="row">

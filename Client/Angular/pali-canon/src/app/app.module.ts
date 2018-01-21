@@ -11,6 +11,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsService } from './services/settings.service';
 import { QuoteService } from './services/quote.service';
 import { BookService } from './services/book.service';
+import { TruncateTextPipe } from './pipes/truncatetext.pipe';
 
 
 const appRoutes: Routes = [
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     QuoteComponent,
-    SettingsComponent
+    SettingsComponent,
+    TruncateTextPipe
   ],
   imports: [
     RouterModule.forRoot(

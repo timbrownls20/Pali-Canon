@@ -9,7 +9,6 @@ import { SettingsService } from '../../services/settings.service';
 import { BookService } from '../../services/book.service';
 
 
-
 @Component({
   selector: 'app-quote',
   templateUrl: './quote.component.html',  
@@ -34,31 +33,25 @@ export class QuoteComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.router.url);
-
-    if(this.router.url === '/next'){
-      this.nextQuote();
+      //.. TODO move this initalisation code to app module
+    if(this.settingsService.settings === undefined) {
+      
+        this.bookService.list().subscribe(books => {
+      
+            let settings = new Settings();
+            for(let book of books){
+              settings[book.code] = { available : true, book: book};
+            }
+      
+            this.settingsService.settings = settings;
+            this.randomQuote();
+      
+          });
     }
     else{
-      //.. TODO move this initalisation code to app module
-      if(this.settingsService.settings === undefined) {
-        
-          this.bookService.list().subscribe(books => {
-        
-              let settings = new Settings();
-              for(let book of books){
-                settings[book.code] = { available : true, book: book};
-              }
-        
-              this.settingsService.settings = settings;
-              this.randomQuote();
-        
-            });
-      }
-      else{
-        this.randomQuote();
-      }
+      this.randomQuote();
     }
+    
 
   }
 

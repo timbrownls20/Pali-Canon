@@ -12,22 +12,22 @@ import { Settings } from './model/settings';
 export class AppComponent {
   title = 'Pali Canon';
 
-  constructor(private settingsService: SettingsService,
-              private bookService: BookService){
+  // constructor(private settingsService: SettingsService,
+  //             private bookService: BookService){
 
-  }
+  // }
 
-  ngOnInit() {
-    this.bookService.list().subscribe(books => {
+  // ngOnInit() {
+  //   this.bookService.list().subscribe(books => {
 
-      let settings = new Settings();
-      for(let book of books){
-        settings[book.code] = { available : true, book: book};
-      }
+  //     let settings = new Settings();
+  //     for(let book of books){
+  //       settings[book.code] = { available : true, book: book};
+  //     }
 
-      this.settingsService.settings = settings;
+  //     this.settingsService.settings = settings;
 
 
-    });
-  }
+  //   });
+  // }
 }

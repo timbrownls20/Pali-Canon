@@ -1,22 +1,35 @@
 
-<div class="row">
-    <div class="col quote" >
-      <p [innerHTML]="quote.text" ></p>
+<div *ngIf="!quote.isEmpty">
+    <div class="row">
+        <div class="col quote" >
+          <p [innerHTML]="quote.text" ></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col quote-info" >
+            <small>{{quote.book}}</small><br>
+            <small>{{quote.chapter}}:{{quote.verseDisplay}}. {{quote.title}} </small><br>
+            <small>{{quote.author}}</small><br>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col quote-info" >
-        <small>{{quote.book}}</small><br>
-        <small>{{quote.chapter}}:{{quote.verseDisplay}}. {{quote.title}} </small><br>
-        <small>{{quote.author}}</small><br>
+
+<div *ngIf="quote.isEmpty">
+    <div class="row">
+        <div class="col quote" >
+          <p>Quote is unavailable</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col quote-info" ></div>
     </div>
 </div>
+
 <div class="row navbar">
     <div class="col">
     <a (click)="nextQuote()" href="#">Next</a>
     |<a (click)="randomQuote()" href="#">Random</a>
     |<a routerLink="/settings" routerLinkActive="active">Settings</a>
-    <!-- <a (click)="getQuote()" href="#">Save</a>|
-    <a (click)="getQuote()" href="#">Favourites</a> -->
+   
   </div>
 </div>

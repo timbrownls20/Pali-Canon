@@ -18,4 +18,8 @@ export class Quote {
       
     }
 
+    get isEmpty(): boolean{
+      return typeof this.text == "undefined";
+    }
+
   }

@@ -37,7 +37,7 @@ export class QuoteService {
           return this.mapResponse(res);
          
         });
-    
+      
       }
   
   private mapResponse(response: any): Quote{

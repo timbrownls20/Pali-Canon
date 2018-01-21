@@ -12,8 +12,11 @@ import { SettingsService } from './services/settings.service';
 import { QuoteService } from './services/quote.service';
 import { BookService } from './services/book.service';
 
+
 const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent },
+  { path: 'next', component: QuoteComponent },
+  { path: 'random', component: QuoteComponent },
   { path: '', component: QuoteComponent },
   // { path: 'hero/:id',      component: HeroDetailComponent },
   // {
@@ -38,7 +41,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     ),
     BrowserModule,
     FormsModule,

@@ -59,7 +59,7 @@ namespace PaliCanon.Loader.Provider
 
                 try
                 {
-                     if(source.Type == ChapterType.ThagSingleVerse)
+                    if(source.Type == ChapterType.ThagSingleVerse)
                     {
                         GetChapterSingleVerse(index);
                     }

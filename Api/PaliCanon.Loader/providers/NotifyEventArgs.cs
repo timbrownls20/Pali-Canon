@@ -1,6 +1,5 @@
 namespace PaliCanon.Loader.Provider
 {
-
     public class NotifyEventArgs : System.EventArgs
     {
 

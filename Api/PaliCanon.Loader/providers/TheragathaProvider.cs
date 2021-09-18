@@ -16,7 +16,6 @@ namespace PaliCanon.Loader.Provider
     {
         private readonly List<SourceFile> _sources;
 
-
         //working dir
         //C:\development\Pali-Canon\Api\PaliCanon.Loader\source\ati_website\html\tipitaka\kn\thag\thag.01.00x.than.html
     

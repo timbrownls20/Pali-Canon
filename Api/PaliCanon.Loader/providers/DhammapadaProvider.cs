@@ -12,12 +12,9 @@ using PaliCanon.Common.Model;
 namespace PaliCanon.Loader.Provider
 {
 
-
-
     internal class DhammapadaProvider: IProvider
     {
         
-
         private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
         //private const string SITEBASE = @"source\ati_website\debug";
         
@@ -29,7 +26,6 @@ namespace PaliCanon.Loader.Provider
         {
             this.chapterRepository = chapterRepository;
         }
-
 
         public void Load()
         {
@@ -48,7 +44,6 @@ namespace PaliCanon.Loader.Provider
                 //Acharya Buddharakkhita
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
-
                     var message = $"loading {chapterHref}";
                     if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
 
@@ -85,7 +80,6 @@ namespace PaliCanon.Loader.Provider
                                                                                 .Select(x => int.Parse(x.Value))
                                                                                 .ToList();
 
-                    //if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
                     if(verseNumbers.Any())
                     {
                         var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();

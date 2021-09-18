@@ -1,11 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaliCanon.Loader", "PaliCanon.Loader\PaliCanon.Loader.csproj", "{63D9EA4B-1D9C-440D-BD6C-8029C4D08489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Loader", "PaliCanon.Loader\PaliCanon.Loader.csproj", "{63D9EA4B-1D9C-440D-BD6C-8029C4D08489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaliCanon.Api", "PaliCanon.Api\PaliCanon.Api.csproj", "{0094A891-D5D2-485C-A314-58B3D8181202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Api", "PaliCanon.Api\PaliCanon.Api.csproj", "{0094A891-D5D2-485C-A314-58B3D8181202}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Common", "PaliCanon.Common\PaliCanon.Common.csproj", "{FB6CEC45-383F-4859-9D7F-4808159EEFAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{63D9EA4B-1D9C-440D-BD6C-8029C4D08489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +42,23 @@ Global
 		{0094A891-D5D2-485C-A314-58B3D8181202}.Release|x64.Build.0 = Release|x64
 		{0094A891-D5D2-485C-A314-58B3D8181202}.Release|x86.ActiveCfg = Release|x86
 		{0094A891-D5D2-485C-A314-58B3D8181202}.Release|x86.Build.0 = Release|x86
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|x64.Build.0 = Release|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB6CEC45-383F-4859-9D7F-4808159EEFAA}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A0A6380-4DD9-4C74-AD18-6AC951BC3825}
 	EndGlobalSection
 EndGlobal

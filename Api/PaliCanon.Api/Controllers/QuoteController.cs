@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PaliCanon.Common;
 using PaliCanon.Common.Model;
@@ -12,10 +8,8 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class QuoteController : Controller
     {
-
         IChapterRepository _chapterRepository;
         IBookRepository _bookRepository;
-
 
         public QuoteController()
         {

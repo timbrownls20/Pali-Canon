@@ -1,5 +1,3 @@
-
-
 using MongoDB.Driver;
 
 namespace PaliCanon.Common

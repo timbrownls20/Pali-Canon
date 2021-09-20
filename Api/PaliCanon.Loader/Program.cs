@@ -1,4 +1,7 @@
-﻿namespace PaliCanon.Loader
+﻿using System;
+using PaliCanon.DataLoad;
+
+namespace PaliCanon.Loader
 {
     class Program
     {
@@ -15,12 +18,12 @@
             //}
         }
 
-        //public static void ConsoleNotify(object sender, NotifyEventArgs args)
-        //{
-        //    if(args.IsError)
-        //        Console.Error.WriteLine(args.Message);
-        //    else
-        //        Console.WriteLine(args.Message);
-        //}
+        public static void ConsoleNotify(object sender, NotifyEventArgs args)
+        {
+            if (args.IsError)
+                Console.Error.WriteLine(args.Message);
+            else
+                Console.WriteLine(args.Message);
+        }
     }
 }

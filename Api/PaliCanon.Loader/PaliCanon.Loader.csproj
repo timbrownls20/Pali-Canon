@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
+    <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
   </ItemGroup>
 </Project>

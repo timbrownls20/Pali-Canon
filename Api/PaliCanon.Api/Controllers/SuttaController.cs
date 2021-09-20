@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Common.Contracts;
+using PaliCanon.Contracts;
 using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers

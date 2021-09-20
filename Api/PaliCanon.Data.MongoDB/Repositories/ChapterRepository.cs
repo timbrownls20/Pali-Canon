@@ -5,7 +5,7 @@ using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using PaliCanon.Common;
-using PaliCanon.Common.Contracts;
+using PaliCanon.Contracts;
 using PaliCanon.Data.MongoDB.Entities;
 using PaliCanon.Model;
 

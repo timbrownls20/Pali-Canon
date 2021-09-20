@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using PaliCanon.Model;
 
-namespace PaliCanon.Common.Contracts
+namespace PaliCanon.Contracts
 {
     public interface IChapterRepository: IRepository<Chapter>
     {

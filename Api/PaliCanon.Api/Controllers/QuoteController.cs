@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Common.Contracts;
+using PaliCanon.Contracts;
 using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
@@ -7,8 +7,8 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class QuoteController : Controller
     {
-        IChapterRepository _chapterRepository;
-        IBookRepository _bookRepository;
+        readonly IChapterRepository _chapterRepository;
+        readonly IBookRepository _bookRepository;
 
         public QuoteController(IBookRepository bookRepository, IChapterRepository chapterRepository)
         {
@@ -46,6 +46,5 @@ namespace PaliCanon.Api.Controllers
         {
             return _chapterRepository.Last(bookCode);        
         }
-
     }
 }

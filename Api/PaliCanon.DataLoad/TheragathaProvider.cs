@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using PaliCanon.Common.Contracts;
 using PaliCanon.Common.Extensions;
+using PaliCanon.Contracts;
 using PaliCanon.Model;
 using static System.Int32;
 

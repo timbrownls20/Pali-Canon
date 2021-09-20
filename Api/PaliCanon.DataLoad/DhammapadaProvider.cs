@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-using PaliCanon.Common.Contracts;
 using PaliCanon.Common.Extensions;
+using PaliCanon.Contracts;
 using PaliCanon.Model;
 
 namespace PaliCanon.DataLoad
@@ -25,7 +25,6 @@ namespace PaliCanon.DataLoad
 
         public void Load()
         {
-            
             HtmlDocument index = new HtmlDocument(); 
             index.Load(Path.Combine(SITEBASE, "index.html").ToApplicationPath());  
             

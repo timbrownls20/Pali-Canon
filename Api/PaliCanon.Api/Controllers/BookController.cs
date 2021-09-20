@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Common.Contracts;
+using PaliCanon.Contracts;
 using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]/[action]")]
-    public class BookController : Controller
+    public class BookController //: Controller
     {
         private readonly IBookRepository _bookRepository;
 
@@ -14,8 +15,7 @@ namespace PaliCanon.Api.Controllers
         {
             _bookRepository = bookRepository;
         }
-        
-        [HttpGet]
+
         public string Index()
         {
             return "Book API available";
@@ -32,6 +32,6 @@ namespace PaliCanon.Api.Controllers
         {
             return _bookRepository.Random();
         }
-        
+
     }
 }

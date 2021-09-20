@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
+    <ProjectReference Include="..\PaliCanon.Contracts\PaliCanon.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

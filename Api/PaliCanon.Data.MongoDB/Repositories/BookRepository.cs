@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using PaliCanon.Common.Contracts;
+using PaliCanon.Contracts;
 using PaliCanon.Data.MongoDB.Entities;
 using PaliCanon.Model;
 

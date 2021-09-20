@@ -6,6 +6,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
@@ -13,5 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
+    <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
   </ItemGroup>
 </Project>

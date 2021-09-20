@@ -1,17 +1,16 @@
-using System.Text.RegularExpressions;
-using System.Linq;
-using HtmlAgilityPack;
-using System.IO;
-using MongoDB.Driver;
 using System;
-using PaliCanon.Common.Repository;
-using PaliCanon.Common.Extensions;
-using PaliCanon.Common.Model;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using PaliCanon.Common.Contracts;
+using PaliCanon.Common.Extensions;
+using PaliCanon.Model;
+using static System.Int32;
 
-namespace PaliCanon.Loader.Provider
+namespace PaliCanon.DataLoad
 {
-
     internal class TheragathaProvider: IProvider
     {
         private readonly List<SourceFile> _sources;
@@ -19,20 +18,21 @@ namespace PaliCanon.Loader.Provider
         //working dir
         //C:\development\Pali-Canon\Api\PaliCanon.Loader\source\ati_website\html\tipitaka\kn\thag\thag.01.00x.than.html
     
-
         private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\thag";
         //private readonly string verseNumberRegex = @"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)";
         //private const string SITEBASE = @"source\ati_website\debug";
         
-        private ChapterRepository _chapterRepository;
+        private IChapterRepository _chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public TheragathaProvider(ChapterRepository chapterRepository)
+        public TheragathaProvider(IChapterRepository chapterRepository)
         {
             _chapterRepository = chapterRepository;
-            _sources = new List<SourceFile>();
-            _sources.Add(new SourceFile { Type = ChapterType.ThagSingleVerse, Location = "thag.01.00x.than.html"});
+            _sources = new List<SourceFile>
+            {
+                new SourceFile {Type = ChapterType.ThagSingleVerse, Location = "thag.01.00x.than.html"}
+            };
 
             DirectoryInfo dir = new DirectoryInfo(SITEBASE.ToApplicationPath());
             foreach(var file in dir.GetFiles())
@@ -44,9 +44,7 @@ namespace PaliCanon.Loader.Provider
 
             //_sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.13.than.html"});
             //_sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.24.than.html"});
-
         }
-
 
         public void Load()
         {
@@ -71,7 +69,7 @@ namespace PaliCanon.Loader.Provider
                 catch(Exception ex)
                 {
                     var message = $"ERROR {source.Location} {ex.Message}";
-                    if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message, true));
+                    OnNotify?.Invoke(this, new NotifyEventArgs(message, true));
                 }
    
             }
@@ -87,15 +85,15 @@ namespace PaliCanon.Loader.Provider
                 var match = verseMatch.Match(node.InnerText);     
                 if(match.Success)
                 {
-                    Int32.TryParse(match.Groups[1].Value, out firstVerseNumber);
-                    Int32.TryParse(match.Groups[2].Value, out lastVerseNumber);
+                    TryParse(match.Groups[1].Value, out firstVerseNumber);
+                    TryParse(match.Groups[2].Value, out lastVerseNumber);
                 }
 
                 Regex chapterMatch = new Regex(@"Thag ([\d]+)\.([\d]+)");
                 match = chapterMatch.Match(node.InnerText);    
                 if(match.Success)
                 {
-                    Int32.TryParse(match.Groups[1].Value, out chapterNumber);
+                    TryParse(match.Groups[1].Value, out chapterNumber);
                 }
             }
 
@@ -105,59 +103,56 @@ namespace PaliCanon.Loader.Provider
 
             if(chapterNumber != 0 && firstVerseNumber > 0 && textNode != null && titleNode != null)
             {
-                    var chapter = InitChapter();
-                    chapter.Title = titleNode.InnerText.Trim();
-                    chapter.ChapterNumber = chapterNumber;
+                var chapter = InitChapter();
+                chapter.Title = titleNode.InnerText.Trim();
+                chapter.ChapterNumber = chapterNumber;
 
-                    var parsedVerses = ParseFreeVerse(textNode.InnerText);
+                var parsedVerses = ParseFreeVerse(textNode.InnerText);
 
-                    if(parsedVerses.Count == lastVerseNumber - firstVerseNumber + 1)
+                if(parsedVerses.Count == lastVerseNumber - firstVerseNumber + 1)
+                {
+                    //.. successfully parsed free verse into correct number of verses
+                    var thisVerse = firstVerseNumber;
+                    foreach(var parsedVerse in parsedVerses)
                     {
-                        //.. successfully parsed free verse into correct number of verses
-                        var thisVerse = firstVerseNumber;
-                        foreach(var parsedVerse in parsedVerses)
-                        {
-                             var verseToAdd = new Verse
-                            { 
-                                VerseNumber = thisVerse,
-                                Text = parsedVerse
-                            };
-                            chapter.Verses.Add(verseToAdd);
-                            thisVerse++;
-                        }
-
-                        var message = $"loading thag {chapterNumber} {firstVerseNumber}";
-                        if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
-
-                         
-                        _chapterRepository.Insert(chapter);
-                    }
-                    else
-                    {
-                        var message = $"PARSE ERROR. Cannot parse free text verse {location}";
-                        if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
-
-                        // //.. else insert verse into range
-
-                        // var verseToAdd = new Verse
-                        // { 
-                        //     VerseNumber = firstVerseNumber, 
-                        //     VerseNumberLast = lastVerseNumber,
-                        //     Text = textNode.InnerText
-                        // };
-                        // chapter.Verses.Add(verseToAdd);
-                    
+                         var verseToAdd = new Verse
+                        { 
+                            VerseNumber = thisVerse,
+                            Text = parsedVerse
+                        };
+                        chapter.Verses.Add(verseToAdd);
+                        thisVerse++;
                     }
 
+                    var message = $"loading thag {chapterNumber} {firstVerseNumber}";
+                    OnNotify?.Invoke(this, new NotifyEventArgs(message));
+
+
+                    _chapterRepository.Insert(chapter);
+                }
+                else
+                {
+                    var message = $"PARSE ERROR. Cannot parse free text verse {location}";
+                    OnNotify?.Invoke(this, new NotifyEventArgs(message));
+
+                    // //.. else insert verse into range
+
+                    // var verseToAdd = new Verse
+                    // { 
+                    //     VerseNumber = firstVerseNumber, 
+                    //     VerseNumberLast = lastVerseNumber,
+                    //     Text = textNode.InnerText
+                    // };
+                    // chapter.Verses.Add(verseToAdd);
+                
+                }
                   
             }
             else
             {
                 var message = $"INCOMPLETE INFORMATION. Cannot parse thag {location}";
-                if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message, true));
+                OnNotify?.Invoke(this, new NotifyEventArgs(message, true));
             }
-                     
-                 
         }
 
         public void GetChapterSingleVerse(HtmlDocument index)
@@ -176,8 +171,8 @@ namespace PaliCanon.Loader.Provider
                 if(match.Groups.Count < 4) return;
 
                 var chapterTitle = match.Groups[1].Value;
-                Int32.TryParse(match.Groups[2].Value, out int chapterNumber);
-                Int32.TryParse(match.Groups[3].Value, out int verseNumber);
+                TryParse(match.Groups[2].Value, out int chapterNumber);
+                TryParse(match.Groups[3].Value, out int verseNumber);
 
                 var chapter = InitChapter();
                 chapter.Title = chapterTitle;
@@ -188,7 +183,7 @@ namespace PaliCanon.Loader.Provider
                 _chapterRepository.Insert(chapter);
 
                 var message = $"loading thag {chapterNumber} {verseNumber}";
-                if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+                OnNotify?.Invoke(this, new NotifyEventArgs(message));
             }
         }
 

@@ -1,4 +1,4 @@
-namespace PaliCanon.Loader.Provider
+namespace PaliCanon.DataLoad
 {
     public class NotifyEventArgs : System.EventArgs
     {

@@ -1,6 +1,6 @@
 
 
-namespace PaliCanon.Common.Repository
+namespace PaliCanon.Common.Contracts
 {
     public interface IRepository<T>
     {

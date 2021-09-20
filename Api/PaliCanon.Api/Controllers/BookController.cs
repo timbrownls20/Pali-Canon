@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Common.Repository;
-using PaliCanon.Common.Model;
+using PaliCanon.Common.Contracts;
+using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class BookController : Controller
     {
-        private IBookRepository _bookRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public BookController()
+        public BookController(IBookRepository bookRepository)
         {
-            _bookRepository = new BookRepository();
+            _bookRepository = bookRepository;
         }
         
         [HttpGet]

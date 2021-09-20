@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Common;
-using PaliCanon.Common.Model;
-using PaliCanon.Common.Repository;
+using PaliCanon.Common.Contracts;
+using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
@@ -11,11 +10,10 @@ namespace PaliCanon.Api.Controllers
         IChapterRepository _chapterRepository;
         IBookRepository _bookRepository;
 
-        public QuoteController()
+        public QuoteController(IBookRepository bookRepository, IChapterRepository chapterRepository)
         {
-            var database = new DBConnect().Connect();
-            _chapterRepository = new ChapterRepository(database);
-            _bookRepository = new BookRepository();
+            _chapterRepository = chapterRepository;
+            _bookRepository = bookRepository;
         }
 
         [HttpGet]

@@ -1,36 +1,45 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using PaliCanon.Common.Model;
-using System.Linq;
+using PaliCanon.Common;
+using PaliCanon.Common.Contracts;
+using PaliCanon.Data.MongoDB.Entities;
+using PaliCanon.Model;
 
-namespace PaliCanon.Common.Repository
+namespace PaliCanon.Data.MongoDB.Repositories
 {
     public class ChapterRepository: IChapterRepository
     {
-        IMongoDatabase database;
+        private readonly IMapper _mapper;
+        readonly IMongoDatabase _database;
 
-        public ChapterRepository(IMongoDatabase database)
+        public ChapterRepository(IMapper mapper)
         {
-            this.database = database;    
+            var mongo = new DBConnect();
+            mongo.Drop();
+            _database = mongo.Connect();
+
+            _mapper = mapper;
         }
 
         public void Insert(Chapter record)
         {
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
-            collection.InsertOne(record);
+            var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
+            collection.InsertOne(_mapper.Map<ChapterEntity>(record));
         }
 
         public List<Chapter> Get(string bookCode, int? chapterId, int? verse)
         { 
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
-            var query = collection.AsQueryable<Chapter>().Where(x => x.BookCode == bookCode);
-            List<Chapter> chapters = new List<Chapter>();
+            var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
+            var query = collection.AsQueryable().Where(x => x.BookCode == bookCode);
+            List<ChapterEntity> chapters = new List<ChapterEntity>();
 
             if(chapterId.HasValue)
             {
-                var chapter = query.Where(x => x.ChapterNumber == chapterId).SingleOrDefault();
+                var chapter = query.SingleOrDefault(x => x.ChapterNumber == chapterId);
                 if(chapter != null)
                 {
                     if(verse.HasValue)
@@ -45,7 +54,7 @@ namespace PaliCanon.Common.Repository
                 chapters = query.ToList();
             }
             
-            return chapters;
+            return _mapper.Map<List<Chapter>>(chapters);
         }
 
         public Chapter Next(string bookCode, int chapterId, int verse)
@@ -71,8 +80,7 @@ namespace PaliCanon.Common.Repository
 
             if(lastVerse == 0) return BlankChapter();
 
-
-            Random rnd = new Random();
+            var rnd = new Random();
            
             int randomVerse = rnd.Next(1, lastVerse);
             var randomChapter = GetNearestVerse(bookCode, randomVerse);
@@ -82,8 +90,8 @@ namespace PaliCanon.Common.Repository
 
         private Chapter GetNearestVerse(string bookCode, int verse)
         {
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
-            var chapter = collection.AsQueryable<Chapter>().Where(x => x.BookCode == bookCode
+            var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
+            var chapter = collection.AsQueryable<ChapterEntity>().Where(x => x.BookCode == bookCode
                         && x.Verses.Any(y => y.VerseNumber >= verse))
                         .OrderBy(x => x.ChapterNumber)
                         .FirstOrDefault();
@@ -94,24 +102,22 @@ namespace PaliCanon.Common.Repository
                                         .OrderBy(x => x.VerseNumber)
                                         .FirstOrDefault();
 
-                int selectedVerseId = selectedVerse?.VerseNumber ?? 0;
+                var selectedVerseId = selectedVerse?.VerseNumber ?? 0;
                 chapter.Verses.RemoveAll(x => x.VerseNumber != selectedVerseId);
             }
 
-
-
             if(chapter == null || !chapter.Verses.Any()){
-                chapter = Last(bookCode);
+                return Last(bookCode);
             }
 
-            return chapter;
+            return _mapper.Map<Chapter>(chapter);
         }
 
         private int LastChapterId(string bookCode){
             
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
             
-            var maxChapter = collection.AsQueryable<Chapter>()
+            var maxChapter = collection.AsQueryable<ChapterEntity>()
                 .Where(x => x.BookCode == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .Select(x => x.ChapterNumber)
@@ -122,9 +128,9 @@ namespace PaliCanon.Common.Repository
 
         private int LastVerseId(string bookCode){
             
-            var collection = database.GetCollection<Chapter>(nameof(Chapter));
+            var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
             
-            var verses = collection.AsQueryable<Chapter>()
+            var verses = collection.AsQueryable<ChapterEntity>()
                 .Where(x => x.BookCode == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .SelectMany(x => x.Verses).ToList();
@@ -132,11 +138,12 @@ namespace PaliCanon.Common.Repository
 
             var maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
 
-            return (maxVerse != null) ? maxVerse.VerseNumber : 0;
+            return maxVerse?.VerseNumber ?? 0;
         }
 
         private Chapter BlankChapter(){
-            return new Chapter{ Verses = new List<Verse>{ new Verse{ Text = "No verse found" }}};
+
+            return _mapper.Map<Chapter>(new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}});
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace PaliCanon.Loader.Provider
+namespace PaliCanon.DataLoad
 {
     interface INotifier
     {

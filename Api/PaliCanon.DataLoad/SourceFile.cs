@@ -1,5 +1,7 @@
 
-namespace PaliCanon.Loader.Provider
+using PaliCanon.Model;
+
+namespace PaliCanon.DataLoad
 {
     internal class SourceFile 
     {

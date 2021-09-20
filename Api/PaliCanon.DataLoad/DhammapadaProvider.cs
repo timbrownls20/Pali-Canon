@@ -1,28 +1,24 @@
-using System.Text.RegularExpressions;
-using System.Linq;
-using HtmlAgilityPack;
-using System.IO;
-using MongoDB.Driver;
 using System;
-using PaliCanon.Common.Repository;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using PaliCanon.Common.Contracts;
 using PaliCanon.Common.Extensions;
-using PaliCanon.Common.Model;
+using PaliCanon.Model;
 
-
-namespace PaliCanon.Loader.Provider
+namespace PaliCanon.DataLoad
 {
-
     internal class DhammapadaProvider: IProvider
     {
-        
         private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
         //private const string SITEBASE = @"source\ati_website\debug";
         
-        private ChapterRepository chapterRepository;
+        private IChapterRepository chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public DhammapadaProvider(ChapterRepository chapterRepository)
+        public DhammapadaProvider(IChapterRepository chapterRepository)
         {
             this.chapterRepository = chapterRepository;
         }
@@ -45,7 +41,7 @@ namespace PaliCanon.Loader.Provider
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
                     var message = $"loading {chapterHref}";
-                    if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+                    OnNotify?.Invoke(this, new NotifyEventArgs(message));
 
                     HtmlDocument chapterPage = new HtmlDocument(); 
                     chapterPage.Load(chapterHref);
@@ -57,8 +53,7 @@ namespace PaliCanon.Loader.Provider
         }
 
          public void GetChapter(HtmlDocument document, string author, int chapterNumber){
-                
-            
+               
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
             
             if(titleNode != null)
@@ -74,9 +69,9 @@ namespace PaliCanon.Loader.Provider
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)
                 {
-                    var verseNumberString = verse.Descendants("b").FirstOrDefault().InnerText;
+                    var verseNumberString = verse.Descendants("b").FirstOrDefault()?.InnerText;
 
-                    var verseNumbers = Regex.Matches(verseNumberString, @"\d+").Where(x => int.TryParse(x.Value, out int dummy))
+                    var verseNumbers = Regex.Matches(verseNumberString ?? string.Empty, @"\d+").Where(x => int.TryParse(x.Value, out int dummy))
                                                                                 .Select(x => int.Parse(x.Value))
                                                                                 .ToList();
 

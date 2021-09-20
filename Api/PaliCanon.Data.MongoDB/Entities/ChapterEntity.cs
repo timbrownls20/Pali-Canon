@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 
-namespace PaliCanon.Common.Model
+namespace PaliCanon.Data.MongoDB.Entities
 {
-    public class Chapter 
+    public class ChapterEntity 
     {
-        public Chapter()
+        public ChapterEntity()
         {
-            Verses = new List<Verse>();
+            Verses = new List<VerseEntity>();
         }
 
         public ObjectId _id { get; set; }
@@ -24,7 +24,7 @@ namespace PaliCanon.Common.Model
 
         public string Author { get; set; }
         
-        public List<Verse> Verses { get; set; }
+        public List<VerseEntity> Verses { get; set; }
     }
 
 }

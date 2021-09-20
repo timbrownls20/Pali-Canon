@@ -1,5 +1,5 @@
 
-namespace PaliCanon.Loader.Provider
+namespace PaliCanon.Model
 {
     public enum ChapterType
     {

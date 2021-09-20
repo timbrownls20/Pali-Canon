@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using PaliCanon.Common.Model;
+using PaliCanon.Model;
 
-namespace PaliCanon.Common.Repository
+namespace PaliCanon.Common.Contracts
 {
     public interface IBookRepository
     {

@@ -9,8 +9,9 @@ namespace PaliCanon.Common.Extensions
         {
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            var appRoot = appPathMatcher.Match(exePath).Value;
-            return Path.Combine(appRoot, fileName);
+            var appRoot = appPathMatcher.Match(exePath ?? string.Empty).Value;
+            var directoryInfo = new DirectoryInfo(appRoot).Parent;
+            return directoryInfo?.Parent != null ? Path.Combine(directoryInfo.Parent.ToString(), fileName) : null;
         }
 
         public static string Clean(this string text)

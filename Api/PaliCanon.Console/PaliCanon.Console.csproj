@@ -5,10 +5,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
+    <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
     <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 namespace PaliCanon.DataLoad
 {
-    interface IProvider: INotifier
+    public interface IProvider: INotifier
     {
         void Load();
 

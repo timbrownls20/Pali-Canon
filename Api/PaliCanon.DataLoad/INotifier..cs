@@ -2,7 +2,7 @@ using System;
 
 namespace PaliCanon.DataLoad
 {
-    interface INotifier
+    public interface INotifier
     {
         event EventHandler<NotifyEventArgs> OnNotify;
     }

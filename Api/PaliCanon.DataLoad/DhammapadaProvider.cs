@@ -9,7 +9,7 @@ using PaliCanon.Model;
 
 namespace PaliCanon.DataLoad
 {
-    internal class DhammapadaProvider: IProvider
+    public class DhammapadaProvider: IProvider
     {
         private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
         //private const string SITEBASE = @"source\ati_website\debug";
@@ -70,10 +70,10 @@ namespace PaliCanon.DataLoad
                 {
                     var verseNumberString = verse.Descendants("b").FirstOrDefault()?.InnerText;
 
-                    var verseNumbers = Regex.Matches(verseNumberString ?? string.Empty, @"\d+").Where(x => int.TryParse(x.Value, out int dummy))
+                    var verseNumbers = Regex.Matches(verseNumberString ?? string.Empty, @"\d+")
+                                                                                .Where(x => int.TryParse(x.Value, out int dummy))
                                                                                 .Select(x => int.Parse(x.Value))
                                                                                 .ToList();
-
                     if(verseNumbers.Any())
                     {
                         var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();
@@ -84,9 +84,7 @@ namespace PaliCanon.DataLoad
  
                         chapter.Verses.Add(verseToAdd);
                     }
-        
                 }
-
                 chapterRepository.Insert(chapter);
             }
         }

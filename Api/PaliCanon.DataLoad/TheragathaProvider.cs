@@ -11,7 +11,7 @@ using static System.Int32;
 
 namespace PaliCanon.DataLoad
 {
-    internal class TheragathaProvider: IProvider
+    public class TheragathaProvider: IProvider
     {
         private readonly List<SourceFile> _sources;
 
@@ -22,7 +22,7 @@ namespace PaliCanon.DataLoad
         //private readonly string verseNumberRegex = @"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)";
         //private const string SITEBASE = @"source\ati_website\debug";
         
-        private IChapterRepository _chapterRepository;
+        private readonly IChapterRepository _chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 

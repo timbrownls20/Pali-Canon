@@ -91,7 +91,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
         private Chapter GetNearestVerse(string bookCode, int verse)
         {
             var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
-            var chapter = collection.AsQueryable<ChapterEntity>().Where(x => x.BookCode == bookCode
+            var chapter = collection.AsQueryable().Where(x => x.BookCode == bookCode
                         && x.Verses.Any(y => y.VerseNumber >= verse))
                         .OrderBy(x => x.ChapterNumber)
                         .FirstOrDefault();
@@ -117,7 +117,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             
             var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
             
-            var maxChapter = collection.AsQueryable<ChapterEntity>()
+            var maxChapter = collection.AsQueryable()
                 .Where(x => x.BookCode == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .Select(x => x.ChapterNumber)
@@ -130,7 +130,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             
             var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
             
-            var verses = collection.AsQueryable<ChapterEntity>()
+            var verses = collection.AsQueryable()
                 .Where(x => x.BookCode == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .SelectMany(x => x.Verses).ToList();

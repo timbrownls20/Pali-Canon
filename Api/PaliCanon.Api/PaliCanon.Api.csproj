@@ -8,6 +8,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -15,5 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
     <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
+    <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
   </ItemGroup>
 </Project>

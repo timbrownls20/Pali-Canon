@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using PaliCanon.Common;
 using PaliCanon.Contracts;
 using PaliCanon.Data.MongoDB.Entities;
 using PaliCanon.Model;
@@ -16,9 +15,9 @@ namespace PaliCanon.Data.MongoDB.Repositories
         private readonly IMapper _mapper;
         readonly IMongoDatabase _database;
 
-        public ChapterRepository(IMapper mapper)
+        public ChapterRepository(IMapper mapper, Microsoft.Extensions.Configuration.IConfiguration config)
         {
-            var mongo = new DBConnect();
+            var mongo = new DbConnect(config);
             mongo.Drop();
             _database = mongo.Connect();
 

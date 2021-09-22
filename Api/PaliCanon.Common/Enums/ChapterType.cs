@@ -1,5 +1,5 @@
 
-namespace PaliCanon.Model
+namespace PaliCanon.Common.Enums
 {
     public enum ChapterType
     {

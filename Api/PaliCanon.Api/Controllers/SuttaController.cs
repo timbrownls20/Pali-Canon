@@ -6,7 +6,7 @@ using PaliCanon.Model;
 namespace PaliCanon.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class SuttaController : Controller
+    public class SuttaController : ControllerBase
     {
         readonly IChapterRepository _chapterRepository;
 

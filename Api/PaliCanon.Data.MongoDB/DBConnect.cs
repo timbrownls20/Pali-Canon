@@ -1,27 +1,26 @@
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace PaliCanon.Common
+namespace PaliCanon.Data.MongoDB
 {
-    public class DBConnect
+    public class DbConnect
     {
-        public const string MONGODB_CONNECTION = "mongodb://localhost:27017";
+        readonly MongoClient _client;
 
-        MongoClient client;
-
-        public DBConnect()
+        public DbConnect(IConfiguration config)
         {
-            client = new MongoClient(MONGODB_CONNECTION);
+            string connectionString =  config.GetValue<string>("ConnectionStrings:MongoDB");
+            _client = new MongoClient(connectionString);
         }
 
         public IMongoDatabase Connect()
         {
-          
-            return client.GetDatabase("PaliCanon");        
+            return _client.GetDatabase("PaliCanon");        
         }
 
         public void Drop()
         {
-            client.DropDatabase("PaliCanon");  
+            _client.DropDatabase("PaliCanon");  
         }
     }
 }

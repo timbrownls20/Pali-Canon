@@ -5,7 +5,7 @@ using PaliCanon.Model;
 namespace PaliCanon.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class QuoteController : Controller
+    public class QuoteController : ControllerBase
     {
         readonly IChapterRepository _chapterRepository;
         readonly IBookRepository _bookRepository;
@@ -14,6 +14,12 @@ namespace PaliCanon.Api.Controllers
         {
             _chapterRepository = chapterRepository;
             _bookRepository = bookRepository;
+        }
+
+        [HttpGet]
+        public string Index()
+        {
+            return "Chapter API available";
         }
 
         [HttpGet]

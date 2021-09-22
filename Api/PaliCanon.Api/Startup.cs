@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PaliCanon.Contracts;
 using PaliCanon.Data.MongoDB;
 using PaliCanon.Data.MongoDB.Repositories;
+using PaliCanon.DataLoad.Provider;
 
 namespace PaliCanon.Api
 {
@@ -32,8 +33,10 @@ namespace PaliCanon.Api
 
             services.AddCors();
             services.AddControllers();
+
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IChapterRepository, ChapterRepository>();
+            services.AddTransient<IProviderFactory, ProviderFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

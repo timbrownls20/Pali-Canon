@@ -18,8 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.DataLoad", "PaliC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Contracts", "PaliCanon.Contracts\PaliCanon.Contracts.csproj", "{EEA7ADF5-1A27-4371-A71C-1CC0713762F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Console", "PaliCanon.Console\PaliCanon.Console.csproj", "{0813F442-3A39-4975-9601-C5008AFF74DB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,18 +100,6 @@ Global
 		{EEA7ADF5-1A27-4371-A71C-1CC0713762F8}.Release|x64.Build.0 = Release|Any CPU
 		{EEA7ADF5-1A27-4371-A71C-1CC0713762F8}.Release|x86.ActiveCfg = Release|Any CPU
 		{EEA7ADF5-1A27-4371-A71C-1CC0713762F8}.Release|x86.Build.0 = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|x64.Build.0 = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Debug|x86.Build.0 = Debug|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|x64.ActiveCfg = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|x64.Build.0 = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|x86.ActiveCfg = Release|Any CPU
-		{0813F442-3A39-4975-9601-C5008AFF74DB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

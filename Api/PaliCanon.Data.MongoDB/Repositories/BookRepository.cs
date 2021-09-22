@@ -34,5 +34,4 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return _mapper.Map<Book>(_books.ElementAt(randomCode));
         }
     }
-
 }

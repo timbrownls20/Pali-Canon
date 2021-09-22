@@ -1,4 +1,4 @@
-namespace PaliCanon.DataLoad
+namespace PaliCanon.DataLoad.Provider
 {
     public interface IProvider: INotifier
     {

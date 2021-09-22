@@ -10,7 +10,7 @@ using PaliCanon.Contracts;
 using PaliCanon.Model;
 using static System.Int32;
 
-namespace PaliCanon.DataLoad
+namespace PaliCanon.DataLoad.Provider
 {
     public class TheragathaProvider: IProvider
     {
@@ -19,7 +19,7 @@ namespace PaliCanon.DataLoad
         //working dir
         //C:\development\Pali-Canon\Api\PaliCanon.Loader\source\ati_website\html\tipitaka\kn\thag\thag.01.00x.than.html
     
-        private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\thag";
+        private const string Sitebase = @"source\ati_website\html\tipitaka\kn\thag";
         //private readonly string verseNumberRegex = @"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)";
         //private const string SITEBASE = @"source\ati_website\debug";
         
@@ -35,7 +35,7 @@ namespace PaliCanon.DataLoad
                 new SourceFile {Type = ChapterType.ThagSingleVerse, Location = "thag.01.00x.than.html"}
             };
 
-            DirectoryInfo dir = new DirectoryInfo(SITEBASE.ToApplicationPath());
+            DirectoryInfo dir = new DirectoryInfo(Sitebase.ToApplicationPath());
             foreach(var file in dir.GetFiles())
             {
                 Regex fileMatch = new Regex(@"thag\.(\d+\.\d+)\.than.html");
@@ -54,7 +54,7 @@ namespace PaliCanon.DataLoad
              
             foreach(var source in _sources)
             {
-                index.Load(Path.Combine(SITEBASE, source.Location).ToApplicationPath());  
+                index.Load(Path.Combine(Sitebase, source.Location).ToApplicationPath());  
 
                 try
                 {
@@ -194,7 +194,7 @@ namespace PaliCanon.DataLoad
             {
                 Author = "Thanissaro",
                 Nikaya = "Khuddaka",
-                Book = "Theragatha",
+                BookTitle = "Theragatha",
                 BookCode = "thag"
             };
     

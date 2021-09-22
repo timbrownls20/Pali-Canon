@@ -3,11 +3,11 @@ using MongoDB.Driver;
 
 namespace PaliCanon.Data.MongoDB
 {
-    public class DbConnect
+    public class MongoDbContext
     {
         readonly MongoClient _client;
 
-        public DbConnect(IConfiguration config)
+        public MongoDbContext(IConfiguration config)
         {
             string connectionString =  config.GetValue<string>("ConnectionStrings:MongoDB");
             _client = new MongoClient(connectionString);

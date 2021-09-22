@@ -6,10 +6,12 @@ namespace PaliCanon.DataLoad.Provider
 {
     public class ProviderFactory : IProviderFactory
     {
+        private readonly IBookRepository _bookRepository;
         private readonly IChapterRepository _chapterRepository;
 
-        public ProviderFactory(IChapterRepository chapterRepository)
+        public ProviderFactory(IBookRepository bookRepository, IChapterRepository chapterRepository)
         {
+            _bookRepository = bookRepository;
             _chapterRepository = chapterRepository;
         }
 
@@ -20,7 +22,7 @@ namespace PaliCanon.DataLoad.Provider
             switch (book)
             {
                 case Book.Dhammapada:
-                    provider = new DhammapadaProvider(_chapterRepository);
+                    provider = new DhammapadaProvider(_bookRepository, _chapterRepository);
                     break;
                 case Book.Theragatha:
                     provider = new TheragathaProvider(_chapterRepository);

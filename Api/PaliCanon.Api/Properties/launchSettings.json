@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/book/index",
+      "launchUrl": "api/admin/load/dhammapada",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -7,33 +7,35 @@ using PaliCanon.Common.Extensions;
 using PaliCanon.Contracts;
 using PaliCanon.Model;
 
-namespace PaliCanon.DataLoad
+namespace PaliCanon.DataLoad.Provider
 {
     public class DhammapadaProvider: IProvider
     {
-        private const string SITEBASE = @"source\ati_website\html\tipitaka\kn\dhp";
-        //private const string SITEBASE = @"source\ati_website\debug";
-        
-        private IChapterRepository chapterRepository;
+        private const string Sitebase = @"source\ati_website\html\tipitaka\kn\dhp";
+
+        private readonly IBookRepository _bookRepository;
+        private readonly IChapterRepository _chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public DhammapadaProvider(IChapterRepository chapterRepository)
+        public DhammapadaProvider(IBookRepository bookRepository, IChapterRepository chapterRepository)
         {
-            this.chapterRepository = chapterRepository;
+            _bookRepository = bookRepository;
+            _chapterRepository = chapterRepository;
         }
 
         public void Load()
         {
+            AddBook();
             HtmlDocument index = new HtmlDocument(); 
-            index.Load(Path.Combine(SITEBASE, "index.html").ToApplicationPath());  
+            index.Load(Path.Combine(Sitebase, "index.html").ToApplicationPath());  
             
             var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
 
             int chapterNumber = 1;
             foreach(var link in links)
             {
-                var chapterHref = Path.Combine(SITEBASE, link.Attributes["href"].Value).ToApplicationPath();
+                var chapterHref = Path.Combine(Sitebase, link.Attributes["href"].Value).ToApplicationPath();
                 var author = link.InnerText;
 
                 //Acharya Buddharakkhita
@@ -50,8 +52,8 @@ namespace PaliCanon.DataLoad
                 }
             }
         }
-
-         public void GetChapter(HtmlDocument document, string author, int chapterNumber){
+        
+        private void GetChapter(HtmlDocument document, string author, int chapterNumber){
                
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
             
@@ -61,7 +63,7 @@ namespace PaliCanon.DataLoad
                 chapter.Title = titleNode.InnerText;
                 chapter.Author = author;
                 chapter.Nikaya = "Khuddaka";
-                chapter.Book = "Dhammapada";
+                chapter.BookTitle = "Dhammapada";
                 chapter.BookCode = "dhp";
                 chapter.ChapterNumber = chapterNumber;
 
@@ -85,8 +87,14 @@ namespace PaliCanon.DataLoad
                         chapter.Verses.Add(verseToAdd);
                     }
                 }
-                chapterRepository.Insert(chapter);
+                _chapterRepository.Insert(chapter);
             }
+        }
+
+        private void AddBook()
+        {
+            Book book = new Book { Code = "dhp", Description = "dhammapada" };
+            _bookRepository.Insert(book);
         }
     }
 }

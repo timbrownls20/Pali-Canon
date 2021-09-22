@@ -3,7 +3,7 @@ using PaliCanon.Model;
 
 namespace PaliCanon.Contracts
 {
-    public interface IBookRepository
+    public interface IBookRepository: IRepository<Book>
     {
         List<Book> List();
         Book Random();

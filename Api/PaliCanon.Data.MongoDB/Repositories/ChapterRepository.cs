@@ -17,7 +17,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
 
         public ChapterRepository(IMapper mapper, Microsoft.Extensions.Configuration.IConfiguration config)
         {
-            var mongo = new DbConnect(config);
+            var mongo = new MongoDbContext(config);
             mongo.Drop();
             _database = mongo.Connect();
 

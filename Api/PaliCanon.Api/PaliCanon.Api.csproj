@@ -8,7 +8,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -17,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
     <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
+    <ProjectReference Include="..\PaliCanon.Data.SqlServer\PaliCanon.Data.SqlServer.csproj" />
     <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
   </ItemGroup>
 </Project>

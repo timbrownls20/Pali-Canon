@@ -10,7 +10,7 @@ using PaliCanon.Data.SqlServer;
 namespace PaliCanon.Data.SqlServer.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20210922043008_InitialCreate")]
+    [Migration("20210923034524_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

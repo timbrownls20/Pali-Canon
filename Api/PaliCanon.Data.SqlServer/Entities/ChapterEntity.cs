@@ -23,7 +23,7 @@ namespace PaliCanon.Data.SqlServer.Entities
 
         public string Author { get; set; }
         
-        public ICollection<VerseEntity> Verses { get; set; }
+        public List<VerseEntity> Verses { get; set; }
     }
 
 }

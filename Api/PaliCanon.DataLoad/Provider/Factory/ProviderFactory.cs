@@ -2,7 +2,7 @@
 using PaliCanon.Common.Enums;
 using PaliCanon.Contracts;
 
-namespace PaliCanon.DataLoad.Provider
+namespace PaliCanon.DataLoad.Provider.Factory
 {
     public class ProviderFactory : IProviderFactory
     {

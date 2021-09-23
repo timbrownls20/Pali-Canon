@@ -63,7 +63,7 @@ namespace PaliCanon.DataLoad.Provider
                 chapter.Title = titleNode.InnerText;
                 chapter.Author = author;
                 chapter.Nikaya = "Khuddaka";
-                chapter.BookTitle = "Dhammapada";
+                chapter.Book = "Dhammapada";
                 chapter.BookCode = "dhp";
                 chapter.ChapterNumber = chapterNumber;
 

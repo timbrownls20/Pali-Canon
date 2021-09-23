@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaliCanon.Common.Enums;
-using PaliCanon.DataLoad.Provider;
+using PaliCanon.DataLoad.Provider.Factory;
 
 namespace PaliCanon.Api.Controllers
 {

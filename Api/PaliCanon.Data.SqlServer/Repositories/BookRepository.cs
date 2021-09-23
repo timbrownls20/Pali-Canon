@@ -27,18 +27,17 @@ namespace PaliCanon.Data.SqlServer.Repositories
         {
             Random rnd = new Random();
             int randomCode = rnd.Next(0, _context.Books.Count());
-            return _mapper.Map<Book>(_context.Books.ElementAt(randomCode));
+            return _mapper.Map<Book>(_context.Books.ToList().ElementAt(randomCode));
         }
 
         public void Insert(Book book)
         {
-            var bookEntity = _context.Books.FirstOrDefault(x => x.Id == book.Id);
+            var bookEntity = _context.Books.FirstOrDefault(x => x.Code == book.Code);
             if (bookEntity == null)
+            {
                 _context.Books.Add(_mapper.Map<BookEntity>(book));
-            else
-                _context.Books.Attach(_mapper.Map<BookEntity>(book));
-
-            _context.SaveChanges(); //.. TB TODO implement unit of work
+                _context.SaveChanges(); //.. TB TODO implement unit of work
+            }
         }
     }
 }

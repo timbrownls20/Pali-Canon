@@ -16,10 +16,10 @@ namespace PaliCanon.Api.Controllers
             _bookRepository = bookRepository;
         }
 
-        [HttpGet]
-        public string Index()
+        [HttpGet("available")]
+        public string Available()
         {
-            return "Chapter API available";
+            return "Quote API available";
         }
 
         [HttpGet]
@@ -33,24 +33,6 @@ namespace PaliCanon.Api.Controllers
         public Chapter Get(string bookCode)
         {
             return _chapterRepository.Quote(bookCode);        
-        }
-
-        [HttpGet("next/{bookCode}/{chapter}/{verse}")]
-        public Chapter Next(string bookCode, int chapter, int verse)
-        {
-            return _chapterRepository.Next(bookCode, chapter, verse);        
-        }
-   
-        [HttpGet("first/{bookCode}")]
-        public Chapter First(string bookCode)
-        {
-            return _chapterRepository.First(bookCode);        
-        }
-
-        [HttpGet("last/{bookCode}")]
-        public Chapter Last(string bookCode)
-        {
-            return _chapterRepository.Last(bookCode);        
         }
     }
 }

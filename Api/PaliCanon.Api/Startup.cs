@@ -7,6 +7,7 @@ using PaliCanon.Contracts;
 using Mongo = PaliCanon.Data.MongoDB;
 using SqlServer = PaliCanon.Data.SqlServer;
 using PaliCanon.DataLoad.Provider;
+using PaliCanon.DataLoad.Provider.Factory;
 
 namespace PaliCanon.Api
 {

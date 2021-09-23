@@ -194,7 +194,7 @@ namespace PaliCanon.DataLoad.Provider
             {
                 Author = "Thanissaro",
                 Nikaya = "Khuddaka",
-                BookTitle = "Theragatha",
+                Book = "Theragatha",
                 BookCode = "thag"
             };
     

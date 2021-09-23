@@ -20,5 +20,23 @@ namespace PaliCanon.Api.Controllers
         {
             return _chapterRepository.Get(bookCode, chapter, verse);        
         }
+
+        [HttpGet("next/{bookCode}/{chapter}/{verse}")]
+        public Chapter Next(string bookCode, int chapter, int verse)
+        {
+            return _chapterRepository.Next(bookCode, chapter, verse);
+        }
+
+        [HttpGet("first/{bookCode}")]
+        public Chapter First(string bookCode)
+        {
+            return _chapterRepository.First(bookCode);
+        }
+
+        [HttpGet("last/{bookCode}")]
+        public Chapter Last(string bookCode)
+        {
+            return _chapterRepository.Last(bookCode);
+        }
     }
 }

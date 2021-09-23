@@ -16,13 +16,30 @@ namespace PaliCanon.Data.SqlServer
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            modelbuilder.Entity<ChapterEntity>()
-                .HasOne(p => p.Book)
-                .WithMany(c => c.Chapters);
+            modelbuilder.Entity<BookEntity>(b =>
+            {
+                b.HasKey(k => k.Id);
+                b.Property(p => p.Id).ValueGeneratedOnAdd();
+            });
 
-            modelbuilder.Entity<VerseEntity>()
-                .HasOne(p => p.Chapter)
-                .WithMany(c => c.Verses);
+            modelbuilder.Entity<ChapterEntity>(b =>
+            {
+                b.HasOne(p => p.Book)
+                    .WithMany(c => c.Chapters);
+                b.HasKey(k => k.Id);
+                b.Property(p => p.Id).ValueGeneratedOnAdd();
+                b.Navigation(n => n.Verses).AutoInclude();
+            });
+
+            modelbuilder.Entity<VerseEntity>(b =>
+            {
+                b.HasOne(p => p.Chapter)
+                    .WithMany(c => c.Verses);
+                b.HasKey(k => k.Id);
+                b.Property(p => p.Id).ValueGeneratedOnAdd();
+                
+            });
+
         }
     }
 }

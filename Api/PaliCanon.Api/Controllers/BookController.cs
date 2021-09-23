@@ -6,7 +6,7 @@ using PaliCanon.Model;
 namespace PaliCanon.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class BookController: ControllerBase
     {
         private readonly IBookRepository _bookRepository;
@@ -16,18 +16,21 @@ namespace PaliCanon.Api.Controllers
             _bookRepository = bookRepository;
         }
 
-        public string Index()
+        
+        [HttpGet("available")]
+        public string Available()
         {
             return "Book API available";
         }
-
+        
         [HttpGet]
+        [HttpGet("list")]
         public List<Book> List()
         {
             return _bookRepository.List();
         }
 
-        [HttpGet]
+        [HttpGet("random")]
         public Book Random()
         {
             return _bookRepository.Random();

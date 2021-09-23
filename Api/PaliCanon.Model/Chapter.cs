@@ -9,12 +9,10 @@ namespace PaliCanon.Model
         {
             Verses = new List<Verse>();
         }
-
-        public int? Id { get; set; }
-
+        
         public string Nikaya { get; set; }
 
-        public string BookTitle { get; set; }
+        public string Book { get; set; }
 
         public string BookCode { get; set; }
 

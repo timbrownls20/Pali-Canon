@@ -11,13 +11,13 @@ namespace PaliCanon.Data.SqlServer
             CreateMap<Book, BookEntity>().ReverseMap();
 
             CreateMap<Chapter, ChapterEntity>()
-                //.ReverseMap()
-                //.ForMember(s => s.Id, o => o.Condition((src, dest) => src != null))
-                .ForMember(s => s.Book, o => o.Ignore())
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+                .ForMember(d => d.Book, o => o.Ignore())
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null))
                 ;
-
-            CreateMap<ChapterEntity, Chapter>();
+                
+            CreateMap<ChapterEntity, Chapter>()
+                .ForMember(s => s.Book, o => o.MapFrom(s => s.Book.Description))
+                ;
 
             CreateMap<Verse, VerseEntity>().ReverseMap();
         }

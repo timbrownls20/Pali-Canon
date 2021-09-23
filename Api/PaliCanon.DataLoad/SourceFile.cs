@@ -1,6 +1,4 @@
-
 using PaliCanon.Common.Enums;
-using PaliCanon.Model;
 
 namespace PaliCanon.DataLoad
 {

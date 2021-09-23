@@ -18,6 +18,7 @@ namespace PaliCanon.Data.SqlServer
                 
             CreateMap<ChapterEntity, Chapter>()
                 .ForMember(s => s.Book, o => o.MapFrom(s => s.Book.Description))
+                .ForMember(s => s.Nikaya, o => o.MapFrom(s => s.Book.Nikaya))
                 .ForMember(s => s.Author, o => o.MapFrom(s => s.Author.Name))
                 ;
 

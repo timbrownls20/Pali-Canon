@@ -12,6 +12,9 @@ namespace PaliCanon.DataLoad.Provider
     public class DhammapadaProvider: IProvider
     {
         private const string Sitebase = @"source\ati_website\html\tipitaka\kn\dhp";
+        private const string Nikaya = "Khuddaka";
+        private const string Book = "Dhammapada";
+        private const string BookCode = "dhp";
 
         private readonly IBookRepository _bookRepository;
         private readonly IChapterRepository _chapterRepository;
@@ -63,9 +66,9 @@ namespace PaliCanon.DataLoad.Provider
                 {
                     Title = titleNode.InnerText,
                     Author = author,
-                    Nikaya = "Khuddaka",
-                    Book = "Dhammapada",
-                    BookCode = "dhp",
+                    Nikaya = Nikaya,
+                    Book = Book,
+                    BookCode = BookCode,
                     ChapterNumber = chapterNumber
                 };
 
@@ -95,7 +98,7 @@ namespace PaliCanon.DataLoad.Provider
 
         private void AddBook()
         {
-            Book book = new Book { Code = "dhp", Description = "dhammapada" };
+            Book book = new Book { Code = BookCode, Description = Book, Nikaya = Nikaya};
             _bookRepository.Insert(book);
         }
     }

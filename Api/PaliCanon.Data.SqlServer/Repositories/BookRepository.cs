@@ -32,7 +32,6 @@ namespace PaliCanon.Data.SqlServer.Repositories
 
         public void Insert(Book book)
         {
-            
             var bookEntity = _context.Books.FirstOrDefault(x => x.Code == book.Code);
             if (bookEntity == null)
             {

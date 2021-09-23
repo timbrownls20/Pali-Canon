@@ -10,7 +10,7 @@ using PaliCanon.Data.SqlServer;
 namespace PaliCanon.Data.SqlServer.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20210923034524_InitialCreate")]
+    [Migration("20210923053823_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,21 @@ namespace PaliCanon.Data.SqlServer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.AuthorEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
 
             modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.BookEntity", b =>
                 {
@@ -36,7 +51,7 @@ namespace PaliCanon.Data.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.ChapterEntity", b =>
@@ -46,8 +61,8 @@ namespace PaliCanon.Data.SqlServer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -63,9 +78,11 @@ namespace PaliCanon.Data.SqlServer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("BookId");
 
-                    b.ToTable("Chapters");
+                    b.ToTable("Chapter");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.VerseEntity", b =>
@@ -91,16 +108,22 @@ namespace PaliCanon.Data.SqlServer.Migrations
 
                     b.HasIndex("ChapterId");
 
-                    b.ToTable("Verses");
+                    b.ToTable("Verse");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.ChapterEntity", b =>
                 {
+                    b.HasOne("PaliCanon.Data.SqlServer.Entities.AuthorEntity", "Author")
+                        .WithMany("Chapters")
+                        .HasForeignKey("AuthorId");
+
                     b.HasOne("PaliCanon.Data.SqlServer.Entities.BookEntity", "Book")
                         .WithMany("Chapters")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
 
                     b.Navigation("Book");
                 });
@@ -114,6 +137,11 @@ namespace PaliCanon.Data.SqlServer.Migrations
                         .IsRequired();
 
                     b.Navigation("Chapter");
+                });
+
+            modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.AuthorEntity", b =>
+                {
+                    b.Navigation("Chapters");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.SqlServer.Entities.BookEntity", b =>

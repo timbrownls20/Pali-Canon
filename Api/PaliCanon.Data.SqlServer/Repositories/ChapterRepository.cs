@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using PaliCanon.Contracts;
 using PaliCanon.Data.SqlServer.Entities;
 using PaliCanon.Model;
@@ -24,12 +23,20 @@ namespace PaliCanon.Data.SqlServer.Repositories
         {
             var book = _context.Books.FirstOrDefault(x => x.Code == chapter.BookCode);
             if (book == null) return;
- 
+
+            var author = _context.Authors.FirstOrDefault(x => x.Name == chapter.Author);
+
             var chapterEntity = _context.Chapters.FirstOrDefault(x => x.ChapterNumber == chapter.ChapterNumber && x.BookId == book.Id);
             if (chapterEntity == null)
             {
                 var entity = _mapper.Map<ChapterEntity>(chapter);
+                
                 entity.BookId = book.Id;
+                entity.Author = author ?? new AuthorEntity
+                {
+                    Name = chapter.Author
+                };
+
                 _context.Chapters.Add(entity);
                 _context.SaveChanges(); //.. TB TODO implement unit of work
             }

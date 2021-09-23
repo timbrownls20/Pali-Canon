@@ -59,13 +59,15 @@ namespace PaliCanon.DataLoad.Provider
             
             if(titleNode != null)
             {
-                var chapter = new Chapter();
-                chapter.Title = titleNode.InnerText;
-                chapter.Author = author;
-                chapter.Nikaya = "Khuddaka";
-                chapter.Book = "Dhammapada";
-                chapter.BookCode = "dhp";
-                chapter.ChapterNumber = chapterNumber;
+                var chapter = new Chapter
+                {
+                    Title = titleNode.InnerText,
+                    Author = author,
+                    Nikaya = "Khuddaka",
+                    Book = "Dhammapada",
+                    BookCode = "dhp",
+                    ChapterNumber = chapterNumber
+                };
 
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)

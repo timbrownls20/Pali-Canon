@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaliCanon.Data.SqlServer.Entities
 {
+    [Table("Book")]
     public class BookEntity 
     {
         public int Id { get; set; }

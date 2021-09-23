@@ -39,8 +39,7 @@ namespace PaliCanon.DataLoad.Provider
             foreach(var link in links)
             {
                 var chapterHref = Path.Combine(Sitebase, link.Attributes["href"].Value).ToApplicationPath();
-                var author = link.InnerText;
-
+                
                 //Acharya Buddharakkhita
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
@@ -49,18 +48,23 @@ namespace PaliCanon.DataLoad.Provider
 
                     HtmlDocument chapterPage = new HtmlDocument(); 
                     chapterPage.Load(chapterHref);
-                    GetChapter(chapterPage, author, chapterNumber);
+                    AddChapter(chapterPage, chapterNumber);
 
                     chapterNumber++;
                 }
             }
         }
         
-        private void GetChapter(HtmlDocument document, string author, int chapterNumber){
+        private void AddChapter(HtmlDocument document, int chapterNumber){
                
-            var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
             
-            if(titleNode != null)
+            var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();
+
+            var translatedBy = document.DocumentNode.SelectSingleNode("//div[contains(@id, 'H_docAuthor')]");
+            var author = translatedBy.InnerText;
+
+
+            if (titleNode != null)
             {
                 var chapter = new Chapter
                 {
@@ -92,6 +96,8 @@ namespace PaliCanon.DataLoad.Provider
                         chapter.Verses.Add(verseToAdd);
                     }
                 }
+
+                chapter.Citation = $"{chapter.Title} ({BookCode} {chapterNumber}), translated from the Pali by {author}. Access to Insight (https://www.accesstoinsight.org/)";
                 _chapterRepository.Insert(chapter);
             }
         }

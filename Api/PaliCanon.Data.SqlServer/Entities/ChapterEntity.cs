@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaliCanon.Data.SqlServer.Entities
@@ -18,6 +19,9 @@ namespace PaliCanon.Data.SqlServer.Entities
         public int ChapterNumber { get; set; }
         public List<VerseEntity> Verses { get; set; }
         public AuthorEntity Author { get; set; }
+
+        [MaxLength(4000)]
+        public string Citation { get; set; }
     }
 
 }

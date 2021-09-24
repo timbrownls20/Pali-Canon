@@ -23,6 +23,16 @@ namespace PaliCanon.Data.SqlServer
                 ;
 
             CreateMap<Verse, VerseEntity>().ReverseMap();
+
+            CreateMap<VerseEntity, Quote>()
+                .ForMember(s => s.Author, o => o.MapFrom(s => s.Chapter.Author))
+                .ForMember(s => s.BookCode, o => o.MapFrom(s => s.Chapter.Book.Code))
+                .ForMember(s => s.Book, o => o.MapFrom(s => s.Chapter.Book.Description))
+                .ForMember(s => s.ChapterNumber, o => o.MapFrom(s => s.Chapter.ChapterNumber))
+                .ForMember(s => s.Citation, o => o.MapFrom(s => s.Chapter.Citation))
+                .ForMember(s => s.Nikaya, o => o.MapFrom(s => s.Chapter.Book.Nikaya))
+                .ForMember(s => s.ChapterTitle, o => o.MapFrom(s => s.Chapter.Title))
+                ;
         }
     }
 }

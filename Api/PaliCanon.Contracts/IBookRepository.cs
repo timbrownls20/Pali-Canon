@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using PaliCanon.Model;
 
 namespace PaliCanon.Contracts
 {
-    public interface IBookRepository: IRepository<Book>
+    public interface IBookRepository<T>: IRepository<T> where T : class
     {
-        List<Book> List();
-        Book Random();
-        
-
+        List<T> List();
+        T Random();
+       
     }
 }

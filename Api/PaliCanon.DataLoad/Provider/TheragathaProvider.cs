@@ -23,13 +23,13 @@ namespace PaliCanon.DataLoad.Provider
         //private readonly string verseNumberRegex = @"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)";
         //private const string SITEBASE = @"source\ati_website\debug";
         
-        private readonly IChapterRepository _chapterRepository;
+        private readonly IChapterService _chapterService;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public TheragathaProvider(IChapterRepository chapterRepository)
+        public TheragathaProvider(IChapterService chapterService)
         {
-            _chapterRepository = chapterRepository;
+            _chapterService = chapterService;
             _sources = new List<SourceFile>
             {
                 new SourceFile {Type = ChapterType.ThagSingleVerse, Location = "thag.01.00x.than.html"}
@@ -129,7 +129,7 @@ namespace PaliCanon.DataLoad.Provider
                     OnNotify?.Invoke(this, new NotifyEventArgs(message));
 
 
-                    _chapterRepository.Insert(chapter);
+                    _chapterService.Insert(chapter);
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace PaliCanon.DataLoad.Provider
 
                 var verseToAdd = new Verse{ VerseNumber = verseNumber, Text = textNode.InnerText};
                 chapter.Verses.Add(verseToAdd);
-                _chapterRepository.Insert(chapter);
+                _chapterService.Insert(chapter);
 
                 var message = $"loading thag {chapterNumber} {verseNumber}";
                 OnNotify?.Invoke(this, new NotifyEventArgs(message));

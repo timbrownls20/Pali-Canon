@@ -4,11 +4,10 @@ using System.Linq;
 using AutoMapper;
 using PaliCanon.Contracts;
 using PaliCanon.Data.SqlServer.Entities;
-using PaliCanon.Model;
 
 namespace PaliCanon.Data.SqlServer.Repositories
 {
-    public class ChapterRepository: IChapterRepository
+    public class ChapterRepository: IChapterRepository<ChapterEntity>
     {
         private readonly IMapper _mapper;
         private readonly SqlServerContext _context;
@@ -19,12 +18,12 @@ namespace PaliCanon.Data.SqlServer.Repositories
             _context = context;
         }
 
-        public void Insert(Chapter chapter)
+        public void Insert(ChapterEntity chapter)
         {
-            var book = _context.Books.FirstOrDefault(x => x.Code == chapter.BookCode);
+            var book = _context.Books.FirstOrDefault(x => x.Code == chapter.Book.Code);
             if (book == null) return;
 
-            var author = _context.Authors.FirstOrDefault(x => x.Name == chapter.Author);
+            var author = _context.Authors.FirstOrDefault(x => x.Name == chapter.Author.Name);
 
             var chapterEntity = _context.Chapters.FirstOrDefault(x => x.ChapterNumber == chapter.ChapterNumber && x.BookId == book.Id);
             if (chapterEntity == null)
@@ -34,7 +33,7 @@ namespace PaliCanon.Data.SqlServer.Repositories
                 entity.BookId = book.Id;
                 entity.Author = author ?? new AuthorEntity
                 {
-                    Name = chapter.Author
+                    Name = chapter.Author.Name
                 };
 
                 _context.Chapters.Add(entity);
@@ -42,7 +41,7 @@ namespace PaliCanon.Data.SqlServer.Repositories
             }
         }
 
-        public List<Chapter> Get(string bookCode, int? chapterId, int? verse)
+        public List<ChapterEntity> Get(string bookCode, int? chapterId, int? verse)
         {
             var query = _context.Chapters.Where(x => x.Book.Code == bookCode);
             List<ChapterEntity> chapters = new List<ChapterEntity>();
@@ -64,29 +63,28 @@ namespace PaliCanon.Data.SqlServer.Repositories
                 chapters = query.ToList();
             }
 
-            return _mapper.Map<List<Chapter>>(chapters);
+            return chapters;
         }
 
-        public Chapter Next(string bookCode, int chapterId, int verse)
+        public ChapterEntity Next(string bookCode, int chapterId, int verse)
         { 
             return GetNearestVerse(bookCode, verse + 1);
         }
 
-        public Chapter First(string bookCode)
+        public ChapterEntity First(string bookCode)
         { 
             return Get(bookCode, 1, 1).FirstOrDefault();
         }
 
-        public Chapter Last(string bookCode)
+        public ChapterEntity Last(string bookCode)
         { 
             int chapterId = LastChapterId(bookCode);
             int verseId = LastVerseId(bookCode);
             return Get(bookCode, chapterId, verseId).FirstOrDefault();
         }
 
-        public Chapter Quote(string bookCode)
+        public ChapterEntity Quote(string bookCode)
         { 
-            
             var lastVerse = LastVerseId(bookCode);
 
             if(lastVerse == 0) return BlankChapter();
@@ -99,10 +97,9 @@ namespace PaliCanon.Data.SqlServer.Repositories
             return randomChapter;
         }
 
-        private Chapter GetNearestVerse(string bookCode, int verse)
+        private ChapterEntity GetNearestVerse(string bookCode, int verse)
         {
             var chapter = _context.Chapters
-                        //.Include(x => x.Verses)        
                         .Where(x => x.Book.Code == bookCode
                         && x.Verses.Any(y => y.VerseNumber >= verse))
                         .OrderBy(x => x.ChapterNumber)
@@ -124,7 +121,7 @@ namespace PaliCanon.Data.SqlServer.Repositories
                 return Last(bookCode);
             }
 
-            return _mapper.Map<Chapter>(chapter);
+            return chapter;
         }
 
         private int LastChapterId(string bookCode){
@@ -151,9 +148,9 @@ namespace PaliCanon.Data.SqlServer.Repositories
             return maxVerse?.VerseNumber ?? 0;
         }
 
-        private Chapter BlankChapter(){
+        private ChapterEntity BlankChapter(){
 
-            return _mapper.Map<Chapter>(new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}});
+            return new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}};
         }
     }
 }

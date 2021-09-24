@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PaliCanon.Contracts;
 using Mongo = PaliCanon.Data.MongoDB;
 using SqlServer = PaliCanon.Data.SqlServer;
-using PaliCanon.DataLoad.Provider;
 using PaliCanon.DataLoad.Provider.Factory;
+using PaliCanon.Services;
 
 namespace PaliCanon.Api
 {
@@ -42,17 +42,27 @@ namespace PaliCanon.Api
             services.AddCors();
             services.AddControllers();
 
-            services.AddTransient<IProviderFactory, ProviderFactory>();
-
-            services.AddTransient<IBookRepository, SqlServer.Repositories.BookRepository>();
-            services.AddTransient<IChapterRepository, SqlServer.Repositories.ChapterRepository>();
-
-            //.. TB TODO make this cleverer to swap between data providers
-            //services.AddTransient<IBookRepository, Mongo.Repositories.BookRepository>();
-            //services.AddTransient<IChapterRepository, Mongo.Repositories.ChapterRepository>();
-
+            ConfigureDependencyInjection(services);
         }
 
+        private void ConfigureDependencyInjection(IServiceCollection services)
+        {
+            services.AddTransient<IProviderFactory, ProviderFactory>();
+
+            services.AddTransient(typeof(IBookRepository<SqlServer.Entities.BookEntity>),
+                typeof(SqlServer.Repositories.BookRepository));
+            services.AddTransient(typeof(IChapterRepository<SqlServer.Entities.ChapterEntity>),
+                typeof(SqlServer.Repositories.ChapterRepository));
+
+            services.AddTransient(typeof(IBookRepository<Mongo.Entities.BookEntity>),
+                typeof(Mongo.Repositories.BookRepository));
+            services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity>),
+                typeof(Mongo.Repositories.ChapterRepository));
+
+            //.. TB TODO make this cleverer to swap between data providers
+            services.AddTransient(typeof(IBookService), typeof(BookService<SqlServer.Entities.BookEntity>));
+            services.AddTransient(typeof(IChapterService), typeof(ChapterService<SqlServer.Entities.ChapterEntity>));
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)

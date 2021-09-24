@@ -7,13 +7,13 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class QuoteController : ControllerBase
     {
-        readonly IChapterRepository _chapterRepository;
-        readonly IBookRepository _bookRepository;
+        readonly IChapterService _chapterService;
+        readonly IBookService _bookService;
 
-        public QuoteController(IBookRepository bookRepository, IChapterRepository chapterRepository)
+        public QuoteController(IBookService bookService, IChapterService chapterService)
         {
-            _chapterRepository = chapterRepository;
-            _bookRepository = bookRepository;
+            _chapterService = chapterService;
+            _bookService = bookService;
         }
 
         [HttpGet("available")]
@@ -23,16 +23,16 @@ namespace PaliCanon.Api.Controllers
         }
 
         [HttpGet]
-        public Chapter Get()
+        public Quote Get()
         {
-            var book =_bookRepository.Random();
-            return _chapterRepository.Quote(book.Code);        
+            var book =_bookService.Random();
+            return _chapterService.Quote(book.Code);        
         }
 
         [HttpGet("{bookCode}")]
-        public Chapter Get(string bookCode)
+        public Quote Get(string bookCode)
         {
-            return _chapterRepository.Quote(bookCode);        
+            return _chapterService.Quote(bookCode);        
         }
     }
 }

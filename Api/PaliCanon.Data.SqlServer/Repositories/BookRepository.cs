@@ -8,7 +8,7 @@ using PaliCanon.Model;
 
 namespace PaliCanon.Data.SqlServer.Repositories
 {
-    public class BookRepository: IBookRepository
+    public class BookRepository: IBookRepository<BookEntity>
     {
         private readonly IMapper _mapper;
         private readonly SqlServerContext _context;
@@ -19,23 +19,23 @@ namespace PaliCanon.Data.SqlServer.Repositories
             _context = context;
         }
 
-        public List<Book> List()
+        public List<BookEntity> List()
         {
-            return _mapper.Map<List<Book>>(_context.Books);
+            return _context.Books.ToList();
         }
-        public Book Random()
+        public BookEntity Random()
         {
             Random rnd = new Random();
             int randomCode = rnd.Next(0, _context.Books.Count());
-            return _mapper.Map<Book>(_context.Books.ToList().ElementAt(randomCode));
+            return _context.Books.ToList().ElementAt(randomCode);
         }
 
-        public void Insert(Book book)
+        public void Insert(BookEntity book)
         {
             var bookEntity = _context.Books.FirstOrDefault(x => x.Code == book.Code);
             if (bookEntity == null)
             {
-                _context.Books.Add(_mapper.Map<BookEntity>(book));
+                _context.Books.Add(book);
                 _context.SaveChanges(); //.. TB TODO implement unit of work
             }
         }

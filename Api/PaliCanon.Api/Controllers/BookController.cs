@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PaliCanon.Contracts;
+using PaliCanon.Data.SqlServer.Repositories;
 using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
@@ -9,11 +10,11 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class BookController: ControllerBase
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IBookService _bookService;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookService bookService)
         {
-            _bookRepository = bookRepository;
+            _bookService = bookService;
         }
 
         
@@ -27,13 +28,13 @@ namespace PaliCanon.Api.Controllers
         [HttpGet("list")]
         public List<Book> List()
         {
-            return _bookRepository.List();
+            return _bookService.List();
         }
 
         [HttpGet("random")]
         public Book Random()
         {
-            return _bookRepository.Random();
+            return _bookService.Random();
         }
 
     }

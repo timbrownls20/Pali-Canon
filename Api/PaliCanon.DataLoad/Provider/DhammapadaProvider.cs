@@ -16,15 +16,15 @@ namespace PaliCanon.DataLoad.Provider
         private const string Book = "Dhammapada";
         private const string BookCode = "dhp";
 
-        private readonly IBookRepository _bookRepository;
-        private readonly IChapterRepository _chapterRepository;
+        private readonly IBookService _bookService;
+        private readonly IChapterService _chapterService;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public DhammapadaProvider(IBookRepository bookRepository, IChapterRepository chapterRepository)
+        public DhammapadaProvider(IBookService bookService, IChapterService chapterService)
         {
-            _bookRepository = bookRepository;
-            _chapterRepository = chapterRepository;
+            _bookService = bookService;
+            _chapterService = chapterService;
         }
 
         public void Load()
@@ -98,14 +98,14 @@ namespace PaliCanon.DataLoad.Provider
                 }
 
                 chapter.Citation = $"{chapter.Title} ({BookCode} {chapterNumber}), translated from the Pali by {author}. Access to Insight (https://www.accesstoinsight.org/)";
-                _chapterRepository.Insert(chapter);
+                _chapterService.Insert(chapter);
             }
         }
 
         private void AddBook()
         {
             Book book = new Book { Code = BookCode, Description = Book, Nikaya = Nikaya};
-            _bookRepository.Insert(book);
+            _bookService.Insert(book);
         }
     }
 }

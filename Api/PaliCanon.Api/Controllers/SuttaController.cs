@@ -8,35 +8,35 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class SuttaController : ControllerBase
     {
-        readonly IChapterRepository _chapterRepository;
+        readonly IChapterService _chapterService;
 
-        public SuttaController(IChapterRepository chapterRepository)
+        public SuttaController(IChapterService chapterService)
         {
-            _chapterRepository = chapterRepository;
+            _chapterService = chapterService;
         }
 
         [HttpGet("{bookCode}/{chapter?}/{verse?}")]
         public List<Chapter> Get(string bookCode, int? chapter, int? verse)
         {
-            return _chapterRepository.Get(bookCode, chapter, verse);        
+            return _chapterService.Get(bookCode, chapter, verse);        
         }
 
         [HttpGet("next/{bookCode}/{chapter}/{verse}")]
         public Chapter Next(string bookCode, int chapter, int verse)
         {
-            return _chapterRepository.Next(bookCode, chapter, verse);
+            return _chapterService.Next(bookCode, chapter, verse);
         }
 
         [HttpGet("first/{bookCode}")]
         public Chapter First(string bookCode)
         {
-            return _chapterRepository.First(bookCode);
+            return _chapterService.First(bookCode);
         }
 
         [HttpGet("last/{bookCode}")]
         public Chapter Last(string bookCode)
         {
-            return _chapterRepository.Last(bookCode);
+            return _chapterService.Last(bookCode);
         }
     }
 }

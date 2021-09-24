@@ -6,13 +6,13 @@ namespace PaliCanon.DataLoad.Provider.Factory
 {
     public class ProviderFactory : IProviderFactory
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IChapterRepository _chapterRepository;
+        private readonly IBookService _bookService;
+        private readonly IChapterService _chapterService;
 
-        public ProviderFactory(IBookRepository bookRepository, IChapterRepository chapterRepository)
+        public ProviderFactory(IBookService bookService, IChapterService chapterService)
         {
-            _bookRepository = bookRepository;
-            _chapterRepository = chapterRepository;
+            _bookService = bookService;
+            _chapterService = chapterService;
         }
 
         public IProvider Get(Book book)
@@ -22,10 +22,10 @@ namespace PaliCanon.DataLoad.Provider.Factory
             switch (book)
             {
                 case Book.Dhammapada:
-                    provider = new DhammapadaProvider(_bookRepository, _chapterRepository);
+                    provider = new DhammapadaProvider(_bookService, _chapterService);
                     break;
                 case Book.Theragatha:
-                    provider = new TheragathaProvider(_chapterRepository);
+                    provider = new TheragathaProvider(_chapterService);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(book), book, null);

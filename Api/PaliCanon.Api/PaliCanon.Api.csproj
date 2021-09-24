@@ -23,5 +23,6 @@
     <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
     <ProjectReference Include="..\PaliCanon.Data.SqlServer\PaliCanon.Data.SqlServer.csproj" />
     <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
+    <ProjectReference Include="..\PaliCanon.Services\PaliCanon.Services.csproj" />
   </ItemGroup>
 </Project>

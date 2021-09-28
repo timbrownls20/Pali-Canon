@@ -20,7 +20,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Contracts", "Pali
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Data.SqlServer", "PaliCanon.Data.SqlServer\PaliCanon.Data.SqlServer.csproj", "{49034D10-6319-41ED-A04C-445B6106C56E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaliCanon.Services", "PaliCanon.Services\PaliCanon.Services.csproj", "{3999AB6A-A962-4097-821D-35E500D3C860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaliCanon.Services", "PaliCanon.Services\PaliCanon.Services.csproj", "{3999AB6A-A962-4097-821D-35E500D3C860}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{426A8ADB-54AF-4EFB-A329-7250112B1139}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaliCanon.IntegrationTests.SqlServer", "PaliCanon.IntegrationTests.SqlServer\PaliCanon.IntegrationTests.SqlServer.csproj", "{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +132,18 @@ Global
 		{3999AB6A-A962-4097-821D-35E500D3C860}.Release|x64.Build.0 = Release|Any CPU
 		{3999AB6A-A962-4097-821D-35E500D3C860}.Release|x86.ActiveCfg = Release|Any CPU
 		{3999AB6A-A962-4097-821D-35E500D3C860}.Release|x86.Build.0 = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|x64.Build.0 = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Debug|x86.Build.0 = Debug|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|x64.ActiveCfg = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|x64.Build.0 = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|x86.ActiveCfg = Release|Any CPU
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +156,7 @@ Global
 		{EEA7ADF5-1A27-4371-A71C-1CC0713762F8} = {EE24882E-DB37-4914-AE79-8C68C65BB2EE}
 		{49034D10-6319-41ED-A04C-445B6106C56E} = {A8EDC94F-A1BE-44B1-8643-711C19E51BE9}
 		{3999AB6A-A962-4097-821D-35E500D3C860} = {EE24882E-DB37-4914-AE79-8C68C65BB2EE}
+		{D5263ECE-B8C5-447C-B07C-D876B7F47EFE} = {426A8ADB-54AF-4EFB-A329-7250112B1139}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A0A6380-4DD9-4C74-AD18-6AC951BC3825}

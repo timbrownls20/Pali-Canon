@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using PaliCanon.Common.Enums;
 using PaliCanon.Common.Extensions;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
 using static System.Int32;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Book;
 using PaliCanon.Data.SqlServer.Entities;
 using PaliCanon.Model;
 

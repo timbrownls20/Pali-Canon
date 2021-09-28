@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using PaliCanon.Contracts;
+using PaliCanon.Contracts.Chapter;
 using PaliCanon.Data.SqlServer.Entities;
 
 namespace PaliCanon.Data.SqlServer.Repositories
 {
-    public class ChapterRepository: IChapterRepository<ChapterEntity>
+    public class ChapterRepository: IChapterRepository<ChapterEntity, VerseEntity>
     {
         private readonly IMapper _mapper;
         private readonly SqlServerContext _context;
@@ -83,7 +83,7 @@ namespace PaliCanon.Data.SqlServer.Repositories
             return Get(bookCode, chapterId, verseId).FirstOrDefault();
         }
 
-        public ChapterEntity Quote(string bookCode)
+        public (ChapterEntity, VerseEntity) Quote(string bookCode)
         { 
             var lastVerse = LastVerseId(bookCode);
 
@@ -94,7 +94,7 @@ namespace PaliCanon.Data.SqlServer.Repositories
             int randomVerse = rnd.Next(1, lastVerse);
             var randomChapter = GetNearestVerse(bookCode, randomVerse);
 
-            return randomChapter;
+            return (randomChapter, randomChapter.Verses.First());
         }
 
         private ChapterEntity GetNearestVerse(string bookCode, int verse)
@@ -148,9 +148,9 @@ namespace PaliCanon.Data.SqlServer.Repositories
             return maxVerse?.VerseNumber ?? 0;
         }
 
-        private ChapterEntity BlankChapter(){
+        private (ChapterEntity, VerseEntity) BlankChapter(){
 
-            return new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}};
+            return ( new ChapterEntity(), new VerseEntity { Text = "No verse found" });
         }
     }
 }

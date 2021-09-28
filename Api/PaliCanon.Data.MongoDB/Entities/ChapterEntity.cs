@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
+using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Verse;
 
 namespace PaliCanon.Data.MongoDB.Entities
 {
-    public class ChapterEntity 
+    public class ChapterEntity: IChapterEntity
     {
         public ChapterEntity()
         {

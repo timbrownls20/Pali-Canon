@@ -1,6 +1,8 @@
 ﻿using System;
 using PaliCanon.Common.Enums;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Book;
+using PaliCanon.Contracts.Chapter;
 
 namespace PaliCanon.DataLoad.Provider.Factory
 {

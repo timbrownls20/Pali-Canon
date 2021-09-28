@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Book;
+using PaliCanon.Contracts.Chapter;
 using Mongo = PaliCanon.Data.MongoDB;
 using SqlServer = PaliCanon.Data.SqlServer;
 using PaliCanon.DataLoad.Provider.Factory;
@@ -51,17 +53,17 @@ namespace PaliCanon.Api
 
             services.AddTransient(typeof(IBookRepository<SqlServer.Entities.BookEntity>),
                 typeof(SqlServer.Repositories.BookRepository));
-            services.AddTransient(typeof(IChapterRepository<SqlServer.Entities.ChapterEntity>),
+            services.AddTransient(typeof(IChapterRepository<SqlServer.Entities.ChapterEntity, SqlServer.Entities.VerseEntity>),
                 typeof(SqlServer.Repositories.ChapterRepository));
 
             services.AddTransient(typeof(IBookRepository<Mongo.Entities.BookEntity>),
                 typeof(Mongo.Repositories.BookRepository));
-            services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity>),
+            services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity, Mongo.Entities.VerseEntity>),
                 typeof(Mongo.Repositories.ChapterRepository));
 
             //.. TB TODO make this cleverer to swap between data providers
             services.AddTransient(typeof(IBookService), typeof(BookService<SqlServer.Entities.BookEntity>));
-            services.AddTransient(typeof(IChapterService), typeof(ChapterService<SqlServer.Entities.ChapterEntity>));
+            services.AddTransient(typeof(IChapterService), typeof(ChapterService<SqlServer.Entities.ChapterEntity, SqlServer.Entities.VerseEntity>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using PaliCanon.Contracts.Book;
 
 namespace PaliCanon.Data.SqlServer.Entities
 {
     [Table("Book")]
-    public class BookEntity 
+    public class BookEntity: IBookEntity 
     {
         public int Id { get; set; }
         public string Code { get; set; }

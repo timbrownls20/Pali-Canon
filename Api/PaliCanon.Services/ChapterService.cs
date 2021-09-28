@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using PaliCanon.Contracts;
+using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Verse;
 using PaliCanon.Model;
 
 namespace PaliCanon.Services
 {
-    public class ChapterService<T>: IChapterService where T : class
+    public class ChapterService<T, U>: IChapterService where T : class, IChapterEntity
+                                        where U: class, IVerseEntity
     {
-        private readonly IChapterRepository<T> _chapterRepository;
+        private readonly IChapterRepository<T, U> _chapterRepository;
         private readonly IMapper _mapper;
 
-        public ChapterService(IChapterRepository<T> chapterRepository, IMapper mapper)
+        public ChapterService(IChapterRepository<T,U> chapterRepository, IMapper mapper)
         {
             _chapterRepository = chapterRepository;
             _mapper = mapper;
@@ -28,6 +30,7 @@ namespace PaliCanon.Services
 
         public Quote Quote(string bookCode)
         {
+            var chapter =_chapterRepository.Quote(bookCode);
             return _mapper.Map<Quote>(_chapterRepository.Quote(bookCode));
         }
 

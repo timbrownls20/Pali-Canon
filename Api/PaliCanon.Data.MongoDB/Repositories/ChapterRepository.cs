@@ -4,11 +4,13 @@ using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Verse;
 using PaliCanon.Data.MongoDB.Entities;
 
 namespace PaliCanon.Data.MongoDB.Repositories
 {
-    public class ChapterRepository: IChapterRepository<ChapterEntity>
+    public class ChapterRepository: IChapterRepository<ChapterEntity, VerseEntity>
     {
         readonly IMongoDatabase _database;
 
@@ -68,18 +70,18 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return Get(bookCode, chapterId, verseId).FirstOrDefault();
         }
 
-        public ChapterEntity Quote(string bookCode)
+        public (ChapterEntity, VerseEntity) Quote(string bookCode)
         { 
             var lastVerse = LastVerseId(bookCode);
 
-            if(lastVerse == 0) return BlankChapter();
+            if(lastVerse == 0) return (BlankChapter(), BlankChapter().Verses.First());
 
             var rnd = new Random();
            
             int randomVerse = rnd.Next(1, lastVerse);
             var randomChapter = GetNearestVerse(bookCode, randomVerse);
 
-            return randomChapter;
+            return (randomChapter, randomChapter.Verses.AsQueryable().First());
         }
 
         private ChapterEntity GetNearestVerse(string bookCode, int verse)

@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using MongoDB.Driver;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Book;
 using PaliCanon.Data.MongoDB.Entities;
 using AppConfig = Microsoft.Extensions.Configuration;
 

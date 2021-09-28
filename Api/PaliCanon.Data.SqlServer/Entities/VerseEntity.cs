@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using PaliCanon.Contracts.Verse;
 
 namespace PaliCanon.Data.SqlServer.Entities
 {
     [Table("Verse")]
-    public class VerseEntity 
+    public class VerseEntity: IVerseEntity
     {
         public int Id { get; set; }
         public int ChapterId { get; set; }

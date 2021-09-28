@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using PaliCanon.Common.Extensions;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Book;
+using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
 
 namespace PaliCanon.DataLoad.Provider

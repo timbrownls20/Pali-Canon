@@ -6,14 +6,13 @@ using Newtonsoft.Json.Linq;
 
 namespace PaliCanon.IntegrationTests.SqlServer
 {
-
     [TestClass]
-    public class ApiTests
+    public class QuoteTests
     {
         public const string ApiRoot = "http://localhost:65006/api/";
 
         [TestMethod]
-        public async Task Quote()
+        public async Task GetQuote()
         {
             //.. arrange
             HttpClient client = new HttpClient();

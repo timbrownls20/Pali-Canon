@@ -24,17 +24,17 @@ namespace PaliCanon.Data.SqlServer
 
             CreateMap<Verse, VerseEntity>().ReverseMap();
 
-            CreateMap<(ChapterEntity, VerseEntity), Quote>()
-                .ForMember(s => s.Author, o => o.MapFrom(s => s.Item1.Author.Name))
-                .ForMember(s => s.BookCode, o => o.MapFrom(s => s.Item1.Book.Code))
-                .ForMember(s => s.Book, o => o.MapFrom(s => s.Item1.Book.Description))
-                .ForMember(s => s.ChapterNumber, o => o.MapFrom(s => s.Item1.ChapterNumber))
-                .ForMember(s => s.Citation, o => o.MapFrom(s => s.Item1.Citation))
-                .ForMember(s => s.Nikaya, o => o.MapFrom(s => s.Item1.Book.Nikaya))
-                .ForMember(s => s.ChapterTitle, o => o.MapFrom(s => s.Item1.Title))
-                .ForMember(s => s.Text, o => o.MapFrom(s => s.Item2.Text))
-                .ForMember(s => s.VerseNumber, o => o.MapFrom(s => s.Item2.VerseNumber))
-                .ForMember(s => s.VerseNumberLast, o => o.MapFrom(s => s.Item2.VerseNumberLast))
+            CreateMap<(ChapterEntity chapter, VerseEntity verse), Quote>()
+                .ForMember(s => s.Author, o => o.MapFrom(s => s.chapter.Author.Name))
+                .ForMember(s => s.BookCode, o => o.MapFrom(s => s.chapter.Book.Code))
+                .ForMember(s => s.Book, o => o.MapFrom(s => s.chapter.Book.Description))
+                .ForMember(s => s.ChapterNumber, o => o.MapFrom(s => s.chapter.ChapterNumber))
+                .ForMember(s => s.Citation, o => o.MapFrom(s => s.chapter.Citation))
+                .ForMember(s => s.Nikaya, o => o.MapFrom(s => s.chapter.Book.Nikaya))
+                .ForMember(s => s.ChapterTitle, o => o.MapFrom(s => s.chapter.Title))
+                .ForMember(s => s.Text, o => o.MapFrom(s => s.verse.Text))
+                .ForMember(s => s.VerseNumber, o => o.MapFrom(s => s.verse.VerseNumber))
+                .ForMember(s => s.VerseNumberLast, o => o.MapFrom(s => s.verse.VerseNumberLast))
                 ;
         }
     }

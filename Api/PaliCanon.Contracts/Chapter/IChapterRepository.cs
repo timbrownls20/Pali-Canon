@@ -7,7 +7,7 @@ namespace PaliCanon.Contracts.Chapter
                                                                 where TU : class, IVerseEntity
     {
         List<T> Get(string bookCode, int? chapter, int? verse);
-        (T, TU) Quote(string bookCode);
+        (T chapter, TU verse) Quote(string bookCode);
         T Next(string bookCode, int chapter, int verse);
         T First(string bookCode);
         T Last(string bookCode);

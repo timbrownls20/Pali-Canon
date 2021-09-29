@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaliCanon.Data.SqlServer;
 
 namespace PaliCanon.Api
 {
@@ -7,7 +10,9 @@ namespace PaliCanon.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            MigrateDatabase(host);    
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -16,5 +21,13 @@ namespace PaliCanon.Api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void MigrateDatabase(IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<SqlServerContext>();
+            dbContext.Database.Migrate();
+        }
     }
+
 }

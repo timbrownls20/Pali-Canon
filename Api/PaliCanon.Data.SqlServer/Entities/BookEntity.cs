@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using PaliCanon.Contracts.Book;
 
-namespace PaliCanon.Data.SqlServer.Entities
+namespace PaliCanon.Data.Sql.Entities
 {
     [Table("Book")]
     public class BookEntity: IBookEntity 

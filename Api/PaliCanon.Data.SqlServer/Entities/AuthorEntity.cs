@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PaliCanon.Data.SqlServer.Entities
+namespace PaliCanon.Data.Sql.Entities
 {
     [Table("Author")]
     public class AuthorEntity

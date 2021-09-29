@@ -14,6 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -21,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Common\PaliCanon.Common.csproj" />
     <ProjectReference Include="..\PaliCanon.Data.MongoDB\PaliCanon.Data.MongoDB.csproj" />
-    <ProjectReference Include="..\PaliCanon.Data.SqlServer\PaliCanon.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\PaliCanon.Data.SqlServer\PaliCanon.Data.Sql.csproj" />
     <ProjectReference Include="..\PaliCanon.DataLoad\PaliCanon.DataLoad.csproj" />
     <ProjectReference Include="..\PaliCanon.Services\PaliCanon.Services.csproj" />
   </ItemGroup>

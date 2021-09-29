@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PaliCanon.Data.SqlServer;
+using PaliCanon.Data.Sql;
 
 namespace PaliCanon.Api
 {
@@ -25,7 +25,7 @@ namespace PaliCanon.Api
         private static void MigrateDatabase(IHost host)
         {
             using var scope = host.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<SqlServerContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<SqlContext>();
             dbContext.Database.Migrate();
         }
     }

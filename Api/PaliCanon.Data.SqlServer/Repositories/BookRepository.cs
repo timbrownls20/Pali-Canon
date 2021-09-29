@@ -2,19 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using PaliCanon.Contracts;
 using PaliCanon.Contracts.Book;
-using PaliCanon.Data.SqlServer.Entities;
-using PaliCanon.Model;
+using PaliCanon.Data.Sql.Entities;
 
-namespace PaliCanon.Data.SqlServer.Repositories
+namespace PaliCanon.Data.Sql.Repositories
 {
     public class BookRepository: IBookRepository<BookEntity>
     {
         private readonly IMapper _mapper;
-        private readonly SqlServerContext _context;
+        private readonly SqlContext _context;
 
-        public BookRepository(IMapper mapper, SqlServerContext context)
+        public BookRepository(IMapper mapper, SqlContext context)
         {
             _mapper = mapper;
             _context = context;

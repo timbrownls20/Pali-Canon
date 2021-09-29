@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PaliCanon.Contracts.Chapter;
-using PaliCanon.Data.SqlServer.Entities;
+using PaliCanon.Data.Sql.Entities;
 
-namespace PaliCanon.Data.SqlServer.Repositories
+namespace PaliCanon.Data.Sql.Repositories
 {
     public class ChapterRepository: IChapterRepository<ChapterEntity, VerseEntity>
     {
         private readonly IMapper _mapper;
-        private readonly SqlServerContext _context;
+        private readonly SqlContext _context;
 
-        public ChapterRepository(IMapper mapper, SqlServerContext context)
+        public ChapterRepository(IMapper mapper, SqlContext context)
         {
             _mapper = mapper;
             _context = context;

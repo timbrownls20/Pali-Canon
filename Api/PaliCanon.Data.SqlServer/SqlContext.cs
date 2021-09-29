@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PaliCanon.Data.SqlServer.Entities;
+using PaliCanon.Data.Sql.Entities;
 
-namespace PaliCanon.Data.SqlServer
+namespace PaliCanon.Data.Sql
 {
-    public class SqlServerContext: DbContext
+    public class SqlContext: DbContext
     {
         public DbSet<BookEntity> Books { get; set; }
         public DbSet<ChapterEntity> Chapters { get; set; }
         public DbSet<AuthorEntity> Authors { get; set; }
 
-        public SqlServerContext(DbContextOptions<SqlServerContext> options): base(options)
+        public SqlContext(DbContextOptions<SqlContext> options): base(options)
         {
             
         }

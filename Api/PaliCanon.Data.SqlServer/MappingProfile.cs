@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PaliCanon.Data.SqlServer.Entities;
+using PaliCanon.Data.Sql.Entities;
 using PaliCanon.Model;
 
-namespace PaliCanon.Data.SqlServer
+namespace PaliCanon.Data.Sql
 {
     public class MappingProfile : Profile
     {
@@ -13,6 +13,11 @@ namespace PaliCanon.Data.SqlServer
             CreateMap<Chapter, ChapterEntity>()
                 .ForMember(d => d.Book, o => o.Ignore())
                 .ForMember(d => d.Author, o => o.Ignore())
+                .AfterMap((src, dest) =>
+                {
+                    dest.Book = new BookEntity {Code = src.BookCode, Description = src.Book};
+                    dest.Author = new AuthorEntity {Name = src.Author};
+                })
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null))
                 ;
                 

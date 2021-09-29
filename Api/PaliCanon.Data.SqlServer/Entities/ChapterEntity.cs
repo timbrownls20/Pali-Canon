@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PaliCanon.Contracts.Chapter;
 
-namespace PaliCanon.Data.SqlServer.Entities
+namespace PaliCanon.Data.Sql.Entities
 {
     [Table("Chapter")]
     public class ChapterEntity: IChapterEntity
@@ -11,6 +11,7 @@ namespace PaliCanon.Data.SqlServer.Entities
         public ChapterEntity()
         {
             Verses = new List<VerseEntity>();
+            Book = new BookEntity();
         }
 
         public int Id { get; set; }

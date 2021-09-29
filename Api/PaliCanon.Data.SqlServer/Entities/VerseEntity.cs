@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using PaliCanon.Contracts.Verse;
 
-namespace PaliCanon.Data.SqlServer.Entities
+namespace PaliCanon.Data.Sql.Entities
 {
     [Table("Verse")]
     public class VerseEntity: IVerseEntity

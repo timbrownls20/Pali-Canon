@@ -8,12 +8,6 @@ namespace PaliCanon.Data.Sql.Entities
     [Table("Chapter")]
     public class ChapterEntity: IChapterEntity
     {
-        public ChapterEntity()
-        {
-            Verses = new List<VerseEntity>();
-            Book = new BookEntity();
-        }
-
         public int Id { get; set; }
         public int BookId { get; set; }
         public BookEntity Book { get; set; }
@@ -23,7 +17,6 @@ namespace PaliCanon.Data.Sql.Entities
         public AuthorEntity Author { get; set; }
 
         public string BookCode => Book?.Code;
-
         [MaxLength(4000)]
         public string Citation { get; set; }
     }

@@ -21,6 +21,11 @@ namespace PaliCanon.Services
             _bookRepository.Insert(_mapper.Map<T>(record));
         }
 
+        public Book Get(string bookCode)
+        {
+            return _mapper.Map<Book>(_bookRepository.Get(bookCode));
+        }
+
         public List<Book> List()
         {
             return _mapper.Map<List<Book>>(_bookRepository.List());

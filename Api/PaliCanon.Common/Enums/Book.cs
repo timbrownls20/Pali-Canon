@@ -2,7 +2,7 @@
 {
     public enum Book
     {
-        Dhammapada,
-        Theragatha
+        dhp,
+        ther
     }
 }

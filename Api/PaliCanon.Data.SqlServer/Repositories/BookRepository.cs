@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Data.Sql.Entities;
 
@@ -9,24 +10,37 @@ namespace PaliCanon.Data.Sql.Repositories
 {
     public class BookRepository: IBookRepository<BookEntity>
     {
-        private readonly IMapper _mapper;
         private readonly SqlContext _context;
 
-        public BookRepository(IMapper mapper, SqlContext context)
+        public BookRepository(SqlContext context)
         {
-            _mapper = mapper;
             _context = context;
+        }
+        
+        public BookEntity Get(string bookCode)
+        {
+            var book = _context.Books.Include(x => x.Chapters)
+                    .FirstOrDefault(x => x.Code == bookCode);
+            return book;
         }
 
         public List<BookEntity> List()
         {
-            return _context.Books.ToList();
+            return _context.Books.Include(x => x.Chapters).ToList();
         }
+
         public BookEntity Random()
         {
             Random rnd = new Random();
             int randomCode = rnd.Next(0, _context.Books.Count());
             return _context.Books.ToList().ElementAt(randomCode);
+        }
+
+        public void Delete(string bookCode)
+        {
+            var book = _context.Books.FirstOrDefault(x => x.Code == bookCode);
+            if (book != null) _context.Books.Remove(book);
+            _context.SaveChanges();
         }
 
         public void Insert(BookEntity book)
@@ -35,7 +49,7 @@ namespace PaliCanon.Data.Sql.Repositories
             if (bookEntity == null)
             {
                 _context.Books.Add(book);
-                _context.SaveChanges(); //.. TB TODO implement unit of work
+                _context.SaveChanges(); 
             }
         }
     }

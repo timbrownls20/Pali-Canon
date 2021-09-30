@@ -48,7 +48,6 @@ namespace PaliCanon.Data.Sql
                 b.Property(p => p.Id).ValueGeneratedOnAdd();
                 
             });
-
         }
     }
 }

@@ -23,10 +23,10 @@ namespace PaliCanon.DataLoad.Provider.Factory
 
             switch (book)
             {
-                case Book.Dhammapada:
+                case Book.dhp:
                     provider = new DhammapadaProvider(_bookService, _chapterService);
                     break;
-                case Book.Theragatha:
+                case Book.ther:
                     provider = new TheragathaProvider(_chapterService);
                     break;
                 default:

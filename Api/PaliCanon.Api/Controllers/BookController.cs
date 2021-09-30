@@ -22,7 +22,13 @@ namespace PaliCanon.Api.Controllers
         {
             return "Book API available";
         }
-        
+
+        [HttpGet("find/{bookCode}")]
+        public Book Get(string bookCode)
+        {
+            return _bookService.Get(bookCode);
+        }
+
         [HttpGet]
         [HttpGet("list")]
         public List<Book> List()

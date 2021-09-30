@@ -8,7 +8,8 @@ namespace PaliCanon.Data.Sql
     {
         public MappingProfile()
         {
-            CreateMap<Book, BookEntity>().ReverseMap();
+            CreateMap<Book, BookEntity>()
+                .ReverseMap();
 
             CreateMap<Chapter, ChapterEntity>()
                 .ForMember(d => d.Book, o => o.Ignore())

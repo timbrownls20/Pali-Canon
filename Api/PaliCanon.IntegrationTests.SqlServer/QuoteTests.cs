@@ -3,29 +3,27 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using PaliCanon.IntegrationTests.Sql.Infrastructure;
+using PaliCanon.Model;
 
-namespace PaliCanon.IntegrationTests.SqlServer
+namespace PaliCanon.IntegrationTests.Sql
 {
     [TestClass]
     public class QuoteTests
     {
-        public const string ApiRoot = "http://localhost:65006/api/";
-
         [TestMethod]
         public async Task GetQuote()
         {
             //.. arrange
-            HttpClient client = new HttpClient();
-            
+            TestClient client = new TestClient();
+
             //.. act
-            var response = await client.GetAsync($"{ApiRoot}quote");
-            string content = await response.Content.ReadAsStringAsync();
-            var jsonResponse = JObject.Parse(content);
-            var quote = jsonResponse["text"];
+            var (quote, status) = await client.Get<Quote>($"{TestSettings.ApiRoot}quote");
 
             //..assert
-            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(quote);
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(quote.Text));
         }    
     }
 }

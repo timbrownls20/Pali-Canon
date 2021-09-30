@@ -19,3 +19,5 @@ Api/PaliCanon.sln.DotSettings.user
 Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
 *.v2
 Api/PaliCanon.Api/appsettings.json
+Api/PaliCanon.Api/DO_NOT_CHECKIN.txt
+*.v2

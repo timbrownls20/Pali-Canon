@@ -31,6 +31,7 @@ namespace PaliCanon.Data.Sql.Repositories
                 var entity = _mapper.Map<ChapterEntity>(chapter);
                 
                 entity.BookId = book.Id;
+                entity.Book = book;
                 entity.Author = author ?? new AuthorEntity
                 {
                     Name = chapter.Author.Name

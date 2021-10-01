@@ -1,8 +1,6 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
 using PaliCanon.IntegrationTests.Sql.Infrastructure;
 using PaliCanon.Model;
 
@@ -15,10 +13,11 @@ namespace PaliCanon.IntegrationTests.Sql
         public async Task GetQuote()
         {
             //.. arrange
-            TestClient client = new TestClient();
+            var client = new TestClient();
+            var config = new TestConfig();
 
             //.. act
-            var (quote, status) = await client.Get<Quote>($"{TestSettings.ApiRoot}quote");
+            var (quote, status) = await client.Get<Quote>($"{config.Api}quote");
 
             //..assert
             Assert.AreEqual(status, HttpStatusCode.OK);

@@ -11,20 +11,15 @@ namespace PaliCanon.IntegrationTests.Sql.Infrastructure
 {
     internal class TestServiceProvider
     {
-        internal IConfigurationRoot Configuration { get; set; }
-
         internal ServiceProvider GetServiceProvider()
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            Configuration = builder.Build();
-
+            var config = new TestConfig();
             var services = new ServiceCollection();
 
             services.AddDbContext<SqlContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("MySql"),
-                        ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql")))
+                options.UseMySql(config.Configuration.GetConnectionString("MySql"),
+                        ServerVersion.AutoDetect(config.Configuration.GetConnectionString("MySql")))
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors();
             });

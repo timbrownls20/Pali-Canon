@@ -31,16 +31,17 @@ namespace PaliCanon.IntegrationTests.Sql
             if(repo == null) Assert.Fail();
             repo.Delete(bookCode);
 
-            TestClient client = new TestClient();
+            var client = new TestClient();
+            var config = new TestConfig();
 
-            var (preLoadBooks, _) = await client.Get<List<BookEntity>>($"{TestSettings.ApiRoot}book");
+            var (preLoadBooks, _) = await client.Get<List<BookEntity>>($"{config.Api}book");
             Assert.IsTrue(!preLoadBooks.Any(), $"{bookCode} not removed");
 
             //act
-            var response = await client.Client.GetAsync($"{TestSettings.ApiRoot}admin/load/{bookCode}");
+            var response = await client.Client.GetAsync($"{config.Api}admin/load/{bookCode}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
 
-            var (postLoadBook, _) = await client.Get<Model.Book>($"{TestSettings.ApiRoot}book/find/{bookCode}");
+            var (postLoadBook, _) = await client.Get<Model.Book>($"{config.Api}book/find/{bookCode}");
             Assert.IsTrue(postLoadBook != null, $"{bookCode} not added");
             Assert.IsTrue(postLoadBook.Chapters?.Count == numberOfChapters, $"{bookCode} must have {numberOfChapters} chapters");
         }

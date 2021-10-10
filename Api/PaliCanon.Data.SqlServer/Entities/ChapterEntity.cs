@@ -5,7 +5,7 @@ using PaliCanon.Contracts.Chapter;
 
 namespace PaliCanon.Data.Sql.Entities
 {
-    [Table("Chapter")]
+    [Table("chapter")]
     public class ChapterEntity: IChapterEntity
     {
         public int Id { get; set; }

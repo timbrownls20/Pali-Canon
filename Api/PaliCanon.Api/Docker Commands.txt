@@ -1,0 +1,14 @@
+﻿#mysql backup
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+mysqldump -u palicanon -p --databases palicanon > C:\development\Pali-Canon\Api\Deploy\createdatabase.sql --add-drop-database
+
+#login to mysql and set up
+docker exec -it d	source b mysql -uroot -p
+source Deploy/createdatabase.sql
+source Deploy/createuser.sql
+
+#publish
+docker commit db  timbrownls26/palicanondb:0.1
+docker login -u timbrownls26
+docker push timbrownls26/palicanon:0.1
+docker push timbrownls26/palicanondb:0.1

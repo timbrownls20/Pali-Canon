@@ -11,7 +11,7 @@ namespace PaliCanon.Data.Sql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Author",
+                name: "author",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,12 +21,12 @@ namespace PaliCanon.Data.Sql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Author", x => x.Id);
+                    table.PrimaryKey("PK_author", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Book",
+                name: "book",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,12 +40,12 @@ namespace PaliCanon.Data.Sql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Book", x => x.Id);
+                    table.PrimaryKey("PK_book", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Chapter",
+                name: "chapter",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -60,24 +60,24 @@ namespace PaliCanon.Data.Sql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chapter", x => x.Id);
+                    table.PrimaryKey("PK_chapter", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chapter_Author_AuthorId",
+                        name: "FK_chapter_author_AuthorId",
                         column: x => x.AuthorId,
-                        principalTable: "Author",
+                        principalTable: "author",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Chapter_Book_BookId",
+                        name: "FK_chapter_book_BookId",
                         column: x => x.BookId,
-                        principalTable: "Book",
+                        principalTable: "book",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Verse",
+                name: "verse",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -90,45 +90,45 @@ namespace PaliCanon.Data.Sql.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Verse", x => x.Id);
+                    table.PrimaryKey("PK_verse", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Verse_Chapter_ChapterId",
+                        name: "FK_verse_chapter_ChapterId",
                         column: x => x.ChapterId,
-                        principalTable: "Chapter",
+                        principalTable: "chapter",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chapter_AuthorId",
-                table: "Chapter",
+                name: "IX_chapter_AuthorId",
+                table: "chapter",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chapter_BookId",
-                table: "Chapter",
+                name: "IX_chapter_BookId",
+                table: "chapter",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Verse_ChapterId",
-                table: "Verse",
+                name: "IX_verse_ChapterId",
+                table: "verse",
                 column: "ChapterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Verse");
+                name: "verse");
 
             migrationBuilder.DropTable(
-                name: "Chapter");
+                name: "chapter");
 
             migrationBuilder.DropTable(
-                name: "Author");
+                name: "author");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "book");
         }
     }
 }

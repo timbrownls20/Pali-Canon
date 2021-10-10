@@ -11,6 +11,8 @@ using PaliCanon.Data.Sql.Repositories;
 using Mongo = PaliCanon.Data.MongoDB;
 using PaliCanon.DataLoad.Provider.Factory;
 using PaliCanon.Services;
+using System;
+using PaliCanon.Contracts;
 
 namespace PaliCanon.Api
 {
@@ -30,7 +32,7 @@ namespace PaliCanon.Api
             services.AddDbContext<SqlContext>(options =>
             {
                 //options.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
-                options.UseMySql(Configuration.GetConnectionString("MySql"), ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql")))
+                options.UseMySql(Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 0, 19)))
                     .EnableSensitiveDataLogging() 
                     .EnableDetailedErrors();
             });
@@ -55,17 +57,20 @@ namespace PaliCanon.Api
         {
             services.AddTransient<IProviderFactory, ProviderFactory>();
 
+            //.. TB TODO make this cleverer to swap between data providers
             services.AddTransient(typeof(IBookRepository<BookEntity>),
                 typeof(BookRepository));
             services.AddTransient(typeof(IChapterRepository<ChapterEntity, VerseEntity>),
                 typeof(ChapterRepository));
+            services.AddTransient(typeof(IAdminRepository),
+                typeof(AdminRepository));
 
             services.AddTransient(typeof(IBookRepository<Mongo.Entities.BookEntity>),
                 typeof(Mongo.Repositories.BookRepository));
             services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity, Mongo.Entities.VerseEntity>),
                 typeof(Mongo.Repositories.ChapterRepository));
 
-            //.. TB TODO make this cleverer to swap between data providers
+            
             services.AddTransient(typeof(IBookService), typeof(BookService<BookEntity>));
             services.AddTransient(typeof(IChapterService), typeof(ChapterService<ChapterEntity, VerseEntity>));
         }

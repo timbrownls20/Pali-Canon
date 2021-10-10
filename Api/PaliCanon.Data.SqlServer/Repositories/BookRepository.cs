@@ -26,7 +26,14 @@ namespace PaliCanon.Data.Sql.Repositories
 
         public List<BookEntity> List()
         {
-            return _context.Books.Include(x => x.Chapters).ToList();
+            try
+            {
+                return _context.Books.Include(x => x.Chapters).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed for connection{_context.Database.GetConnectionString()}", ex);
+            }
         }
 
         public BookEntity Random()

@@ -3,7 +3,7 @@ using PaliCanon.Contracts.Verse;
 
 namespace PaliCanon.Data.Sql.Entities
 {
-    [Table("Verse")]
+    [Table("verse")]
     public class VerseEntity: IVerseEntity
     {
         public int Id { get; set; }

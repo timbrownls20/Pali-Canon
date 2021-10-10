@@ -4,7 +4,7 @@ using PaliCanon.Contracts.Book;
 
 namespace PaliCanon.Data.Sql.Entities
 {
-    [Table("Book")]
+    [Table("book")]
     public class BookEntity: IBookEntity 
     {
         public int Id { get; set; }

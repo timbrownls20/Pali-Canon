@@ -28,7 +28,7 @@ namespace PaliCanon.Data.Sql.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("author");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.Sql.Entities.BookEntity", b =>
@@ -48,7 +48,7 @@ namespace PaliCanon.Data.Sql.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Book");
+                    b.ToTable("book");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.Sql.Entities.ChapterEntity", b =>
@@ -79,7 +79,7 @@ namespace PaliCanon.Data.Sql.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("Chapter");
+                    b.ToTable("chapter");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.Sql.Entities.VerseEntity", b =>
@@ -104,7 +104,7 @@ namespace PaliCanon.Data.Sql.Migrations
 
                     b.HasIndex("ChapterId");
 
-                    b.ToTable("Verse");
+                    b.ToTable("verse");
                 });
 
             modelBuilder.Entity("PaliCanon.Data.Sql.Entities.ChapterEntity", b =>

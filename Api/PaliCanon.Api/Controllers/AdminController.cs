@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaliCanon.Common.Enums;
+using PaliCanon.Contracts;
 using PaliCanon.DataLoad.Provider.Factory;
 
 namespace PaliCanon.Api.Controllers
@@ -9,16 +10,18 @@ namespace PaliCanon.Api.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IProviderFactory _providerFactory;
+        private readonly IAdminRepository _adminRepository;
 
-        public AdminController(IProviderFactory providerFactory)
+        public AdminController(IProviderFactory _providerFactory, IAdminRepository adminRepository)
         {
-            _providerFactory = providerFactory;
+            this._providerFactory = _providerFactory;
+            _adminRepository = adminRepository;
         }
 
-        [HttpGet("index")]
-        public string Index()
+        [HttpGet]
+        public string Available()
         {
-            return "Admin API available";
+            return "Admin API available V3 Linux";
         }
 
         [HttpGet("{book}")]
@@ -27,6 +30,20 @@ namespace PaliCanon.Api.Controllers
             var provider = _providerFactory.Get(book);
             provider.Load();
             return $"{book} has been loaded";
+        }
+
+        [HttpGet]
+        public bool CanConnect()
+        {
+            bool canConnect = _adminRepository.CanConnect();
+            return canConnect;
+        }
+
+        [HttpGet]
+        public bool Migrate()
+        {
+            bool canMigrate = _adminRepository.Migrate();
+            return canMigrate;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaliCanon.Data.Sql.Entities
 {
-    [Table("Author")]
+    [Table("author")]
     public class AuthorEntity
     {
         public int Id { get; set; }

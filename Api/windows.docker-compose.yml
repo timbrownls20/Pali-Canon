@@ -1,0 +1,43 @@
+version: '3.2'
+
+# volumes:
+  # deploy:
+
+services:
+  # db:
+    # image: mysql/mysql-server
+    # container_name: db
+    # ports:
+      # - "49301:3306"
+    # environment:
+      # MYSQL_USER: palicanon
+      # MYSQL_PASSWORD: Password1!
+      # MYSQL_DATABASE: PaliCanon
+      # MYSQL_ROOT_PASSWORD: Password1!
+  app:
+    image: timbrownls26/palicanon:1.0
+    container_name: app
+    build:
+      context: .
+      dockerfile: PaliCanon.Api\Dockerfile
+    ports:
+      - "49501:80"
+    environment:
+      - "ConnectionStrings:MySql=Server=db;Port=3306;Database=PaliCanon;Uid=palicanon;Pwd=Password1!;SslMode=None;ConnectionReset=false;connect timeout=3600"     
+    volumes:
+      - "./Deploy:/Deploy"
+    # networks:
+      # web:
+        # aliases:
+          # - app
+    # depends_on:
+      # - db
+networks:
+  default:
+     external: true
+     name: nat
+     
+# networks:
+  # web:
+    # driver: bridge   
+     

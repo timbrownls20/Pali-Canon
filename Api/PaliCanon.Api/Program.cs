@@ -24,9 +24,16 @@ namespace PaliCanon.Api
 
         private static void MigrateDatabase(IHost host)
         {
-            using var scope = host.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<SqlContext>();
-            dbContext.Database.Migrate();
+            try
+            {
+                IServiceScope scope = host.Services.CreateScope();
+                SqlContext dbContext = scope.ServiceProvider.GetRequiredService<SqlContext>();
+                dbContext.Database.Migrate();
+            }
+            catch //(Exception ex)
+            {
+                //throw new Exception($"Failed for connection{dbContext?.Database.GetConnectionString() ?? " no connction string specified"}", ex);
+            }
         }
     }
 

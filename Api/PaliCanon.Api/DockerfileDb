@@ -1,0 +1,5 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mysql/mysql-server
+COPY ./Deploy/01_createuser.sql /docker-entrypoint-initdb.d/
+COPY ./Deploy/02_createdatabase.sql /docker-entrypoint-initdb.d/

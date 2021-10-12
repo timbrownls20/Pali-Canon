@@ -12,9 +12,26 @@ namespace PaliCanon.IntegrationTests.Sql
 {
 
     [TestClass]
-    public class DataLoadTest
+    public class AdminTests
     {
-        
+
+        [TestMethod]
+        public async Task CanConnect()
+        {
+            //.. arrange
+            var client = new TestClient();
+            var config = new TestConfig();
+
+            //.. act
+            var (canconnect, status) = await client.Get<bool>($"{config.Api}admin/canconnect");
+
+            //..assert
+            Assert.AreEqual(status, HttpStatusCode.OK);
+            Assert.IsNotNull(canconnect);
+            Assert.IsTrue(canconnect);
+        }
+
+
         [TestMethod]
         public async Task LoadBook()
         {

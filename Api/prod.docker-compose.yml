@@ -12,5 +12,5 @@ services:
     ports:
       - "49501:80"
     environment:
-     - "ConnectionStrings:MySql=Server=db;Port=3306;Database=palicanon;Uid=palicanon;Pwd=password;SslMode=None;ConnectionReset=false;connect timeout=3600"     
+     - "ConnectionStrings:MySql=Server=db;Port=3306;Database=palicanon;Uid=palicanon;Pwd=Pasword1!;SslMode=None;ConnectionReset=false;connect timeout=3600"     
 

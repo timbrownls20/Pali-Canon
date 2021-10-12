@@ -21,7 +21,7 @@ namespace PaliCanon.Api.Controllers
         [HttpGet]
         public string Available()
         {
-            return "Admin API available V3 Linux";
+            return "Admin API available version 0.1";
         }
 
         [HttpGet("{book}")]
@@ -37,13 +37,6 @@ namespace PaliCanon.Api.Controllers
         {
             bool canConnect = _adminRepository.CanConnect();
             return canConnect;
-        }
-
-        [HttpGet]
-        public bool Migrate()
-        {
-            bool canMigrate = _adminRepository.Migrate();
-            return canMigrate;
         }
     }
 }

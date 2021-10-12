@@ -7,23 +7,19 @@ node_modules
 *.pdb
 ati_website
 logs
-*.v2
+Api/.vs
 Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
-*.v2
 Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
-*.v2
 Api/.vs/PaliCanon/v16/TestStore/0/000.testlog
 *.manifest
 Api/PaliCanon.sln.DotSettings.user
-*.v2
 Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
-*.v2
 Api/PaliCanon.Api/appsettings.json
 Api/PaliCanon.Api/DO_NOT_CHECKIN.txt
-*.v2
 .vs/slnx.sqlite
 Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
 Api/Deploy/01_createuser.sql
 Api/Deploy/02_createdatabase.sql
 Api/PaliCanon.Api/Docker Commands.txt
 appsettings.Development.json
+Notes

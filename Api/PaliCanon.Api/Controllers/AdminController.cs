@@ -24,6 +24,8 @@ namespace PaliCanon.Api.Controllers
             return "Admin API available version 0.1";
         }
 
+
+#if DEBUG
         [HttpGet("{book}")]
         public string Load(Book book)
         {
@@ -31,6 +33,7 @@ namespace PaliCanon.Api.Controllers
             provider.Load();
             return $"{book} has been loaded";
         }
+#endif
 
         [HttpGet]
         public bool CanConnect()

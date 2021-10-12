@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Data.Sql.Entities;
 using PaliCanon.IntegrationTests.Sql.Infrastructure;
@@ -34,7 +32,7 @@ namespace PaliCanon.IntegrationTests.Sql
             var client = new TestClient();
             var config = new TestConfig();
 
-            var (preLoadBooks, _) = await client.Get<List<BookEntity>>($"{config.Api}book");
+            var (preLoadBooks, _) = await client.Get<List<BookEntity>>($"{config.Api}book/list");
             Assert.IsTrue(!preLoadBooks.Any(), $"{bookCode} not removed");
 
             //act

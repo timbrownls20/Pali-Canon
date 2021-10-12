@@ -26,4 +26,4 @@ Api/.vs/PaliCanon/DesignTimeBuild/.dtbcache.v2
 Api/Deploy/01_createuser.sql
 Api/Deploy/02_createdatabase.sql
 Api/PaliCanon.Api/Docker Commands.txt
-Api/PaliCanon.Api/Docker Commands.txt
+appsettings.Development.json

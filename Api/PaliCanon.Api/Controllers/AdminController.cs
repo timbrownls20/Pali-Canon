@@ -1,32 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PaliCanon.Common.Enums;
 using PaliCanon.Contracts;
 using PaliCanon.DataLoad.Provider.Factory;
 
 namespace PaliCanon.Api.Controllers
 {
-    [Route("api/[controller]/{action}")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
+        private readonly IConfiguration _config;
         private readonly IProviderFactory _providerFactory;
         private readonly IAdminRepository _adminRepository;
 
-        public AdminController(IProviderFactory _providerFactory, IAdminRepository adminRepository)
+        public AdminController(IConfiguration config, IProviderFactory providerFactory, IAdminRepository adminRepository)
         {
-            this._providerFactory = _providerFactory;
+            _config = config;
+            _providerFactory = providerFactory;
             _adminRepository = adminRepository;
         }
 
+
         [HttpGet]
-        public string Available()
+        [HttpGet("version")]
+        public string Version()
         {
-            return "Admin API available version 0.1";
+            return $"Admin API version {_config.GetValue<string>("Api:Version")}";
         }
 
 
 #if DEBUG
-        [HttpGet("{book}")]
+        [HttpGet("load/{book}")]
         public string Load(Book book)
         {
             var provider = _providerFactory.Get(book);
@@ -35,7 +40,7 @@ namespace PaliCanon.Api.Controllers
         }
 #endif
 
-        [HttpGet]
+        [HttpGet("canconnect")]
         public bool CanConnect()
         {
             bool canConnect = _adminRepository.CanConnect();

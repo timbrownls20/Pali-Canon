@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Contracts;
+using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
@@ -10,18 +10,20 @@ namespace PaliCanon.Api.Controllers
     public class QuoteController : ControllerBase
     {
         readonly IChapterService _chapterService;
+        private readonly IConfiguration _config;
         readonly IBookService _bookService;
 
-        public QuoteController(IBookService bookService, IChapterService chapterService)
+        public QuoteController(IConfiguration config, IBookService bookService, IChapterService chapterService)
         {
             _chapterService = chapterService;
+            _config = config;
             _bookService = bookService;
         }
 
-        [HttpGet("available")]
-        public string Available()
+        [HttpGet("version")]
+        public string Version()
         {
-            return "Quote API available";
+            return $"Quote API version {_config.GetValue<string>("Api:Version")}";
         }
 
         [HttpGet]

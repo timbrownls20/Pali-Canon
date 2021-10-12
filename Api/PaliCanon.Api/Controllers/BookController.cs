@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Model;
 
@@ -9,18 +10,21 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class BookController: ControllerBase
     {
+        private readonly IConfiguration _config;
         private readonly IBookService _bookService;
 
-        public BookController(IBookService bookService)
+        public BookController(IConfiguration config, IBookService bookService)
         {
+            _config = config;
             _bookService = bookService;
         }
 
-        
-        [HttpGet("available")]
-        public string Available()
+
+        [HttpGet]
+        [HttpGet("version")]
+        public string Version()
         {
-            return "Book API available";
+            return $"Book API version {_config.GetValue<string>("Api:Version")}";
         }
 
         [HttpGet("find/{bookCode}")]
@@ -29,7 +33,6 @@ namespace PaliCanon.Api.Controllers
             return _bookService.Get(bookCode);
         }
 
-        [HttpGet]
         [HttpGet("list")]
         public List<Book> List()
         {

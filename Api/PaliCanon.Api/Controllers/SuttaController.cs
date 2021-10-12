@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using PaliCanon.Contracts;
+using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
 
@@ -9,11 +9,20 @@ namespace PaliCanon.Api.Controllers
     [Route("api/[controller]")]
     public class SuttaController : ControllerBase
     {
+        private readonly IConfiguration _config;
         readonly IChapterService _chapterService;
 
-        public SuttaController(IChapterService chapterService)
+        public SuttaController(IConfiguration config, IChapterService chapterService)
         {
+            _config = config;
             _chapterService = chapterService;
+        }
+
+        [HttpGet]
+        [HttpGet("version")]
+        public string Version()
+        {
+            return $"Sutta API version {_config.GetValue<string>("Api:Version")}";
         }
 
         [HttpGet("{bookCode}/{chapter?}/{verse?}")]

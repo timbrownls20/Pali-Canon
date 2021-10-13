@@ -27,30 +27,17 @@ namespace PaliCanon.Data.MongoDB.Repositories
             collection.InsertOne(record);
         }
 
-        public List<ChapterEntity> Get(string bookCode, int? chapterId, int? verse)
+        public ChapterEntity Get(string bookCode, int chapterId, int? verse)
         { 
             var collection = _database.GetCollection<ChapterEntity>(nameof(ChapterEntity));
-            var query = collection.AsQueryable().Where(x => x.BookCode == bookCode);
-            List<ChapterEntity> chapters = new List<ChapterEntity>();
+            ChapterEntity chapter = collection.AsQueryable().Where(x => x.BookCode == bookCode && x.ChapterNumber == chapterId).FirstOrDefault();
 
-            if(chapterId.HasValue)
+            if(verse.HasValue)
             {
-                var chapter = query.SingleOrDefault(x => x.ChapterNumber == chapterId);
-                if(chapter != null)
-                {
-                    if(verse.HasValue)
-                    {
-                        chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
-                    }
-                    chapters.Add(chapter);
-                }
-            }
-            else
-            {
-                chapters = query.ToList();
+                chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
             }
             
-            return chapters;
+            return chapter;
         }
 
         public ChapterEntity Next(string bookCode, int chapterId, int verse)
@@ -60,14 +47,14 @@ namespace PaliCanon.Data.MongoDB.Repositories
 
         public ChapterEntity First(string bookCode)
         { 
-            return Get(bookCode, 1, 1).FirstOrDefault();
+            return Get(bookCode, 1, 1);
         }
 
         public ChapterEntity Last(string bookCode)
         { 
             int chapterId = LastChapterId(bookCode);
             int verseId = LastVerseId(bookCode);
-            return Get(bookCode, chapterId, verseId).FirstOrDefault();
+            return Get(bookCode, chapterId, verseId);
         }
 
         public (ChapterEntity, VerseEntity) Quote(string bookCode)

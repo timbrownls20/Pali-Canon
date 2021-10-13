@@ -23,9 +23,9 @@ namespace PaliCanon.Services
             _chapterRepository.Insert(_mapper.Map<T>(record));
         }
 
-        public List<Chapter> Get(string bookCode, int? chapter, int? verse)
+        public Chapter Get(string bookCode, int chapter, int? verse)
         {
-            return _mapper.Map<List<Chapter>>(_chapterRepository.Get(bookCode, chapter, verse));
+            return _mapper.Map<Chapter>(_chapterRepository.Get(bookCode, chapter, verse));
         }
 
         public Quote Quote(string bookCode)

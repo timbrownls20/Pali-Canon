@@ -38,33 +38,20 @@ namespace PaliCanon.Data.Sql.Repositories
                 };
 
                 _context.Chapters.Add(entity);
-                _context.SaveChanges(); //.. TB TODO implement unit of work
+                _context.SaveChanges(); 
             }
         }
 
-        public List<ChapterEntity> Get(string bookCode, int? chapterId, int? verse)
+        public ChapterEntity Get(string bookCode, int chapterId, int? verse)
         {
-            var query = _context.Chapters.Where(x => x.Book.Code == bookCode);
-            List<ChapterEntity> chapters = new List<ChapterEntity>();
-
-            if (chapterId.HasValue)
+            ChapterEntity chapter = _context.Chapters.Where(x => x.Book.Code == bookCode && x.ChapterNumber == chapterId).SingleOrDefault();
+            
+            if (verse.HasValue)
             {
-                var chapter = query.SingleOrDefault(x => x.ChapterNumber == chapterId);
-                if (chapter != null)
-                {
-                    if (verse.HasValue)
-                    {
-                        chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
-                    }
-                    chapters.Add(chapter);
-                }
+                chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
             }
-            else
-            {
-                chapters = query.ToList();
-            }
-
-            return chapters;
+            
+            return chapter;
         }
 
         public ChapterEntity Next(string bookCode, int chapterId, int verse)
@@ -74,14 +61,14 @@ namespace PaliCanon.Data.Sql.Repositories
 
         public ChapterEntity First(string bookCode)
         { 
-            return Get(bookCode, 1, 1).FirstOrDefault();
+            return Get(bookCode, 1, 1);
         }
 
         public ChapterEntity Last(string bookCode)
         { 
             int chapterId = LastChapterId(bookCode);
             int verseId = LastVerseId(bookCode);
-            return Get(bookCode, chapterId, verseId).FirstOrDefault();
+            return Get(bookCode, chapterId, verseId);
         }
 
         public (ChapterEntity, VerseEntity) Quote(string bookCode)

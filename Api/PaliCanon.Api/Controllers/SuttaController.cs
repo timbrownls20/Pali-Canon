@@ -18,15 +18,14 @@ namespace PaliCanon.Api.Controllers
             _chapterService = chapterService;
         }
 
-        [HttpGet]
         [HttpGet("version")]
         public string Version()
         {
             return $"Sutta API version {_config.GetValue<string>("Api:Version")}";
         }
 
-        [HttpGet("{bookCode}/{chapter?}/{verse?}")]
-        public List<Chapter> Get(string bookCode, int? chapter, int? verse)
+        [HttpGet("{bookCode}/{chapter}/{verse?}")]
+        public Chapter Get(string bookCode, int chapter, int? verse)
         {
             return _chapterService.Get(bookCode, chapter, verse);        
         }

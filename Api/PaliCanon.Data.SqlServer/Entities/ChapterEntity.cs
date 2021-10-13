@@ -17,6 +17,7 @@ namespace PaliCanon.Data.Sql.Entities
         public AuthorEntity Author { get; set; }
 
         public string BookCode => Book?.Code;
+
         [MaxLength(4000)]
         public string Citation { get; set; }
     }

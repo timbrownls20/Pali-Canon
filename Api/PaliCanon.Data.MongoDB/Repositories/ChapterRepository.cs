@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using PaliCanon.Contracts;
 using PaliCanon.Contracts.Chapter;
-using PaliCanon.Contracts.Verse;
 using PaliCanon.Data.MongoDB.Entities;
 
 namespace PaliCanon.Data.MongoDB.Repositories
@@ -34,7 +32,10 @@ namespace PaliCanon.Data.MongoDB.Repositories
 
             if(verse.HasValue)
             {
-                chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
+                int startVerse = chapter.Verses.Min(x => x.VerseNumber);
+                int thisVerse = startVerse + (verse.Value - 1);
+
+                chapter.Verses.RemoveAll(x => x.VerseNumber != thisVerse);
             }
             
             return chapter;

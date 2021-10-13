@@ -31,23 +31,23 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
         }
 
         [TestMethod]
-        [DataRow("dhp", 1, 20, "Pairs")]
-        [DataRow("dhp", 5, 61, "The Fool")]
-        public async Task GetVerse(string bookCode, int chapterNumber, int verseNumber, string expectedTitle)
+        [DataRow("dhp", 1, 20, "Pairs", 20)]
+        [DataRow("dhp", 5, 10, "The Fool", 69)]
+        public async Task GetVerse(string bookCode, int chapterNumber, int versePosition, string expectedTitle, int expectedVerseNumber)
         {
             //.. arrange
             var client = new TestClient();
             var config = new TestConfig();
 
             //.. act
-            (Chapter chapter, HttpStatusCode status) = await client.Get<Chapter>($"{config.Api}sutta/{bookCode}/{chapterNumber}/{verseNumber}");
+            (Chapter chapter, HttpStatusCode status) = await client.Get<Chapter>($"{config.Api}sutta/{bookCode}/{chapterNumber}/{versePosition}");
 
             //..assert
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(chapter);
             Assert.IsTrue(chapter.ChapterNumber == chapterNumber);
             Assert.IsTrue(chapter.Verses.Count == 1);
-            Assert.IsTrue(chapter.Verses.First().VerseNumber == verseNumber);
+            Assert.IsTrue(chapter.Verses.First().VerseNumber == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
         }
 

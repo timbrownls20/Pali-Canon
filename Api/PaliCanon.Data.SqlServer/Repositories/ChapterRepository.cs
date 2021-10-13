@@ -48,7 +48,10 @@ namespace PaliCanon.Data.Sql.Repositories
             
             if (verse.HasValue)
             {
-                chapter.Verses.RemoveAll(x => x.VerseNumber != verse);
+                int startVerse = chapter.Verses.Min(x => x.VerseNumber);
+                int thisVerse = startVerse + (verse.Value - 1);
+
+                chapter.Verses.RemoveAll(x => x.VerseNumber != thisVerse);
             }
             
             return chapter;
@@ -68,26 +71,30 @@ namespace PaliCanon.Data.Sql.Repositories
         { 
             int chapterId = LastChapterId(bookCode);
             int verseId = LastVerseId(bookCode);
-            return Get(bookCode, chapterId, verseId);
+
+            ChapterEntity chapter = _context.Chapters.Where(x => x.Book.Code == bookCode && x.ChapterNumber == chapterId).SingleOrDefault();
+            chapter.Verses.RemoveAll(x => x.VerseNumber != verseId);
+            
+            return chapter;
         }
 
         public (ChapterEntity, VerseEntity) Quote(string bookCode)
-        { 
-            var lastVerse = LastVerseId(bookCode);
+        {
+            int lastVerse = LastVerseId(bookCode);
 
             if(lastVerse == 0) return BlankChapter();
 
             var rnd = new Random();
            
             int randomVerse = rnd.Next(1, lastVerse);
-            var randomChapter = GetNearestVerse(bookCode, randomVerse);
+            ChapterEntity randomChapter = GetNearestVerse(bookCode, randomVerse);
 
             return (randomChapter, randomChapter.Verses.First());
         }
 
         private ChapterEntity GetNearestVerse(string bookCode, int verse)
         {
-            var chapter = _context.Chapters
+            ChapterEntity chapter = _context.Chapters
                         .Where(x => x.Book.Code == bookCode
                         && x.Verses.Any(y => y.VerseNumber >= verse))
                         .OrderBy(x => x.ChapterNumber)
@@ -95,12 +102,12 @@ namespace PaliCanon.Data.Sql.Repositories
 
             if (chapter != null)
             {
-                var selectedVerse = chapter.Verses
+                VerseEntity selectedVerse = chapter.Verses
                                        .Where(x => x.VerseNumber >= verse)
                                        .OrderBy(x => x.VerseNumber)
                                        .FirstOrDefault();
 
-                var selectedVerseId = selectedVerse?.VerseNumber ?? 0;
+                int selectedVerseId = selectedVerse?.VerseNumber ?? 0;
                 chapter.Verses.RemoveAll(x => x.VerseNumber != selectedVerseId);
             }
 
@@ -114,7 +121,7 @@ namespace PaliCanon.Data.Sql.Repositories
 
         private int LastChapterId(string bookCode){
 
-            var maxChapter = _context.Chapters
+            int maxChapter = _context.Chapters
                 .Where(x => x.Book.Code == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .Select(x => x.ChapterNumber)
@@ -125,13 +132,12 @@ namespace PaliCanon.Data.Sql.Repositories
 
         private int LastVerseId(string bookCode){
 
-            var verses = _context.Chapters
+            List<VerseEntity> verses = _context.Chapters
                 .Where(x => x.Book.Code == bookCode)
                 .OrderByDescending(x => x.ChapterNumber)
                 .SelectMany(x => x.Verses).ToList();
 
-
-            var maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
+            VerseEntity maxVerse = verses.OrderByDescending(x => x.VerseNumber).FirstOrDefault();
 
             return maxVerse?.VerseNumber ?? 0;
         }

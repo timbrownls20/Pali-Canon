@@ -4,13 +4,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PaliCanon.IntegrationTests.Sql.Infrastructure;
 using PaliCanon.Model;
 
-namespace PaliCanon.IntegrationTests.Sql
+namespace PaliCanon.IntegrationTests.Sql.Tests
 {
     [TestClass]
     public class QuoteTests
     {
         [TestMethod]
-        public async Task GetQuote()
+        [DataRow("dhp")]
+        public async Task GetQuote(string bookCode)
         {
             //.. arrange
             var client = new TestClient();
@@ -23,6 +24,6 @@ namespace PaliCanon.IntegrationTests.Sql
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(quote);
             Assert.IsTrue(!string.IsNullOrWhiteSpace(quote.Text));
-        }    
+        }
     }
 }

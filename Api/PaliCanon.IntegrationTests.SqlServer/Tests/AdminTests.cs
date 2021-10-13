@@ -8,7 +8,7 @@ using PaliCanon.Contracts.Book;
 using PaliCanon.Data.Sql.Entities;
 using PaliCanon.IntegrationTests.Sql.Infrastructure;
 
-namespace PaliCanon.IntegrationTests.Sql
+namespace PaliCanon.IntegrationTests.Sql.Tests
 {
 
     [TestClass]
@@ -41,9 +41,9 @@ namespace PaliCanon.IntegrationTests.Sql
             //.. arrange
             var serviceProvider = new TestServiceProvider().GetServiceProvider();
             var repo = serviceProvider.GetService<IBookRepository<BookEntity>>();
-            
+
             //.. remove book before starting
-            if(repo == null) Assert.Fail();
+            if (repo == null) Assert.Fail();
             repo.Delete(bookCode);
 
             var client = new TestClient();

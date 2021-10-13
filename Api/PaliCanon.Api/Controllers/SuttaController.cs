@@ -30,10 +30,10 @@ namespace PaliCanon.Api.Controllers
             return _chapterService.Get(bookCode, chapter, verse);        
         }
 
-        [HttpGet("next/{bookCode}/{chapter}/{verse}")]
-        public Chapter Next(string bookCode, int chapter, int verse)
+        [HttpGet("next/{bookCode}/{verse}")]
+        public Chapter Next(string bookCode, int verse)
         {
-            return _chapterService.Next(bookCode, chapter, verse);
+            return _chapterService.Next(bookCode, verse);
         }
 
         [HttpGet("first/{bookCode}")]

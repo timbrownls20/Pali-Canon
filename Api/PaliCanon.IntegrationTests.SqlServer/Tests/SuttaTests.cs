@@ -52,6 +52,26 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
         }
 
         [TestMethod]
+        [DataRow("dhp", 19, "Pairs", 20)]
+        [DataRow("dhp", 20, "Heedfulness", 21)]
+        public async Task Next(string bookCode, int verse, string expectedTitle, int expectedVerseNumber)
+        {
+            //.. arrange
+            var client = new TestClient();
+            var config = new TestConfig();
+
+            //.. act
+            (Chapter chapter, HttpStatusCode status) = await client.Get<Chapter>($"{config.Api}sutta/next/{bookCode}/{verse}");
+
+            //..assert
+            Assert.AreEqual(status, HttpStatusCode.OK);
+            Assert.IsNotNull(chapter);
+            Assert.IsTrue(chapter.Verses.Count == 1);
+            Assert.IsTrue(chapter.Verses.First().VerseNumber == expectedVerseNumber);
+            Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+        }
+    
+        [TestMethod]
         [DataRow("dhp", "Pairs")]
         public async Task First(string bookCode, string expectedTitle)
         {

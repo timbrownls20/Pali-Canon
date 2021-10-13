@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PaliCanon.Contracts.Verse;
 
 namespace PaliCanon.Contracts.Chapter
@@ -8,7 +7,7 @@ namespace PaliCanon.Contracts.Chapter
     {
         T Get(string bookCode, int chapter, int? verse);
         (T chapter, TU verse) Quote(string bookCode);
-        T Next(string bookCode, int chapter, int verse);
+        T Next(string bookCode, int verse);
         T First(string bookCode);
         T Last(string bookCode);
 

@@ -34,9 +34,9 @@ namespace PaliCanon.Services
             return _mapper.Map<Quote>(_chapterRepository.Quote(bookCode));
         }
 
-        public Chapter Next(string bookCode, int chapter, int verse)
+        public Chapter Next(string bookCode, int verse)
         {
-            return _mapper.Map<Chapter>(_chapterRepository.Next(bookCode, chapter, verse));
+            return _mapper.Map<Chapter>(_chapterRepository.Next(bookCode, verse));
         }
 
         public Chapter First(string bookCode)

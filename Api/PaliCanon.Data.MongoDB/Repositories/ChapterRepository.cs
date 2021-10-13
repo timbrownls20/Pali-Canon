@@ -41,7 +41,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return chapter;
         }
 
-        public ChapterEntity Next(string bookCode, int chapterId, int verse)
+        public ChapterEntity Next(string bookCode, int verse)
         { 
             return GetNearestVerse(bookCode, verse + 1);
         }

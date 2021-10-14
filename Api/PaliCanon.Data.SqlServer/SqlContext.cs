@@ -8,6 +8,7 @@ namespace PaliCanon.Data.Sql
         public DbSet<BookEntity> Books { get; set; }
         public DbSet<ChapterEntity> Chapters { get; set; }
         public DbSet<AuthorEntity> Authors { get; set; }
+        public DbSet<VerseEntity> Verses { get; set; }
 
         public SqlContext(DbContextOptions<SqlContext> options): base(options)
         {
@@ -38,6 +39,7 @@ namespace PaliCanon.Data.Sql
                 b.Property(p => p.Id).ValueGeneratedOnAdd();
                 b.Navigation(n => n.Verses).AutoInclude();
                 b.Navigation(p => p.Author).AutoInclude();
+                b.Navigation(p => p.Book).AutoInclude();
             });
 
             modelbuilder.Entity<VerseEntity>(b =>
@@ -46,7 +48,8 @@ namespace PaliCanon.Data.Sql
                     .WithMany(c => c.Verses);
                 b.HasKey(k => k.Id);
                 b.Property(p => p.Id).ValueGeneratedOnAdd();
-                
+                b.Navigation(n => n.Chapter).AutoInclude();
+
             });
         }
     }

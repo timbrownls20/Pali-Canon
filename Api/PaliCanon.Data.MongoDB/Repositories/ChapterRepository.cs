@@ -129,5 +129,10 @@ namespace PaliCanon.Data.MongoDB.Repositories
 
             return new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}};
         }
+
+        public List<(ChapterEntity chapter, VerseEntity verse)> Quotes(int numberOfQuotes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

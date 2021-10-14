@@ -3,10 +3,11 @@ using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
+using System.Collections.Generic;
 
 namespace PaliCanon.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     public class QuoteController : ControllerBase
     {
         readonly IChapterService _chapterService;
@@ -20,23 +21,30 @@ namespace PaliCanon.Api.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet("version")]
+        [HttpGet("quote/version")]
         public string Version()
         {
             return $"Quote API version {_config.GetValue<string>("Api:Version")}";
         }
 
-        [HttpGet]
+        [HttpGet("quote")]
         public Quote Get()
         {
             var book =_bookService.Random();
             return _chapterService.Quote(book.Code);        
         }
 
-        [HttpGet("{bookCode}")]
+        [HttpGet("quote/{bookCode}")]
         public Quote Get(string bookCode)
         {
             return _chapterService.Quote(bookCode);        
         }
+
+        [HttpGet("quotes/{numberOfQuotes}")]
+        public List<Quote> GetQuotes(int numberOfQuotes)
+        {
+            return _chapterService.Quotes(numberOfQuotes);
+        }
+
     }
 }

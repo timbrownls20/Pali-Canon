@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using PaliCanon.Common;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Data.Sql.Entities;
 
@@ -90,6 +91,23 @@ namespace PaliCanon.Data.Sql.Repositories
             ChapterEntity randomChapter = GetNearestVerse(bookCode, randomVerse);
 
             return (randomChapter, randomChapter.Verses.First());
+        }
+
+        public List<(ChapterEntity, VerseEntity)> Quotes(int numberOfQuotes)
+        {
+            var quotes = new List<(ChapterEntity, VerseEntity)>();
+            List<int> verses = _context.Verses.OrderBy(x => x.Id).Select(x => x.Id).ToList();
+            var shuffler = new Shuffler();
+            shuffler.Shuffle(verses);
+            var randomVerses = verses.Take(numberOfQuotes);
+
+            foreach(var verseId in randomVerses)
+            {
+                var verse = _context.Verses.First(x => x.Id == verseId);
+                quotes.Add((verse.Chapter, verse));
+            }
+
+            return quotes;
         }
 
         private ChapterEntity GetNearestVerse(string bookCode, int verse)

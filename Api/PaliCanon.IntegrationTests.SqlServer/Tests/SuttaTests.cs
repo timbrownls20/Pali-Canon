@@ -25,6 +25,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             //..assert
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(chapter);
+            Assert.IsTrue(chapter.BookCode == bookCode);
             Assert.IsTrue(chapter.ChapterNumber == chapterNumber);
             Assert.IsTrue(chapter.Verses.Count == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));

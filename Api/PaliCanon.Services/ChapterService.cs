@@ -30,8 +30,11 @@ namespace PaliCanon.Services
 
         public Quote Quote(string bookCode)
         {
-            var chapter =_chapterRepository.Quote(bookCode);
             return _mapper.Map<Quote>(_chapterRepository.Quote(bookCode));
+        }
+        public List<Quote> Quotes(int numberOfQuotes)
+        {
+            return _mapper.Map<List<Quote>>(_chapterRepository.Quotes(numberOfQuotes));
         }
 
         public Chapter Next(string bookCode, int verse)

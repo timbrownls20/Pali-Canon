@@ -6,6 +6,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\development\Pali-Canon\Api\PaliCanon.Api\PaliCanon.Api.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\development\Pali-Canon\Api\PaliCanon.Api\PaliCanon.Api.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>

@@ -7,6 +7,7 @@ namespace PaliCanon.Contracts.Chapter
         Model.Chapter Get(string bookCode, int chapter, int? verse);
         Model.Quote Quote(string bookCode);
         List<Model.Quote> Quotes(int numberOfQuotes);
+        List<Model.Quote> Search(string searchTerm, int? pageSize, int? pageNumber = 1);
         Model.Chapter Next(string bookCode, int verse);
         Model.Chapter First(string bookCode);
         Model.Chapter Last(string bookCode);

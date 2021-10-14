@@ -9,6 +9,6 @@ namespace PaliCanon.Contracts.Quote
     {
         (T chapter, TU verse) Quote(string bookCode);
         List<(T chapter, TU verse)> Quotes(int numberOfQuotes);
-
+        List<(T chapter, TU verse)> Search(string searchTerm, int? pageSize, int? pageNumber = 1);
     }
 }

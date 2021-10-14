@@ -46,5 +46,10 @@ namespace PaliCanon.Api.Controllers
             return _chapterService.Quotes(numberOfQuotes);
         }
 
+        [HttpGet("search/{searchTerm}/{pageSize:int?}/{pageNumber:int?}")]
+        public List<Quote> GetQuotes(string searchTerm, int? pageSize, int? pageNumber)
+        {
+            return _chapterService.Search(searchTerm, pageSize, pageNumber);
+        }
     }
 }

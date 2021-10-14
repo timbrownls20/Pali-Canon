@@ -37,9 +37,15 @@ namespace PaliCanon.Services
         {
             return _mapper.Map<Quote>(_quoteRepository.Quote(bookCode));
         }
+
         public List<Quote> Quotes(int numberOfQuotes)
         {
             return _mapper.Map<List<Quote>>(_quoteRepository.Quotes(numberOfQuotes));
+        }
+
+        public List<Quote> Search(string searchTerm, int? pageSize, int? pageNumber = 1)
+        {
+            return _mapper.Map<List<Quote>>(_quoteRepository.Search(searchTerm, pageSize, pageNumber));
         }
 
         public Chapter Next(string bookCode, int verse)

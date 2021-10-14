@@ -111,6 +111,27 @@ namespace PaliCanon.Data.Sql.Repositories
             return quotes;
         }
 
+        public List<(ChapterEntity, VerseEntity)> Search(string searchTerm, int? pageSize, int? pageNumber = 1)
+        {
+            var quotes = new List<(ChapterEntity, VerseEntity)>();
+
+            if (string.IsNullOrWhiteSpace(searchTerm)) return quotes;
+
+            IQueryable<VerseEntity> query = _context.Verses.Where(x => x.Text.Contains(searchTerm));
+
+            if(pageSize.HasValue)
+            {
+                int skip = pageNumber > 0 ? pageNumber.Value - 1 : 0;
+                query = query.Skip(skip).Take(pageSize.Value);
+            }
+
+            var verses = query.ToList();
+            foreach (var verse in verses)
+                quotes.Add((verse.Chapter, verse));
+            
+            return quotes;
+        }
+
         private ChapterEntity GetNearestVerse(string bookCode, int verse)
         {
             ChapterEntity chapter = _context.Chapters
@@ -164,6 +185,11 @@ namespace PaliCanon.Data.Sql.Repositories
         private (ChapterEntity, VerseEntity) BlankChapter(){
 
             return ( new ChapterEntity(), new VerseEntity { Text = "No verse found" });
+        }
+
+        public List<(ChapterEntity chapter, VerseEntity verse)> Search(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

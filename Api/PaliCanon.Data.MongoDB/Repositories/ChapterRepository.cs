@@ -135,5 +135,10 @@ namespace PaliCanon.Data.MongoDB.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public List<(ChapterEntity chapter, VerseEntity verse)> Search(string searchTerm, int? pageSize, int? pageNumber = 1)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

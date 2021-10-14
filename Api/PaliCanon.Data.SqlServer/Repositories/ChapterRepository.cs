@@ -4,11 +4,12 @@ using System.Linq;
 using AutoMapper;
 using PaliCanon.Common;
 using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Quote;
 using PaliCanon.Data.Sql.Entities;
 
 namespace PaliCanon.Data.Sql.Repositories
 {
-    public class ChapterRepository: IChapterRepository<ChapterEntity, VerseEntity>
+    public class ChapterRepository: IChapterRepository<ChapterEntity>, IQuoteRepository<ChapterEntity, VerseEntity>
     {
         private readonly IMapper _mapper;
         private readonly SqlContext _context;

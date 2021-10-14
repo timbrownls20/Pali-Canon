@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Quote;
 using PaliCanon.Contracts.Verse;
 using PaliCanon.Model;
 
@@ -9,12 +10,16 @@ namespace PaliCanon.Services
     public class ChapterService<T, U>: IChapterService where T : class, IChapterEntity
                                         where U: class, IVerseEntity
     {
-        private readonly IChapterRepository<T, U> _chapterRepository;
+        private readonly IChapterRepository<T> _chapterRepository;
+        private readonly IQuoteRepository<T, U> _quoteRepository;
         private readonly IMapper _mapper;
 
-        public ChapterService(IChapterRepository<T,U> chapterRepository, IMapper mapper)
+        public ChapterService(IChapterRepository<T> chapterRepository,
+                                IQuoteRepository<T, U> quoteRepository,
+                                IMapper mapper)
         {
             _chapterRepository = chapterRepository;
+            _quoteRepository = quoteRepository;
             _mapper = mapper;
         }
         
@@ -30,11 +35,11 @@ namespace PaliCanon.Services
 
         public Quote Quote(string bookCode)
         {
-            return _mapper.Map<Quote>(_chapterRepository.Quote(bookCode));
+            return _mapper.Map<Quote>(_quoteRepository.Quote(bookCode));
         }
         public List<Quote> Quotes(int numberOfQuotes)
         {
-            return _mapper.Map<List<Quote>>(_chapterRepository.Quotes(numberOfQuotes));
+            return _mapper.Map<List<Quote>>(_quoteRepository.Quotes(numberOfQuotes));
         }
 
         public Chapter Next(string bookCode, int verse)

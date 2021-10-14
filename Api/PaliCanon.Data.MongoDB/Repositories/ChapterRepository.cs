@@ -4,11 +4,12 @@ using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using PaliCanon.Contracts.Chapter;
+using PaliCanon.Contracts.Quote;
 using PaliCanon.Data.MongoDB.Entities;
 
 namespace PaliCanon.Data.MongoDB.Repositories
 {
-    public class ChapterRepository: IChapterRepository<ChapterEntity, VerseEntity>
+    public class ChapterRepository: IChapterRepository<ChapterEntity>, IQuoteRepository<ChapterEntity, VerseEntity>
     {
         readonly IMongoDatabase _database;
 

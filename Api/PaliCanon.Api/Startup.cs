@@ -13,6 +13,7 @@ using PaliCanon.DataLoad.Provider.Factory;
 using PaliCanon.Services;
 using System;
 using PaliCanon.Contracts;
+using PaliCanon.Contracts.Quote;
 
 namespace PaliCanon.Api
 {
@@ -58,16 +59,20 @@ namespace PaliCanon.Api
 
             services.AddTransient(typeof(IBookRepository<BookEntity>),
                 typeof(BookRepository));
-            services.AddTransient(typeof(IChapterRepository<ChapterEntity, VerseEntity>),
+            services.AddTransient(typeof(IChapterRepository<ChapterEntity>),
+                typeof(ChapterRepository));
+            services.AddTransient(typeof(IQuoteRepository<ChapterEntity, VerseEntity>),
                 typeof(ChapterRepository));
             services.AddTransient(typeof(IAdminRepository),
                 typeof(AdminRepository));
 
             services.AddTransient(typeof(IBookRepository<Mongo.Entities.BookEntity>),
                 typeof(Mongo.Repositories.BookRepository));
-            services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity, Mongo.Entities.VerseEntity>),
+            services.AddTransient(typeof(IChapterRepository<Mongo.Entities.ChapterEntity>),
                 typeof(Mongo.Repositories.ChapterRepository));
-            
+            services.AddTransient(typeof(IQuoteRepository<Mongo.Entities.ChapterEntity, Mongo.Entities.VerseEntity>),
+                    typeof(Mongo.Repositories.ChapterRepository));
+
             services.AddTransient(typeof(IBookService), typeof(BookService<BookEntity>));
             services.AddTransient(typeof(IChapterService), typeof(ChapterService<ChapterEntity, VerseEntity>));
         }

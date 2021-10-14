@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PaliCanon.Api</name>
+    </assembly>
+    <members>
+        <member name="T:PaliCanon.Api.Controllers.BookController">
+            <summary>
+            Pali canon book api
+            </summary>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.BookController.Get(System.String)">
+            <summary>
+            Find book from book code
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.BookController.List">
+            <summary>
+            List all books
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.BookController.Random">
+            <summary>
+            Select a random book
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PaliCanon.Api.Controllers.QuoteController">
+            <summary>
+            Quote api
+            </summary>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get">
+            <summary>
+            Gets a random quote 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get(System.String)">
+            <summary>
+            Gets a random quote from a specific book
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.GetQuotes(System.Int32)">
+            <summary>
+            Gets a random set of quotes
+            </summary>
+            <param name="numberOfQuotes">number of quotes returned</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.GetQuotes(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets all quotes that contain the search term
+            </summary>
+            <param name="searchTerm">search term</param>
+            <param name="pageSize">number of results to return. If omitted then all results returned</param>
+            <param name="pageNumber">page number for results. If omitted then defaults to 1</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.SuttaController.Get(System.String,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets a specfic chapter from a book
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <param name="chapter">chapter number</param>
+            <param name="verse">position of verse in chapter 
+            e.g. 2 returns the second verse in the chapter not verse with the id = 2
+            If omitted then all verses for the chapter are returned</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.SuttaController.Next(System.String,System.Int32)">
+            <summary>
+            Gets the next verse for a given verse. 
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <param name="verse">verse number</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.SuttaController.First(System.String)">
+            <summary>
+            Returns the first verse for a given book
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <returns></returns>
+        </member>
+        <member name="M:PaliCanon.Api.Controllers.SuttaController.Last(System.String)">
+            <summary>
+            Returns the last verse for a given book
+            </summary>
+            <param name="bookCode">dhp - dhammpada</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

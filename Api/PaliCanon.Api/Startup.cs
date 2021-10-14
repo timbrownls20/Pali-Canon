@@ -14,6 +14,8 @@ using PaliCanon.Services;
 using System;
 using PaliCanon.Contracts;
 using PaliCanon.Contracts.Quote;
+using System.Reflection;
+using System.IO;
 
 namespace PaliCanon.Api
 {
@@ -50,6 +52,14 @@ namespace PaliCanon.Api
             services.AddCors();
             services.AddControllers();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pali Canon Api", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             ConfigureDependencyInjection(services);
         }
 
@@ -80,6 +90,13 @@ namespace PaliCanon.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pali Canon Api");
+            });
+
             app.UseCors(builder => builder
                             .AllowAnyOrigin()
                             .AllowAnyMethod()

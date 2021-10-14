@@ -6,8 +6,11 @@ using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
+    /// <summary>
+    /// Pali canon book api
+    /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/book")]
     public class BookController: ControllerBase
     {
         private readonly IConfiguration _config;
@@ -19,7 +22,7 @@ namespace PaliCanon.Api.Controllers
             _bookService = bookService;
         }
 
-
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         [HttpGet("version")]
         public string Version()
@@ -27,18 +30,31 @@ namespace PaliCanon.Api.Controllers
             return $"Book API version {_config.GetValue<string>("Api:Version")}";
         }
 
+        /// <summary>
+        /// Find book from book code
+        /// </summary>
+        /// <param name="bookCode">dhp - dhammpada</param>
+        /// <returns></returns>
         [HttpGet("find/{bookCode}")]
         public Book Get(string bookCode)
         {
             return _bookService.Get(bookCode);
         }
 
+        /// <summary>
+        /// List all books
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("list")]
         public List<Book> List()
         {
             return _bookService.List();
         }
 
+        /// <summary>
+        /// Select a random book
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("random")]
         public Book Random()
         {

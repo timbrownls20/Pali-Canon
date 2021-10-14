@@ -6,6 +6,7 @@ using PaliCanon.DataLoad.Provider.Factory;
 
 namespace PaliCanon.Api.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -20,7 +21,6 @@ namespace PaliCanon.Api.Controllers
             _providerFactory = providerFactory;
             _adminRepository = adminRepository;
         }
-
 
         [HttpGet]
         [HttpGet("version")]

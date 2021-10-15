@@ -43,42 +43,5 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsNotNull(quote);
             Assert.IsTrue(quote.Count == quoteNumber);
         }
-
-
-        [TestMethod]
-        [DataRow("buddha")]
-        [DataRow("water")]
-        public async Task Search(string searchTerm)
-        {
-            //.. arrange
-            var client = new TestClient();
-            var config = new TestConfig();
-
-            //.. act
-            var (quote, status) = await client.Get<List<Quote>>($"{config.Api}search/{searchTerm}");
-
-            //..assert
-            Assert.AreEqual(status, HttpStatusCode.OK);
-            Assert.IsNotNull(quote);
-            Assert.IsTrue(quote.Any());
-        }
-
-        [TestMethod]
-        [DataRow("buddha", 5, 1)]
-        [DataRow("the", 5, 2)]
-        public async Task SearchPaged(string searchTerm, int pageSize, int page)
-        {
-            //.. arrange
-            var client = new TestClient();
-            var config = new TestConfig();
-
-            //.. act
-            var (quote, status) = await client.Get<List<Quote>>($"{config.Api}search/{searchTerm}/{pageSize}/{page}");
-
-            //..assert
-            Assert.AreEqual(status, HttpStatusCode.OK);
-            Assert.IsNotNull(quote);
-            Assert.IsTrue(quote.Count() == pageSize);
-        }
     }
 }

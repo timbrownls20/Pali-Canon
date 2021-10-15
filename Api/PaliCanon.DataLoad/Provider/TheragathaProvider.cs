@@ -202,7 +202,7 @@ namespace PaliCanon.DataLoad.Provider
             return chapter;
         }
 
-        private List<String> ParseFreeVerse(string freeVerse)
+        private List<string> ParseFreeVerse(string freeVerse)
         {
             Regex parser = new Regex(@"\n{2,}");
             var returnValue = parser.Split(freeVerse).ToList();

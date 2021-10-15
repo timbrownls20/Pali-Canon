@@ -63,18 +63,5 @@ namespace PaliCanon.Api.Controllers
         {
             return _chapterService.Quotes(numberOfQuotes);
         }
-
-        /// <summary>
-        /// Gets all quotes that contain the search term
-        /// </summary>
-        /// <param name="searchTerm">search term</param>
-        /// <param name="pageSize">number of results to return. If omitted then all results returned</param>
-        /// <param name="pageNumber">page number for results. If omitted then defaults to 1</param>
-        /// <returns></returns>
-        [HttpGet("search/{searchTerm}/{pageSize:int?}/{pageNumber:int?}")]
-        public List<Quote> GetQuotes(string searchTerm, int? pageSize, int? pageNumber)
-        {
-            return _chapterService.Search(searchTerm, pageSize, pageNumber);
-        }
     }
 }

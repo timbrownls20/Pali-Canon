@@ -50,11 +50,12 @@ namespace PaliCanon.Api
             services.AddSingleton(mapper);
 
             services.AddCors();
+            services.AddRazorPages();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pali Canon Api", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pali Canon Api", Version = $"v{Configuration.GetValue<string>("Api:Version")}" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -110,8 +111,11 @@ namespace PaliCanon.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+
+            
 
         }
     }

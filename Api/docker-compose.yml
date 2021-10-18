@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   db:
-    image: timbrownls26/palicanondb:0.1
+    image: timbrownls26/palicanondb:1.0
     container_name: db
     build:
       context: .
@@ -11,11 +11,11 @@ services:
       - "49301:3306"
     environment:
       MYSQL_USER: palicanon
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: B0dh1Tr33
       MYSQL_DATABASE: palicanon
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: B0dh1Tr33
   app:
-    image: timbrownls26/palicanon:0.1
+    image: timbrownls26/palicanon:1.0
     container_name: app
     build:
       context: .
@@ -23,5 +23,5 @@ services:
     ports:
       - "49501:80"
     environment:
-      - "ConnectionStrings:MySql=Server=db;Port=3306;Database=palicanon;Uid=palicanon;Pwd=password;SslMode=None;ConnectionReset=false;connect timeout=3600"     
+      - "ConnectionStrings:MySql=Server=db;Port=3306;Database=palicanon;Uid=palicanon;Pwd=B0dh1Tr33;SslMode=None;ConnectionReset=false;connect timeout=3600"     
 

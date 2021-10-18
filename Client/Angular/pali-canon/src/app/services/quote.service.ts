@@ -29,7 +29,7 @@ export class QuoteService {
 
   nextQuote(quote: Quote): Observable<Quote> {
    
-        let url = `${environment.apiEndpoint}quote/next/${quote.bookCode}/${quote.chapter}/${quote.verse}` ;
+        let url = `${environment.apiEndpoint}sutta/next/${quote.bookCode}/${quote.verse}` ;
     
         return this.http.get(url) 
         .map(res => { 

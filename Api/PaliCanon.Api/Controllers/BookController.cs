@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
-using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
@@ -25,9 +23,9 @@ namespace PaliCanon.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         [HttpGet("version")]
-        public string Version()
+        public IActionResult Version()
         {
-            return $"Book API version {_config.GetValue<string>("Api:Version")}";
+            return Ok($"Book API version {_config.GetValue<string>("Api:Version")}");
         }
 
         /// <summary>
@@ -36,9 +34,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
         [HttpGet("find/{bookCode}")]
-        public Book Get(string bookCode)
+        public IActionResult Get(string bookCode)
         {
-            return _bookService.Get(bookCode);
+            return Ok(_bookService.Get(bookCode));
         }
 
         /// <summary>
@@ -46,9 +44,9 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("list")]
-        public List<Book> List()
+        public IActionResult List()
         {
-            return _bookService.List();
+            return Ok(_bookService.List());
         }
 
         /// <summary>
@@ -56,9 +54,9 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("random")]
-        public Book Random()
+        public IActionResult Random()
         {
-            return _bookService.Random();
+            return Ok(_bookService.Random());
         }
 
     }

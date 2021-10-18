@@ -24,27 +24,27 @@ namespace PaliCanon.Api.Controllers
 
         [HttpGet]
         [HttpGet("version")]
-        public string Version()
+        public IActionResult Version()
         {
-            return $"Admin API version {_config.GetValue<string>("Api:Version")}";
+            return Ok($"Admin API version {_config.GetValue<string>("Api:Version")}");
         }
 
 
 #if DEBUG
         [HttpGet("load/{book}")]
-        public string Load(Book book)
+        public IActionResult Load(Book book)
         {
             var provider = _providerFactory.Get(book);
             provider.Load();
-            return $"{book} has been loaded";
+            return Ok($"{book} has been loaded");
         }
 #endif
 
         [HttpGet("canconnect")]
-        public bool CanConnect()
+        public IActionResult CanConnect()
         {
             bool canConnect = _adminRepository.CanConnect();
-            return canConnect;
+            return Ok(canConnect);
         }
     }
 }

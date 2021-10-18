@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
-using PaliCanon.Model;
-using System.Collections.Generic;
 
 namespace PaliCanon.Api.Controllers
 {
@@ -24,9 +21,9 @@ namespace PaliCanon.Api.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("search/version")]
-        public string Version()
+        public IActionResult Version()
         {
-            return $"Search API version {_config.GetValue<string>("Api:Version")}";
+            return Ok($"Search API version {_config.GetValue<string>("Api:Version")}");
         }
 
         /// <summary>
@@ -37,9 +34,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="pageNumber">page number for results. If omitted then defaults to 1</param>
         /// <returns></returns>
         [HttpGet("search/{searchTerm}/{pageSize:int?}/{pageNumber:int?}")]
-        public List<Quote> GetQuotes(string searchTerm, int? pageSize, int? pageNumber)
+        public IActionResult GetQuotes(string searchTerm, int? pageSize, int? pageNumber)
         {
-            return _chapterService.Search(searchTerm, pageSize, pageNumber);
+            return Ok(_chapterService.Search(searchTerm, pageSize, pageNumber));
         }
     }
 }

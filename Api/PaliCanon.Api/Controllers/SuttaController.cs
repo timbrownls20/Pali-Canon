@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Chapter;
-using PaliCanon.Model;
 
 namespace PaliCanon.Api.Controllers
 {
@@ -19,9 +18,9 @@ namespace PaliCanon.Api.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("version")]
-        public string Version()
+        public IActionResult Version()
         {
-            return $"Sutta API version {_config.GetValue<string>("Api:Version")}";
+            return Ok($"Sutta API version {_config.GetValue<string>("Api:Version")}");
         }
 
         /// <summary>
@@ -34,9 +33,9 @@ namespace PaliCanon.Api.Controllers
         /// If omitted then all verses for the chapter are returned</param>
         /// <returns></returns>
         [HttpGet("{bookCode}/{chapter}/{verse?}")]
-        public Chapter Get(string bookCode, int chapter, int? verse)
+        public IActionResult Get(string bookCode, int chapter, int? verse)
         {
-            return _chapterService.Get(bookCode, chapter, verse);
+            return Ok(_chapterService.Get(bookCode, chapter, verse));
         }
 
         /// <summary>
@@ -46,9 +45,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="verse">verse number</param>
         /// <returns></returns>
         [HttpGet("next/{bookCode}/{verse}")]
-        public Chapter Next(string bookCode, int verse)
+        public IActionResult Next(string bookCode, int verse)
         {
-            return _chapterService.Next(bookCode, verse);
+            return Ok(_chapterService.Next(bookCode, verse));
         }
 
         /// <summary>
@@ -57,9 +56,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
         [HttpGet("first/{bookCode}")]
-        public Chapter First(string bookCode)
+        public IActionResult First(string bookCode)
         {
-            return _chapterService.First(bookCode);
+            return Ok(_chapterService.First(bookCode));
         }
 
         /// <summary>
@@ -68,9 +67,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
         [HttpGet("last/{bookCode}")]
-        public Chapter Last(string bookCode)
+        public IActionResult Last(string bookCode)
         {
-            return _chapterService.Last(bookCode);
+            return Ok(_chapterService.Last(bookCode));
         }
     }
 }

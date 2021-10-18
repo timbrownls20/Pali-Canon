@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
-using PaliCanon.Model;
-using System.Collections.Generic;
 
 namespace PaliCanon.Api.Controllers
 {
@@ -26,9 +24,9 @@ namespace PaliCanon.Api.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("quote/version")]
-        public string Version()
+        public IActionResult Version()
         {
-            return $"Quote API version {_config.GetValue<string>("Api:Version")}";
+            return Ok($"Quote API version {_config.GetValue<string>("Api:Version")}");
         }
 
         /// <summary>
@@ -36,10 +34,10 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("quote")]
-        public Quote Get()
+        public IActionResult Get()
         {
             var book = _bookService.Random();
-            return _chapterService.Quote(book.Code);
+            return Ok(_chapterService.Quote(book.Code));
         }
 
         /// <summary>
@@ -48,9 +46,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
         [HttpGet("quote/{bookCode}")]
-        public Quote Get(string bookCode)
+        public IActionResult Get(string bookCode)
         {
-            return _chapterService.Quote(bookCode);
+            return Ok(_chapterService.Quote(bookCode));
         }
 
         /// <summary>
@@ -59,9 +57,9 @@ namespace PaliCanon.Api.Controllers
         /// <param name="numberOfQuotes">number of quotes returned</param>
         /// <returns></returns>
         [HttpGet("quotes/{numberOfQuotes}")]
-        public List<Quote> GetQuotes(int numberOfQuotes)
+        public IActionResult GetQuotes(int numberOfQuotes)
         {
-            return _chapterService.Quotes(numberOfQuotes);
+            return Ok(_chapterService.Quotes(numberOfQuotes));
         }
     }
 }

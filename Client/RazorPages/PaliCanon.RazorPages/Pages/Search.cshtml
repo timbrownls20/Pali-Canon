@@ -4,17 +4,13 @@
 }
 
 <form asp-page="Search">
-
     <div class="mb-3">
         <label asp-for="SearchTerm" class="col-form-label">Search</label>
         <input class="form-control" type="text" asp-for="SearchTerm" />
         <span class="error" asp-validation-for="SearchTerm"></span>
     </div>
-
     <button class="btn btn-outline-primary">Search</button>
-
 </form>
-
 
 @if (Model.Quotes.Any())
 {
@@ -22,15 +18,7 @@
     <div class="list-group">
         @foreach (var quote in Model.Quotes)
         {
-            <div class="list-group-item flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">@quote.ChapterTitle</h5>
-                    <small>@quote.BookCode (@quote.VerseNumber)</small>
-                </div>
-                <p class="mb-1">@quote.Text</p>
-                <small>@quote.Citation</small>
-            </div>
-
+            <partial name="_Quote" model=quote />
         }
     </div>
 }

@@ -1,0 +1,12 @@
+﻿@model PaliCanon.RazorPages.ApiClient.Quote
+@{
+    Layout = null;
+}
+<div class="list-group-item flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">@Model.ChapterTitle</h5>
+        <small>@Model.BookCode (@Model.VerseNumber)</small>
+    </div>
+    <p class="mb-1">@Model.Text</p>
+    <small>@Model.Citation</small>
+</div>

@@ -4,7 +4,7 @@ using PaliCanon.Contracts.Chapter;
 
 namespace PaliCanon.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/sutta")]
     public class SuttaController : ControllerBase
     {
         private readonly IConfiguration _config;

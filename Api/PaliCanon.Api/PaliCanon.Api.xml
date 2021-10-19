@@ -58,7 +58,7 @@
             Quote api
             </summary>
         </member>
-        <member name="M:PaliCanon.Api.Controllers.SearchController.GetQuotes(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:PaliCanon.Api.Controllers.SearchController.Search(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Gets all quotes that contain the search term
             </summary>

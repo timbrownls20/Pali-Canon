@@ -33,7 +33,7 @@ namespace PaliCanon.Api.Controllers
         /// Gets a random quote 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("quote")]
+        [HttpGet("quote", Name = "Quote")]
         public IActionResult Get()
         {
             var book = _bookService.Random();
@@ -45,7 +45,7 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
-        [HttpGet("quote/{bookCode}")]
+        [HttpGet("quote/{bookCode}", Name = "QuoteByBook")]
         public IActionResult Get(string bookCode)
         {
             return Ok(_chapterService.Quote(bookCode));
@@ -56,7 +56,7 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <param name="numberOfQuotes">number of quotes returned</param>
         /// <returns></returns>
-        [HttpGet("quotes/{numberOfQuotes}")]
+        [HttpGet("quotes/{numberOfQuotes}", Name = "Quotes")]
         public IActionResult GetQuotes(int numberOfQuotes)
         {
             return Ok(_chapterService.Quotes(numberOfQuotes));

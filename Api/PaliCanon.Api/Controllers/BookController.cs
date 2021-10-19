@@ -33,7 +33,7 @@ namespace PaliCanon.Api.Controllers
         /// </summary>
         /// <param name="bookCode">dhp - dhammpada</param>
         /// <returns></returns>
-        [HttpGet("find/{bookCode}")]
+        [HttpGet("find/{bookCode}", Name = "GetBook")]
         public IActionResult Get(string bookCode)
         {
             return Ok(_bookService.Get(bookCode));
@@ -43,7 +43,7 @@ namespace PaliCanon.Api.Controllers
         /// List all books
         /// </summary>
         /// <returns></returns>
-        [HttpGet("list")]
+        [HttpGet("list", Name = "ListBooks")]
         public IActionResult List()
         {
             return Ok(_bookService.List());
@@ -53,7 +53,7 @@ namespace PaliCanon.Api.Controllers
         /// Select a random book
         /// </summary>
         /// <returns></returns>
-        [HttpGet("random")]
+        [HttpGet("random", Name = "RandomBook")]
         public IActionResult Random()
         {
             return Ok(_bookService.Random());

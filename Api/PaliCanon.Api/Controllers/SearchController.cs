@@ -33,8 +33,8 @@ namespace PaliCanon.Api.Controllers
         /// <param name="pageSize">number of results to return. If omitted then all results returned</param>
         /// <param name="pageNumber">page number for results. If omitted then defaults to 1</param>
         /// <returns></returns>
-        [HttpGet("search/{searchTerm}/{pageSize:int?}/{pageNumber:int?}")]
-        public IActionResult GetQuotes(string searchTerm, int? pageSize, int? pageNumber)
+        [HttpGet("search/{searchTerm}/{pageSize:int?}/{pageNumber:int?}", Name = "Search")]
+        public IActionResult Search(string searchTerm, int? pageSize, int? pageNumber)
         {
             return Ok(_chapterService.Search(searchTerm, pageSize, pageNumber));
         }

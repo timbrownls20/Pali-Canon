@@ -22,12 +22,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:PaliCanon.Api.Controllers.BookController.Random">
-            <summary>
-            Select a random book
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:PaliCanon.Api.Controllers.QuoteController">
             <summary>
             Quote api

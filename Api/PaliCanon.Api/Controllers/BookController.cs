@@ -48,16 +48,5 @@ namespace PaliCanon.Api.Controllers
         {
             return Ok(_bookService.List());
         }
-
-        /// <summary>
-        /// Select a random book
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("random", Name = "RandomBook")]
-        public IActionResult Random()
-        {
-            return Ok(_bookService.Random());
-        }
-
     }
 }

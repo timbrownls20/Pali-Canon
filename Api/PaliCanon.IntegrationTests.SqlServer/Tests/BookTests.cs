@@ -42,20 +42,5 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsNotNull(books);
             Assert.IsTrue(books.Count == 1);
         }
-
-        [TestMethod]
-        public async Task Random()
-        {
-            //.. arrange
-            var client = new TestClient();
-            var config = new TestConfig();
-
-            //.. act
-            var (book, status) = await client.Get<Book>($"{config.Api}book/random");
-
-            //..assert
-            Assert.AreEqual(status, HttpStatusCode.OK);
-            Assert.IsNotNull(book);
-        }
     }
 }

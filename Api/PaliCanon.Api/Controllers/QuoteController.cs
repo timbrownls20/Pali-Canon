@@ -37,11 +37,7 @@ namespace PaliCanon.Api.Controllers
         [HttpGet("quote", Name = "Quote")]
         public IActionResult Get()
         {
-            var book = _bookService.Random();
-
-            if (book == null) return StatusCode(StatusCodes.Status500InternalServerError, "data unavailable");
-
-            return Ok(_chapterService.Quote(book.Code));
+            return Ok(_chapterService.Quote());
         }
 
         /// <summary>

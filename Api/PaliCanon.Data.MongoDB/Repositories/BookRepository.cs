@@ -29,11 +29,6 @@ namespace PaliCanon.Data.MongoDB.Repositories
         {
             return _database.GetCollection<BookEntity>(nameof(BookEntity)).AsQueryable().ToList();
         }
-        public BookEntity Random()
-        {
-            var collection = _database.GetCollection<BookEntity>(nameof(BookEntity));
-            return collection.AsQueryable().FirstOrDefault(); //. TB TODO not random - correct
-        }
 
         public void Delete(string bookCode)
         {

@@ -6,7 +6,6 @@ namespace PaliCanon.Contracts.Book
     {
         T Get(string bookCode);
         List<T> List();
-        T Random();
         void Delete(string bookCode);
 
     }

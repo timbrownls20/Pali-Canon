@@ -33,7 +33,7 @@ namespace PaliCanon.Services
             return _mapper.Map<Chapter>(_chapterRepository.Get(bookCode, chapter, verse));
         }
 
-        public Quote Quote(string bookCode)
+        public Quote Quote(string bookCode = null)
         {
             return _mapper.Map<Quote>(_quoteRepository.Quote(bookCode));
         }

@@ -6,6 +6,5 @@ namespace PaliCanon.Contracts.Book
     {
         Model.Book Get(string bookCode);
         List<Model.Book> List();
-        Model.Book Random();
     }
 }

@@ -35,17 +35,6 @@ namespace PaliCanon.Data.Sql.Repositories
             }
         }
 
-        public BookEntity Random()
-        {
-            Random rnd = new Random();
-            int bookCount = _context.Books.Count();
-
-            if (bookCount == 0) return null;
-
-            int randomCode = rnd.Next(0, bookCount);
-            return _context.Books.ToList().ElementAt(randomCode);
-        }
-
         public void Delete(string bookCode)
         {
             var book = _context.Books.FirstOrDefault(x => x.Code == bookCode);

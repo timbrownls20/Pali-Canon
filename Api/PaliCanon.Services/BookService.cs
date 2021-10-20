@@ -30,10 +30,5 @@ namespace PaliCanon.Services
         {
             return _mapper.Map<List<Book>>(_bookRepository.List());
         }
-
-        public Book Random()
-        {
-            return _mapper.Map<Book>(_bookRepository.Random());
-        }
     }
 }

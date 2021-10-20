@@ -37,8 +37,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - PaliCanon - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <div class="container d-flex flex-row justify-content-center">
+            @*<div>&copy; 2021 - PaliCanon - <a asp-area="" asp-page="/Privacy">Privacy</a></div>*@
+            <div>@await Component.InvokeAsync("RandomQuote") </div>
         </div>
     </footer>
 

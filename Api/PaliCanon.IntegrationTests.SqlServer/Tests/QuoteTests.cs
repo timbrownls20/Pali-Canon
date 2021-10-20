@@ -37,7 +37,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             var config = new TestConfig();
 
             //.. act
-            var (quote, status) = await client.Get<List<Quote>>($"{config.Api}quote/{quoteNumber}");
+            var (quote, status) = await client.Get<List<Quote>>($"{config.Api}quotes/{quoteNumber}");
 
             //..assert
             Assert.AreEqual(status, HttpStatusCode.OK);

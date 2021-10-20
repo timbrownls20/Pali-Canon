@@ -31,6 +31,7 @@ namespace PaliCanon.DataLoad.Provider.Buddharakkhita
 
         public void Load()
         {
+            
             AddBook();
             HtmlDocument index = new HtmlDocument();
             index.Load(Path.Combine(Sitebase, "index.html").ToApplicationPath());

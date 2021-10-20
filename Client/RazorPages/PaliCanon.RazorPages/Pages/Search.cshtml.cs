@@ -25,12 +25,6 @@ namespace PaliCanon.RazorPages.Pages
             Quotes = new List<Quote>();
         }
 
-        public void OnGet()
-        {
-            
-
-        }
-
         public async Task OnPost()
         {
             var baseUrl = config.GetValue<string>("Api");

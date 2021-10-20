@@ -17,6 +17,7 @@ namespace PaliCanon.RazorPages.ApiClient
         public string Author { get; set; }
         public List<Verse> Verses { get; set; }
         public string Citation { get; set; }
+        public string Source { get; set; }
     }
 
 }

@@ -125,7 +125,11 @@ namespace PaliCanon.Data.Sql.Repositories
                 query = query.Skip(skip).Take(pageSize.Value);
             }
 
-            var verses = query.ToList();
+            var verses = query.OrderBy(x => x.Chapter.Book.Description)
+                                .ThenBy(x => x.ChapterId)
+                                .ThenBy(x => x.VerseNumber)
+                                .ToList();
+
             foreach (var verse in verses)
                 quotes.Add((verse.Chapter, verse));
             

@@ -6,6 +6,7 @@ using MongoDB.Driver.Linq;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Contracts.Quote;
 using PaliCanon.Data.MongoDB.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace PaliCanon.Data.MongoDB.Repositories
 {
@@ -13,7 +14,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
     {
         readonly IMongoDatabase _database;
 
-        public ChapterRepository(Microsoft.Extensions.Configuration.IConfiguration config)
+        public ChapterRepository(IConfiguration config)
         {
             var mongo = new MongoDbContext(config);
             mongo.Drop();
@@ -131,7 +132,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}};
         }
 
-        public List<(ChapterEntity chapter, VerseEntity verse)> Quotes(int numberOfQuotes)
+        public List<(ChapterEntity chapter, VerseEntity verse)> Quotes(int numberOfQuotes, string bookCode = null)
         {
             throw new NotImplementedException();
         }

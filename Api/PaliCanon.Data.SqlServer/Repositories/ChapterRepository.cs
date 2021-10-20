@@ -9,7 +9,7 @@ using PaliCanon.Data.Sql.Entities;
 
 namespace PaliCanon.Data.Sql.Repositories
 {
-    public class ChapterRepository: IChapterRepository<ChapterEntity>, IQuoteRepository<ChapterEntity, VerseEntity>
+    public class ChapterRepository: IChapterRepository<ChapterEntity>
     {
         private readonly IMapper _mapper;
         private readonly SqlContext _context;
@@ -80,62 +80,6 @@ namespace PaliCanon.Data.Sql.Repositories
             return chapter;
         }
 
-        public (ChapterEntity, VerseEntity) Quote(string bookCode)
-        {
-            int lastVerse = LastVerseId(bookCode);
-
-            if(lastVerse == 0) return BlankChapter();
-
-            var rnd = new Random();
-           
-            int randomVerse = rnd.Next(1, lastVerse);
-            ChapterEntity randomChapter = GetNearestVerse(bookCode, randomVerse);
-
-            return (randomChapter, randomChapter.Verses.First());
-        }
-
-        public List<(ChapterEntity, VerseEntity)> Quotes(int numberOfQuotes)
-        {
-            var quotes = new List<(ChapterEntity, VerseEntity)>();
-            List<int> verses = _context.Verses.OrderBy(x => x.Id).Select(x => x.Id).ToList();
-            var shuffler = new Shuffler();
-            shuffler.Shuffle(verses);
-            var randomVerses = verses.Take(numberOfQuotes);
-
-            foreach(var verseId in randomVerses)
-            {
-                var verse = _context.Verses.First(x => x.Id == verseId);
-                quotes.Add((verse.Chapter, verse));
-            }
-
-            return quotes;
-        }
-
-        public List<(ChapterEntity, VerseEntity)> Search(string searchTerm, int? pageSize, int? pageNumber = 1)
-        {
-            var quotes = new List<(ChapterEntity, VerseEntity)>();
-
-            if (string.IsNullOrWhiteSpace(searchTerm)) return quotes;
-
-            IQueryable<VerseEntity> query = _context.Verses.Where(x => x.Text.Contains(searchTerm));
-
-            if(pageSize.HasValue)
-            {
-                int skip = pageNumber > 0 ? pageNumber.Value - 1 : 0;
-                query = query.Skip(skip).Take(pageSize.Value);
-            }
-
-            var verses = query.OrderBy(x => x.Chapter.Book.Description)
-                                .ThenBy(x => x.ChapterId)
-                                .ThenBy(x => x.VerseNumber)
-                                .ToList();
-
-            foreach (var verse in verses)
-                quotes.Add((verse.Chapter, verse));
-            
-            return quotes;
-        }
-
         private ChapterEntity GetNearestVerse(string bookCode, int verse)
         {
             ChapterEntity chapter = _context.Chapters
@@ -185,15 +129,6 @@ namespace PaliCanon.Data.Sql.Repositories
 
             return maxVerse?.VerseNumber ?? 0;
         }
-
-        private (ChapterEntity, VerseEntity) BlankChapter(){
-
-            return ( new ChapterEntity(), new VerseEntity { Text = "No verse found" });
-        }
-
-        public List<(ChapterEntity chapter, VerseEntity verse)> Search(string searchTerm)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

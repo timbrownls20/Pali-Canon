@@ -73,7 +73,7 @@ namespace PaliCanon.Api
             services.AddTransient(typeof(IChapterRepository<ChapterEntity>),
                 typeof(ChapterRepository));
             services.AddTransient(typeof(IQuoteRepository<ChapterEntity, VerseEntity>),
-                typeof(ChapterRepository));
+                typeof(QuoteRepository));
             services.AddTransient(typeof(IAdminRepository),
                 typeof(AdminRepository));
 

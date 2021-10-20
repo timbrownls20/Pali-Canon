@@ -31,7 +31,6 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(canconnect);
         }
 
-
         [TestMethod]
         public async Task LoadBook()
         {

@@ -29,6 +29,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(chapter.ChapterNumber == chapterNumber);
             Assert.IsTrue(chapter.Verses.Count == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(chapter.Source));
         }
 
         [TestMethod]
@@ -50,6 +51,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(chapter.Verses.Count == 1);
             Assert.IsTrue(chapter.Verses.First().VerseNumber == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(chapter.Source));
         }
 
         [TestMethod]
@@ -70,6 +72,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(chapter.Verses.Count == 1);
             Assert.IsTrue(chapter.Verses.First().VerseNumber == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(chapter.Source));
         }
     
         [TestMethod]
@@ -89,6 +92,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(chapter.Verses.Count == 1);
             Assert.IsTrue(chapter.Verses.First().VerseNumber == 1);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(chapter.Source));
         }
 
         [TestMethod]
@@ -108,6 +112,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.IsTrue(chapter.Verses.Count == 1);
             Assert.IsTrue(chapter.Verses.First().VerseNumber == expectedVerseNumber);
             Assert.IsTrue(chapter.Title.Contains(expectedTitle));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(chapter.Source));
         }
     }
 }

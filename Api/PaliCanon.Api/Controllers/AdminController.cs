@@ -29,7 +29,6 @@ namespace PaliCanon.Api.Controllers
             return Ok($"Admin API version {_config.GetValue<string>("Api:Version")}");
         }
 
-
 #if DEBUG
         [HttpGet("load/{book}")]
         public IActionResult Load(Book book)

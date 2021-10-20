@@ -25,6 +25,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(quote);
             Assert.IsTrue(!string.IsNullOrWhiteSpace(quote.Text));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(quote.Source));
         }
 
         [TestMethod]

@@ -8,18 +8,19 @@ using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
 
-namespace PaliCanon.DataLoad.Provider
+namespace PaliCanon.DataLoad.Provider.Buddharakkhita
 {
-    public class DhammapadaProvider: IProvider
+    public class DhammapadaProvider : IProvider
     {
         private const string Sitebase = @"source\ati_website\html\tipitaka\kn\dhp";
         private const string Nikaya = "Khuddaka";
         private const string Book = "Dhammapada";
         private const string BookCode = "dhp";
+        private const string BaseUrl = "https://www.accesstoinsight.org/tipitaka/kn/dhp";
 
         private readonly IBookService _bookService;
         private readonly IChapterService _chapterService;
-      
+
         public event EventHandler<NotifyEventArgs> OnNotify;
 
         public DhammapadaProvider(IBookService bookService, IChapterService chapterService)
@@ -31,34 +32,35 @@ namespace PaliCanon.DataLoad.Provider
         public void Load()
         {
             AddBook();
-            HtmlDocument index = new HtmlDocument(); 
-            index.Load(Path.Combine(Sitebase, "index.html").ToApplicationPath());  
-            
+            HtmlDocument index = new HtmlDocument();
+            index.Load(Path.Combine(Sitebase, "index.html").ToApplicationPath());
+
             var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
 
             int chapterNumber = 1;
-            foreach(var link in links)
+            foreach (var link in links)
             {
-                var chapterHref = Path.Combine(Sitebase, link.Attributes["href"].Value).ToApplicationPath();
-                
+                var chapterFileName = link.Attributes["href"].Value;
+                var chapterHref = $"{BaseUrl}/{chapterFileName.Replace("./", "")}";
+                var chapterFilePath = Path.Combine(Sitebase, chapterFileName).ToApplicationPath();
+
                 //Acharya Buddharakkhita
-                if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
-                { 
-                    var message = $"loading {chapterHref}";
+                if (Regex.IsMatch(chapterFilePath, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
+                {
+                    var message = $"loading {chapterFilePath}";
                     OnNotify?.Invoke(this, new NotifyEventArgs(message));
 
-                    HtmlDocument chapterPage = new HtmlDocument(); 
-                    chapterPage.Load(chapterHref);
-                    AddChapter(chapterPage, chapterNumber);
+                    HtmlDocument chapterPage = new HtmlDocument();
+                    chapterPage.Load(chapterFilePath);
+                    AddChapter(chapterPage, chapterNumber, chapterHref);
 
                     chapterNumber++;
                 }
             }
         }
-        
-        private void AddChapter(HtmlDocument document, int chapterNumber){
-               
-            
+
+        private void AddChapter(HtmlDocument document, int chapterNumber, string source)
+        {
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();
 
             var translatedBy = document.DocumentNode.SelectSingleNode("//div[contains(@id, 'H_docAuthor')]");
@@ -74,11 +76,12 @@ namespace PaliCanon.DataLoad.Provider
                     Nikaya = Nikaya,
                     Book = Book,
                     BookCode = BookCode,
-                    ChapterNumber = chapterNumber
+                    ChapterNumber = chapterNumber,
+                    Source = source
                 };
 
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
-                foreach(var verse in verses)
+                foreach (var verse in verses)
                 {
                     var verseNumberString = verse.Descendants("b").FirstOrDefault()?.InnerText;
 
@@ -86,14 +89,14 @@ namespace PaliCanon.DataLoad.Provider
                                                                                 .Where(x => int.TryParse(x.Value, out int dummy))
                                                                                 .Select(x => int.Parse(x.Value))
                                                                                 .ToList();
-                    if(verseNumbers.Any())
+                    if (verseNumbers.Any())
                     {
                         var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();
                         var verseText = TextNormaliser.RemoveHtmlEntities(string.Join("", verseNodes));
-                        var verseToAdd = new Verse{ VerseNumber = verseNumbers.First(), Text = verseText};
+                        var verseToAdd = new Verse { VerseNumber = verseNumbers.First(), Text = verseText };
 
-                        if(verseNumbers.Count > 1) verseToAdd.VerseNumberLast = verseNumbers.Last();
- 
+                        if (verseNumbers.Count > 1) verseToAdd.VerseNumberLast = verseNumbers.Last();
+
                         chapter.Verses.Add(verseToAdd);
                     }
                 }
@@ -105,7 +108,7 @@ namespace PaliCanon.DataLoad.Provider
 
         private void AddBook()
         {
-            Book book = new Book { Code = BookCode, Description = Book, Nikaya = Nikaya};
+            Book book = new Book { Code = BookCode, Description = Book, Nikaya = Nikaya };
             _bookService.Insert(book);
         }
     }

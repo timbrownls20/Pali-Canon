@@ -1,8 +1,9 @@
 ﻿using System;
 using PaliCanon.Common.Enums;
-using PaliCanon.Contracts;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
+using PaliCanon.DataLoad.Provider.Buddharakkhita;
+using PaliCanon.DataLoad.Provider.Thanissaro;
 
 namespace PaliCanon.DataLoad.Provider.Factory
 {

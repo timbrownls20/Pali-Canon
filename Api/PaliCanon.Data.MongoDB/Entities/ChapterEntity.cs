@@ -25,7 +25,9 @@ namespace PaliCanon.Data.MongoDB.Entities
         public int ChapterNumber { get; set; }
 
         public string Author { get; set; }
-        
+
+        public string Source { get; set; }
+
         public List<VerseEntity> Verses { get; set; }
     }
 

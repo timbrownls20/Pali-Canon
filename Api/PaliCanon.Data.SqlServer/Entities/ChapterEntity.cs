@@ -20,6 +20,9 @@ namespace PaliCanon.Data.Sql.Entities
 
         [MaxLength(4000)]
         public string Citation { get; set; }
+
+        [MaxLength(4000)]
+        public string Source { get; set; }
     }
 
 }

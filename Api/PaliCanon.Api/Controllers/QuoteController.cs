@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PaliCanon.Contracts.Book;
@@ -37,6 +38,9 @@ namespace PaliCanon.Api.Controllers
         public IActionResult Get()
         {
             var book = _bookService.Random();
+
+            if (book == null) return StatusCode(StatusCodes.Status500InternalServerError, "data unavailable");
+
             return Ok(_chapterService.Quote(book.Code));
         }
 

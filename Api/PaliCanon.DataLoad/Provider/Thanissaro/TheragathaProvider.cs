@@ -6,26 +6,25 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using PaliCanon.Common.Enums;
 using PaliCanon.Common.Extensions;
-using PaliCanon.Contracts;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
 using static System.Int32;
 
-namespace PaliCanon.DataLoad.Provider
+namespace PaliCanon.DataLoad.Provider.Thanissaro
 {
-    public class TheragathaProvider: IProvider
+    public class TheragathaProvider : IProvider
     {
         private readonly List<SourceFile> _sources;
 
         //working dir
         //C:\development\Pali-Canon\Api\PaliCanon.Loader\source\ati_website\html\tipitaka\kn\thag\thag.01.00x.than.html
-    
+
         private const string Sitebase = @"source\ati_website\html\tipitaka\kn\thag";
         //private readonly string verseNumberRegex = @"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)";
         //private const string SITEBASE = @"source\ati_website\debug";
-        
+
         private readonly IChapterService _chapterService;
-      
+
         public event EventHandler<NotifyEventArgs> OnNotify;
 
         public TheragathaProvider(IChapterService chapterService)
@@ -37,11 +36,11 @@ namespace PaliCanon.DataLoad.Provider
             };
 
             DirectoryInfo dir = new DirectoryInfo(Sitebase.ToApplicationPath());
-            foreach(var file in dir.GetFiles())
+            foreach (var file in dir.GetFiles())
             {
                 Regex fileMatch = new Regex(@"thag\.(\d+\.\d+)\.than.html");
-                if(fileMatch.IsMatch(file.Name) && file.Name != "thag.01.00x.than.html")
-                    _sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = file.Name});
+                if (fileMatch.IsMatch(file.Name) && file.Name != "thag.01.00x.than.html")
+                    _sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = file.Name });
             }
 
             //_sources.Add(new SourceFile { Type = ChapterType.ThagMultipleVerse, Location = "thag.02.13.than.html"});
@@ -50,30 +49,30 @@ namespace PaliCanon.DataLoad.Provider
 
         public void Load()
         {
-            
-            HtmlDocument index = new HtmlDocument(); 
-             
-            foreach(var source in _sources)
+
+            HtmlDocument index = new HtmlDocument();
+
+            foreach (var source in _sources)
             {
-                index.Load(Path.Combine(Sitebase, source.Location).ToApplicationPath());  
+                index.Load(Path.Combine(Sitebase, source.Location).ToApplicationPath());
 
                 try
                 {
-                    if(source.Type == ChapterType.ThagSingleVerse)
+                    if (source.Type == ChapterType.ThagSingleVerse)
                     {
                         GetChapterSingleVerse(index);
                     }
-                    else if(source.Type == ChapterType.ThagMultipleVerse)
+                    else if (source.Type == ChapterType.ThagMultipleVerse)
                     {
                         GetChapterMultipleVerse(index, source.Location);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     var message = $"ERROR {source.Location} {ex.Message}";
                     OnNotify?.Invoke(this, new NotifyEventArgs(message, true));
                 }
-   
+
             }
         }
 
@@ -84,16 +83,16 @@ namespace PaliCanon.DataLoad.Provider
             foreach (HtmlNode node in index.DocumentNode.SelectNodes("//text()[normalize-space(.) != '']"))
             {
                 Regex verseMatch = new Regex(@"Thag ([\d]+)-([\d]+)");
-                var match = verseMatch.Match(node.InnerText);     
-                if(match.Success)
+                var match = verseMatch.Match(node.InnerText);
+                if (match.Success)
                 {
                     TryParse(match.Groups[1].Value, out firstVerseNumber);
                     TryParse(match.Groups[2].Value, out lastVerseNumber);
                 }
 
                 Regex chapterMatch = new Regex(@"Thag ([\d]+)\.([\d]+)");
-                match = chapterMatch.Match(node.InnerText);    
-                if(match.Success)
+                match = chapterMatch.Match(node.InnerText);
+                if (match.Success)
                 {
                     TryParse(match.Groups[1].Value, out chapterNumber);
                 }
@@ -101,9 +100,9 @@ namespace PaliCanon.DataLoad.Provider
 
             var textNode = index.DocumentNode.SelectNodes("//div[contains(@class, 'freeverse')]").FirstOrDefault();
             var titleNode = index.DocumentNode.SelectNodes("//div[contains(@id, 'H_docTitle')]").FirstOrDefault();
-            
 
-            if(chapterNumber != 0 && firstVerseNumber > 0 && textNode != null && titleNode != null)
+
+            if (chapterNumber != 0 && firstVerseNumber > 0 && textNode != null && titleNode != null)
             {
                 var chapter = InitChapter();
                 chapter.Title = titleNode.InnerText.Trim();
@@ -111,14 +110,14 @@ namespace PaliCanon.DataLoad.Provider
 
                 var parsedVerses = ParseFreeVerse(textNode.InnerText);
 
-                if(parsedVerses.Count == lastVerseNumber - firstVerseNumber + 1)
+                if (parsedVerses.Count == lastVerseNumber - firstVerseNumber + 1)
                 {
                     //.. successfully parsed free verse into correct number of verses
                     var thisVerse = firstVerseNumber;
-                    foreach(var parsedVerse in parsedVerses)
+                    foreach (var parsedVerse in parsedVerses)
                     {
-                         var verseToAdd = new Verse
-                        { 
+                        var verseToAdd = new Verse
+                        {
                             VerseNumber = thisVerse,
                             Text = parsedVerse
                         };
@@ -146,9 +145,9 @@ namespace PaliCanon.DataLoad.Provider
                     //     Text = textNode.InnerText
                     // };
                     // chapter.Verses.Add(verseToAdd);
-                
+
                 }
-                  
+
             }
             else
             {
@@ -160,17 +159,18 @@ namespace PaliCanon.DataLoad.Provider
         public void GetChapterSingleVerse(HtmlDocument index)
         {
             var chapterNodes = index.DocumentNode.SelectNodes("//div[contains(@class, 'chapter')]");
-            foreach(var chapterNode in chapterNodes){
+            foreach (var chapterNode in chapterNodes)
+            {
 
-               var titleNode = chapterNode.Descendants("a").FirstOrDefault();
-               var textNode = chapterNode.SelectNodes("div[contains(@class, 'freeverse')]").FirstOrDefault();
+                var titleNode = chapterNode.Descendants("a").FirstOrDefault();
+                var textNode = chapterNode.SelectNodes("div[contains(@class, 'freeverse')]").FirstOrDefault();
 
-                if(titleNode == null || textNode == null) return;
+                if (titleNode == null || textNode == null) return;
 
                 Regex chapterParser = new Regex(@"([\S\s]*?)\([\S\s]*?([\d]+)\.([\d]+)\)");
                 var match = chapterParser.Match(titleNode.InnerText);
 
-                if(match.Groups.Count < 4) return;
+                if (match.Groups.Count < 4) return;
 
                 var chapterTitle = match.Groups[1].Value;
                 TryParse(match.Groups[2].Value, out int chapterNumber);
@@ -180,7 +180,7 @@ namespace PaliCanon.DataLoad.Provider
                 chapter.Title = chapterTitle;
                 chapter.ChapterNumber = chapterNumber;
 
-                var verseToAdd = new Verse{ VerseNumber = verseNumber, Text = textNode.InnerText};
+                var verseToAdd = new Verse { VerseNumber = verseNumber, Text = textNode.InnerText };
                 chapter.Verses.Add(verseToAdd);
                 _chapterService.Insert(chapter);
 
@@ -198,7 +198,7 @@ namespace PaliCanon.DataLoad.Provider
                 Book = "Theragatha",
                 BookCode = "thag"
             };
-    
+
             return chapter;
         }
 
@@ -210,5 +210,5 @@ namespace PaliCanon.DataLoad.Provider
         }
     }
 
-  
+
 }

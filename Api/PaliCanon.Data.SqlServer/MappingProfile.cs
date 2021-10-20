@@ -36,6 +36,7 @@ namespace PaliCanon.Data.Sql
                 .ForMember(s => s.Book, o => o.MapFrom(s => s.chapter.Book.Description))
                 .ForMember(s => s.ChapterNumber, o => o.MapFrom(s => s.chapter.ChapterNumber))
                 .ForMember(s => s.Citation, o => o.MapFrom(s => s.chapter.Citation))
+                .ForMember(s => s.Source, o => o.MapFrom(s => s.chapter.Source))
                 .ForMember(s => s.Nikaya, o => o.MapFrom(s => s.chapter.Book.Nikaya))
                 .ForMember(s => s.ChapterTitle, o => o.MapFrom(s => s.chapter.Title))
                 .ForMember(s => s.Text, o => o.MapFrom(s => s.verse.Text))

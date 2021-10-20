@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PaliCanon.IntegrationTests.Sql.Infrastructure;
@@ -41,6 +43,16 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(books);
             Assert.IsTrue(books.Count == 1);
+
+            //.. no html entities
+            Regex htmlEntityRegex = new Regex("&[A-Za-z]*;");
+
+            List<Verse> verses = books.SelectMany(x => x.Chapters).SelectMany(x => x.Verses).ToList();
+            foreach(Verse verse in verses)
+            {
+                if (htmlEntityRegex.Match(verse.Text).Success)
+                    Assert.Fail($"html entity found in {verse.Text}");
+            }
         }
-    }
+     }
 }

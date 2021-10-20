@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using PaliCanon.Common.Extensions;
-using PaliCanon.Contracts;
 using PaliCanon.Contracts.Book;
 using PaliCanon.Contracts.Chapter;
 using PaliCanon.Model;
@@ -90,7 +89,7 @@ namespace PaliCanon.DataLoad.Provider
                     if(verseNumbers.Any())
                     {
                         var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();
-                        var verseText = string.Join("", verseNodes);
+                        var verseText = TextNormaliser.RemoveHtmlEntities(string.Join("", verseNodes));
                         var verseToAdd = new Verse{ VerseNumber = verseNumbers.First(), Text = verseText};
 
                         if(verseNumbers.Count > 1) verseToAdd.VerseNumberLast = verseNumbers.Last();

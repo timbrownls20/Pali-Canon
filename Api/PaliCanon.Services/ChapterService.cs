@@ -33,14 +33,14 @@ namespace PaliCanon.Services
             return _mapper.Map<Chapter>(_chapterRepository.Get(bookCode, chapter, verse));
         }
 
-        public Quote Quote(string bookCode = null)
+        public Quote Quote(string bookCode = null, int? maxLength = null)
         {
-            return _mapper.Map<Quote>(_quoteRepository.Quote(bookCode));
+            return _mapper.Map<Quote>(_quoteRepository.Quote(bookCode, maxLength));
         }
 
-        public List<Quote> Quotes(int numberOfQuotes)
+        public List<Quote> Quotes(int numberOfQuotes, int? maxLength = null)
         {
-            return _mapper.Map<List<Quote>>(_quoteRepository.Quotes(numberOfQuotes));
+            return _mapper.Map<List<Quote>>(_quoteRepository.Quotes(numberOfQuotes, maxLength:maxLength));
         }
 
         public List<Quote> Search(string searchTerm, int? pageSize, int? pageNumber = 1)

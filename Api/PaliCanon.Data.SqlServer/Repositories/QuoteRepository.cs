@@ -16,17 +16,20 @@ namespace PaliCanon.Data.Sql.Repositories
             _context = context;
         }
 
-        public (ChapterEntity, VerseEntity) Quote(string bookCode)
+        public (ChapterEntity, VerseEntity) Quote(string bookCode = null, int? maxLength = null)
         {
-            return Quotes(1, bookCode).FirstOrDefault();
+            return Quotes(1, bookCode, maxLength).FirstOrDefault();
         }
 
-        public List<(ChapterEntity, VerseEntity)> Quotes(int numberOfQuotes, string bookCode = null)
+        public List<(ChapterEntity, VerseEntity)> Quotes(int numberOfQuotes, string bookCode = null, int? maxLength = null)
         {
             var quotes = new List<(ChapterEntity, VerseEntity)>();
             var versesQuery = string.IsNullOrWhiteSpace(bookCode) ? 
                                     _context.Verses 
                                     : _context.Verses.Where(x => x.Chapter.Book.Code == bookCode);
+
+            if (maxLength.HasValue)
+                versesQuery = versesQuery.Where(x => x.Text.Length <= maxLength.Value);
                 
             var verses = versesQuery.OrderBy(x => x.Id).Select(x => x.Id).ToList();
             var shuffler = new Shuffler();

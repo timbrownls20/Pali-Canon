@@ -27,24 +27,27 @@
             Quote api
             </summary>
         </member>
-        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get">
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get(System.Nullable{System.Int32})">
             <summary>
-            Gets a random quote 
+            Returns random quote
             </summary>
+            <param name="maxLength">Maximum character length of the quote</param>
             <returns></returns>
         </member>
-        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get(System.String)">
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.Get(System.String,System.Nullable{System.Int32})">
             <summary>
-            Gets a random quote from a specific book
+            Returns random quote for a book
             </summary>
-            <param name="bookCode">dhp - dhammpada</param>
+            <param name="bookCode">Book code e.g. dhp</param>
+            <param name="maxLength">Maximum character length of the quote</param>
             <returns></returns>
         </member>
-        <member name="M:PaliCanon.Api.Controllers.QuoteController.GetQuotes(System.Int32)">
+        <member name="M:PaliCanon.Api.Controllers.QuoteController.GetQuotes(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets a random set of quotes
             </summary>
             <param name="numberOfQuotes">number of quotes returned</param>
+            <param name="maxLength">Maximum character length of the quote</param>
             <returns></returns>
         </member>
         <member name="T:PaliCanon.Api.Controllers.SearchController">

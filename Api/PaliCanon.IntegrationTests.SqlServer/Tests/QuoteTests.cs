@@ -29,6 +29,25 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
         }
 
         [TestMethod]
+        [DataRow(90)]
+        [DataRow(255)]
+        public async Task GetQuoteOfMaxLength(int maxLength)
+        {
+            //.. arrange
+            var client = new TestClient();
+            var config = new TestConfig();
+
+            //.. act
+            var (quote, status) = await client.Get<Quote>($"{config.Api}quote\\{maxLength}");
+
+            //..assert
+            Assert.AreEqual(status, HttpStatusCode.OK);
+            Assert.IsNotNull(quote);
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(quote.Text));
+            Assert.IsTrue(quote.Text.Length <= maxLength);
+        }
+
+        [TestMethod]
         [DataRow(10)]
         public async Task GetQuotes(int quoteNumber)
         {
@@ -43,6 +62,25 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(quote);
             Assert.IsTrue(quote.Count == quoteNumber);
+        }
+
+        [TestMethod]
+        [DataRow(5, 100)]
+        [DataRow(5, 200)]
+        public async Task GetQuotesOfMaxLength(int quoteNumber, int maxLength)
+        {
+            //.. arrange
+            var client = new TestClient();
+            var config = new TestConfig();
+
+            //.. act
+            var (quotes, status) = await client.Get<List<Quote>>($"{config.Api}quotes/{quoteNumber}/{maxLength}");
+
+            //..assert
+            Assert.AreEqual(status, HttpStatusCode.OK);
+            Assert.IsNotNull(quotes);
+            Assert.IsTrue(quotes.Count <= quoteNumber);
+            Assert.IsTrue(!quotes.Any(x => x.Text.Length >= maxLength));
         }
     }
 }

@@ -60,7 +60,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return Get(bookCode, chapterId, verseId);
         }
 
-        public (ChapterEntity, VerseEntity) Quote(string bookCode)
+        public (ChapterEntity, VerseEntity) Quote(string bookCode= null, int? maxLength = null)
         { 
             var lastVerse = LastVerseId(bookCode);
 
@@ -132,7 +132,7 @@ namespace PaliCanon.Data.MongoDB.Repositories
             return new ChapterEntity{ Verses = new List<VerseEntity>{ new VerseEntity{ Text = "No verse found" }}};
         }
 
-        public List<(ChapterEntity chapter, VerseEntity verse)> Quotes(int numberOfQuotes, string bookCode = null)
+        public List<(ChapterEntity chapter, VerseEntity verse)> Quotes(int numberOfQuotes, string bookCode = null, int? maxLength = null)
         {
             throw new NotImplementedException();
         }

@@ -17,14 +17,16 @@ namespace PaliCanon.RazorPages.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string quote = null;
-            var baseUrl = config.GetValue<string>("Api");
+            Quote quote = null;
+            string baseUrl = config.GetValue<string>("Api");
+            int maxLength = config.GetValue<int>("Quote:MaxLength");
+
             using (var apiClient = new PaliCanonClient(baseUrl))
             {
-                (Quote content, HttpStatusCode status) result = await apiClient.Quote();
+                (Quote content, HttpStatusCode status) result = await apiClient.Quote(maxLength);
                 if (result.status == HttpStatusCode.OK)
                 {
-                    quote  = result.content.Text;
+                    quote  = result.content;
                 }
             }
 

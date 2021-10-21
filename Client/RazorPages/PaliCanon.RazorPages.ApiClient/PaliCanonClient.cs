@@ -24,9 +24,9 @@ namespace PaliCanon.RazorPages.ApiClient
             return await Get<List<Quote>>($"{baseUrl}/search/{searchTerm}");
         }
 
-        public async Task<(Quote content, HttpStatusCode status)> Quote()
+        public async Task<(Quote content, HttpStatusCode status)> Quote(int maxLength)
         {
-            return await Get<Quote>($"{baseUrl}/quote");
+            return await Get<Quote>($"{baseUrl}/quote/{maxLength}");
         }
 
         private async Task<(T content, HttpStatusCode status)> Get<T>(string api)

@@ -24,3 +24,5 @@ Api/PaliCanon.Api/Docker Commands.txt
 appsettings.Development.json
 Notes
 Client/RazorPages/.vs/PaliCanon.RazorPages/v16/TestStore/0/000.testlog
+docker-compose.yml
+Api/docker-compose.yml

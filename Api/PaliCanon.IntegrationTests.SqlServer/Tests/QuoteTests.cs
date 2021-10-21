@@ -65,8 +65,8 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
         }
 
         [TestMethod]
-        [DataRow(5, 100)]
-        [DataRow(5, 200)]
+        [DataRow(25, 100)]
+        [DataRow(25, 200)]
         public async Task GetQuotesOfMaxLength(int quoteNumber, int maxLength)
         {
             //.. arrange
@@ -80,7 +80,7 @@ namespace PaliCanon.IntegrationTests.Sql.Tests
             Assert.AreEqual(status, HttpStatusCode.OK);
             Assert.IsNotNull(quotes);
             Assert.IsTrue(quotes.Count <= quoteNumber);
-            Assert.IsTrue(!quotes.Any(x => x.Text.Length >= maxLength));
+            Assert.IsTrue(!quotes.Any(x => x.Text.Length > maxLength));
         }
     }
 }

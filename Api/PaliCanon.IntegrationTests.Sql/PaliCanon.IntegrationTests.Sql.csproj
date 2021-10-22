@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaliCanon.Data.SqlServer\PaliCanon.Data.Sql.csproj" />
+    <ProjectReference Include="..\PaliCanon.Data.Sql\PaliCanon.Data.Sql.csproj" />
   </ItemGroup>
 
 </Project>

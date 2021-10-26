@@ -1,0 +1,90 @@
+body, html, #root{
+  height:100%
+}
+
+.App {
+  text-align: center;
+  height:100%;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.quote-background
+{
+  height: 100%;  
+  background-image: url('./assets/images/lotus1.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.quote-container
+{
+  transition: ease-in-out 2s;
+  background-color: grey;
+  transition: ease-in-out 2s;
+  width: 50%;
+  padding: 3em;
+  border-radius: 1em;
+  opacity: 0.8;
+}
+
+.quote
+{
+  transition: ease-in-out 2s;
+  opacity: 1;
+  color: white;
+}
+
+.hidden
+{
+  opacity: 0;
+}
+
+.citation, .heading
+{
+  width: 100%;
+  padding: 1em;  
+}
+
+.citation a, .citation a:hover, .heading {
+  color: silver;
+}
+
+.debug {
+  background-color: red;
+}

@@ -7,16 +7,21 @@ interface QuoteResponse {
     text: string | undefined,
     citation: string | undefined,
     source: string | undefined
-    
+}
+
+enum Phase {
+    GetQuote = 1,
+    ShowQuote = 2,
+    HideQuote = 9
 }
 
 const Quote = () => {
 
     const url: string = 'http://palicanon.codebuckets.com.au/api/quote';
-    const interval: number = 4000;
+    const interval: number = 1500;
     const [quote, setQuote]: [QuoteResponse, Function] = useState({} as QuoteResponse);
-    const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(true);
-    const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(true);
+    const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(false);
+    const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
 
     const getQuote = () => {
         axios.get(url)
@@ -36,18 +41,18 @@ const Quote = () => {
         
         setInterval(() => {
             count = count + 1;
-            let phase = count % 5 + 1;
+            let phase = count % 10 + 1;
 
             console.log(phase);
 
-            if(phase === 1){
+            if(phase === Phase.GetQuote){
+                getQuote();
+            }
+            else if(phase === Phase.ShowQuote){
                 showQuote(true)
             }
-            else if(phase === 4){
+            else if(phase === Phase.HideQuote) {
                 showQuote(false)
-            }
-            else if(phase === 5) {
-                getQuote();
             }
         } ,interval);
     }, []);

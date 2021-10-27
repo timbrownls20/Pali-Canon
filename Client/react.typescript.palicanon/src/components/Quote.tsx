@@ -85,7 +85,7 @@ const Quote = () => {
 
 return <div className="d-flex flex-column justify-content-between align-items-center quote-background" style={imageStyleRef.current}>
             <div className="heading d-flex justify-content-end">
-                <small style={textStyleRef.current}>{quote.book} quotes</small>
+                <small style={textStyleRef.current}>Buddha quotes</small>
             </div>
             <div className={"quote-container" + (quoteVisible ? "" : " hidden")}>
                 <h5 className={"quote" + (quoteVisible ? "" : " hidden")}>{quote.text}</h5>

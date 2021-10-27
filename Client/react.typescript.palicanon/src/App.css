@@ -7,7 +7,7 @@ body, html, #root{
   height:100%;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -40,17 +40,26 @@ body, html, #root{
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .quote-background
 {
   height: 100%;  
-  background-image: url('./assets/images/lotus1.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+
+/* .quote-background-image-1
+{
+  background-image: url('./assets/images/lotus1.jpg');
+}
+
+.quote-background-image-2
+{
+  background-image: url('./assets/images/sky.jpg');
+} */
 
 .quote-container
 {
@@ -82,7 +91,7 @@ body, html, #root{
 }
 
 .citation a, .citation a:hover, .heading {
-  color: silver;
+  color: white;
 }
 
 .debug {

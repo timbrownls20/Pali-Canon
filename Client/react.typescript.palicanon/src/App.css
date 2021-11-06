@@ -1,3 +1,4 @@
+
 body, html, #root{
   height:100%
 }
@@ -14,24 +15,26 @@ body, html, #root{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-.quote-container
-{
-  transition: ease-in-out 2s;
-  background-color: grey;
-  transition: ease-in-out 2s;
-  width: 50%;
-  padding: 3em;
-  border-radius: 1em;
-  opacity: 0.8;
+  background-position:center;
 }
 
 .quote
 {
-  transition: ease-in-out 2s;
+  background-color: grey;
+  transition: opacity ease-in-out 2s;
+  width: 50%;
+  padding: 3em;
+  border-radius: 1em;
+  opacity: 0.8;
+  font-size:x-large;
+}
+
+.fadein-text
+{
+  transition: opacity ease-in-out 2s;
   opacity: 1;
   color: white;
+
 }
 
 .hidden
@@ -43,12 +46,31 @@ body, html, #root{
 {
   width: 100%;
   padding: 1em;  
+  font-size: medium;
+  
 }
 
-.citation a, .citation a:hover, .heading {
-  color: white;
+@media (max-width: 319px) { 
+  .quote {
+    font-size:x-small;
+  } 
 }
 
-.debug {
-  background-color: red;
+@media (min-width:320px ) and (max-width: 480px) { 
+  .quote {
+    font-size:small;
+  } 
 }
+
+@media (min-width:481px ) and (max-width: 768px) { 
+  .quote {
+    font-size:larger;
+  } 
+}
+
+@media (max-width: 480px) { 
+  .citation {
+    font-size:x-small;
+  } 
+}
+

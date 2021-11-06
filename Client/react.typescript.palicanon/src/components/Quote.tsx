@@ -2,20 +2,16 @@ import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 
-interface QuoteResponse {
+class QuoteResponse {
 
-    book: string | undefined
-    text: string | undefined,
-    citation: string | undefined,
-    source: string | undefined
+    book: string;
+    text: string;
+    citation: string;
+    source: string;
 }
 
 interface ImageStyle {
     backgroundImage: string | undefined
-}
-
-interface TextStyle {
-    color: string | undefined
 }
 
 enum Phase {
@@ -32,7 +28,6 @@ const Quote = () => {
     const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(false);
     const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
     const imageStyleRef: React.MutableRefObject<ImageStyle> = useRef({} as ImageStyle);
-    const textStyleRef: React.MutableRefObject<TextStyle> = useRef({} as TextStyle);
     
     const getQuote = () => {
         axios.get(url)
@@ -67,31 +62,24 @@ const Quote = () => {
     }, []);
 
     useEffect(() => {
-
-        const imageTextStyleArray: Array<string> = ["white", "white", "white", "white", "white", "white", "white", "white", "white", "white"]
         let imageCount: number = 10;
         let imageNumber: number = _.random(1, imageCount);
-        //let imageNumber: number = 10;
+        //let imageNumber: number = 4;
         let image = require(`../assets/images/background${imageNumber}.jpg`);
         imageStyleRef.current = {
             backgroundImage:"url(" + image.default + ")"
         }
-
-        textStyleRef.current = {
-            color: imageTextStyleArray[imageNumber - 1]
-        }
-
     }, [])
 
 return <div className="d-flex flex-column justify-content-between align-items-center quote-background" style={imageStyleRef.current}>
             <div className="heading d-flex justify-content-end">
-                <small style={textStyleRef.current}>Buddha quotes</small>
+                <small>Buddha quotes</small>
             </div>
-            <div className={"quote-container" + (quoteVisible ? "" : " hidden")}>
-                <h5 className={"quote" + (quoteVisible ? "" : " hidden")}>{quote.text}</h5>
+            <div className={"quote" + (quoteVisible ? "" : " hidden")}>
+                <div className={"fadein-text" + (quoteVisible ? "" : " hidden")}>{quote.text}</div>
             </div>
             <div className="citation d-flex justify-content-end">
-                <small className={"quote" + (quoteVisible ? "" : " hidden")}><a href={quote.source} style={textStyleRef.current}>{quote.citation}</a></small>
+                <a href={quote.source}><small className={"fadein-text" + (quoteVisible ? "" : " hidden")}>{quote.citation}</small></a>
             </div>
         </div>
 }

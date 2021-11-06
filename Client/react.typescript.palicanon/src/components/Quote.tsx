@@ -77,7 +77,7 @@ return <div className="d-flex flex-column justify-content-between align-items-ce
                 <div className={"fadein-text" + (quoteVisible ? "" : " hidden")}>{quote.text}</div>
             </div>
             <div className="citation d-flex justify-content-end">
-                <a href={quote.source}><small className={"fadein-text" + (quoteVisible ? "" : " hidden")}>{quote.citation}</small></a>
+                <small className={"fadein-text" + (quoteVisible ? "" : " hidden")}><a href={quote.source}>{quote.citation}</a></small>
             </div>
         </div>
 }

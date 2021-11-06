@@ -48,7 +48,15 @@ body, html, #root{
   padding: 1em;  
   color:white;
   font-size: medium;
-  
+}
+
+.citation a {
+  color: white;
+  text-decoration: none;
+}
+
+.citation a:hover {
+  color: silver;
 }
 
 @media (max-width: 319px) { 

@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+import config from '../config';
 
 class QuoteResponse {
 
@@ -22,19 +23,10 @@ enum Phase {
 
 const Quote = () => {
 
-    const url: string = 'http://palicanon.codebuckets.com.au/api/quote';
-    const interval: number = 1500;
     const [quote, setQuote]: [QuoteResponse, Function] = useState({} as QuoteResponse);
     const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(false);
     const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
     const imageStyleRef: React.MutableRefObject<ImageStyle> = useRef({} as ImageStyle);
-    
-    const getQuote = () => {
-        axios.get(url)
-        .then(response => {
-        setQuote(response.data);
-        });
-    }
 
     const showQuote = (show: boolean)=> {
         quoteVisibleRef.current = show;    
@@ -42,6 +34,13 @@ const Quote = () => {
     }
 
     useEffect(() => {
+   
+        const getQuote = () => {
+            axios.get(config.api)
+            .then(response => {
+            setQuote(response.data);
+            });
+        }
         let count: number = 0;
         getQuote();
         
@@ -58,13 +57,12 @@ const Quote = () => {
             else if(phase === Phase.HideQuote) {
                 showQuote(false)
             }
-        } ,interval);
+        } ,config.interval);
     }, []);
 
     useEffect(() => {
-        let imageCount: number = 10;
-        let imageNumber: number = _.random(1, imageCount);
-        //let imageNumber: number = 4;
+        let imageCount:number = 10;
+        let imageNumber:number = config.imageNumber === null ?  _.random(1, imageCount) : config.imageNumber;
         let image = require(`../assets/images/background${imageNumber}.jpg`);
         imageStyleRef.current = {
             backgroundImage:"url(" + image.default + ")"

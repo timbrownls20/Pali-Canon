@@ -61,19 +61,22 @@ body, html, #root{
 
 @media (max-width: 319px) { 
   .quote {
-    font-size:x-small;
+    font-size:small;
+    width:75%;
   } 
 }
 
 @media (min-width:320px ) and (max-width: 480px) { 
   .quote {
-    font-size:small;
+    font-size:medium;
+    width:75%;
   } 
 }
 
 @media (min-width:481px ) and (max-width: 768px) { 
   .quote {
-    font-size:larger;
+    font-size:medium;
+    width:75%;
   } 
 }
 

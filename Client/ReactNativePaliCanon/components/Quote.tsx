@@ -38,7 +38,7 @@ const Quote = () => {
     },
   });
 
-  return <Text style={styles.quote}>{quote}</Text>;
+  return <Text style={styles.quote}>{quote?.text}</Text>;
 };
 
 export default Quote;

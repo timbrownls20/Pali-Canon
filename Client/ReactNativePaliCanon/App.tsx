@@ -4,7 +4,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
@@ -17,7 +16,6 @@ const App = () => {
 
   let touchY: number;
   let touchX: number;
-  const sampleQuote: string = 'Sample quote 1';
 
   const styles = StyleSheet.create({
     topContainer: {

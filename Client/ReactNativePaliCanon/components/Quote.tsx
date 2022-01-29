@@ -1,48 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import axios from 'axios';
-import config from '../config';
-
-class QuoteResponse {
-  book!: string;
-  text!: string;
-  citation!: string;
-  source!: string;
-}
+import useQuote from '../hooks/useQuote';
 
 const Quote = () => {
-  const [quote, setQuote] = useState<QuoteResponse>();
-
-  useEffect(() => {
-    console.log('use effect');
-
-    const getQuote = () => {
-      console.log('get quote');
-
-      axios
-        .get(config.api)
-        .then(response => {
-          setQuote(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    };
-
-    const handler = setInterval(() => {
-      getQuote();
-    }, config.interval);
-
-    getQuote();
-
-    return () => {
-      clearInterval(handler);
-    };
-  }, []);
+  const {quote} = useQuote();
 
   const styles = StyleSheet.create({
     quote: {
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: '600',
     },
   });

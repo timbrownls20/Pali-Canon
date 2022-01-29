@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import useQuote from '../hooks/useQuote';
 
-const Quote = () => {
-  const {quote} = useQuote();
+interface IQuoteProps {
+  text: string | undefined;
+}
 
+const Quote = ({text}: IQuoteProps) => {
   const styles = StyleSheet.create({
     quote: {
       fontSize: 20,
@@ -12,7 +13,7 @@ const Quote = () => {
     },
   });
 
-  return <Text style={styles.quote}>{quote?.text}</Text>;
+  return <Text style={styles.quote}>{text}</Text>;
 };
 
 export default Quote;

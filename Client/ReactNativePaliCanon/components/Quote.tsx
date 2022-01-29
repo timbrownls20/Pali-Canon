@@ -3,9 +3,11 @@ import {StyleSheet, useColorScheme, View} from 'react-native';
 import QuoteText from './QuoteText';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import useQuote from '../hooks/useQuote';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const {quote} = useQuote();
 
   let touchY: number;
   let touchX: number;
@@ -42,7 +44,7 @@ const Quote = () => {
         }
       }}>
       <View style={styles.quoteContainer}>
-        <QuoteText />
+        <QuoteText text={quote?.text} />
       </View>
     </View>
   );

@@ -28,7 +28,16 @@ const Quote = () => {
           console.log(e);
         });
     };
+
+    const handler = setInterval(() => {
+      getQuote();
+    }, config.interval);
+
     getQuote();
+
+    return () => {
+      clearInterval(handler);
+    };
   }, []);
 
   const styles = StyleSheet.create({

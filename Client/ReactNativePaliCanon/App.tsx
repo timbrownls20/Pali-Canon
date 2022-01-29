@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -19,97 +9,75 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  let touchY: number;
+  let touchX: number;
+  const sampleQuote: string = 'Sample quote 1';
+
+  const styles = StyleSheet.create({
+    topContainer: {
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+    },
+    timerContainer: {
+      marginTop: 32,
+      paddingHorizontal: 24,
+    },
+    timer: {
+      fontSize: 24,
+      fontWeight: '600',
+    },
+    backgroundStyle: {
+      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      flex: 1,
+    },
+    scrollViewStyle: {
+      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      height: '100%',
+    },
+    contentControllerStyle: {
+      flex: 1,
+      backgroundColor: 'yellow',
+    },
+  });
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
+        style={styles.scrollViewStyle}
+        contentContainerStyle={styles.contentControllerStyle}>
         <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          style={styles.topContainer}
+          onTouchStart={e => {
+            touchX = e.nativeEvent.pageX;
+            touchY = e.nativeEvent.pageY;
+          }}
+          onTouchEnd={e => {
+            if (
+              Math.abs(touchY - e.nativeEvent.pageY) > 20 ||
+              Math.abs(touchX - e.nativeEvent.pageX) > 20
+            ) {
+              console.log('swiped');
+            } else {
+              console.log('touched');
+            }
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <View style={styles.timerContainer}>
+            <Text style={styles.timer}>{sampleQuote}</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

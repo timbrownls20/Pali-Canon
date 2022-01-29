@@ -8,6 +8,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Quote from './components/Quote';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -72,7 +73,7 @@ const App = () => {
             }
           }}>
           <View style={styles.timerContainer}>
-            <Text style={styles.timer}>{sampleQuote}</Text>
+            <Quote />
           </View>
         </View>
       </ScrollView>

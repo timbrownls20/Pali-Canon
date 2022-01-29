@@ -4,6 +4,7 @@ import QuoteText from './QuoteText';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import useQuote from '../hooks/useQuote';
+import Citation from './Citation';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,7 +17,7 @@ const Quote = () => {
     topContainer: {
       backgroundColor: isDarkMode ? Colors.black : Colors.white,
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       flex: 1,
     },
@@ -43,8 +44,12 @@ const Quote = () => {
           console.log('touched');
         }
       }}>
+      <View />
       <View style={styles.quoteContainer}>
         <QuoteText text={quote?.text} />
+      </View>
+      <View>
+        <Citation citation={quote?.citation} />
       </View>
     </View>
   );

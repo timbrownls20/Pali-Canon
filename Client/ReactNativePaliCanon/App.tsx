@@ -25,13 +25,9 @@ const App = () => {
       alignItems: 'center',
       flex: 1,
     },
-    timerContainer: {
+    quoteContainer: {
       marginTop: 32,
       paddingHorizontal: 24,
-    },
-    timer: {
-      fontSize: 24,
-      fontWeight: '600',
     },
     backgroundStyle: {
       backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -70,7 +66,7 @@ const App = () => {
               console.log('touched');
             }
           }}>
-          <View style={styles.timerContainer}>
+          <View style={styles.quoteContainer}>
             <Quote />
           </View>
         </View>

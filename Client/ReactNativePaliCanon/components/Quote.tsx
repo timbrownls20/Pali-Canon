@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, useColorScheme, View, Animated} from 'react-native';
 import QuoteText from './QuoteText';
 
@@ -8,16 +8,7 @@ import Citation from './Citation';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {quote} = useQuote();
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 10000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
+  const {quote, fadeAnim} = useQuote();
 
   let touchY: number;
   let touchX: number;

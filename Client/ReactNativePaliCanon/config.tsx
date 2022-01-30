@@ -7,7 +7,7 @@ interface IConfig {
 
 const config: IConfig = {
   api: 'http://palicanon.codebuckets.com.au/api/quote',
-  interval: 10000,
+  interval: 2000,
   imageNumber: null,
   imageCount: 10,
 };

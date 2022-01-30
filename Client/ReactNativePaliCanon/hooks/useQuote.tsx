@@ -9,14 +9,6 @@ const useQuote = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: config.interval / 2,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
-
-  useEffect(() => {
     const getQuote = () => {
       axios
         .get(config.api)
@@ -28,16 +20,27 @@ const useQuote = () => {
         });
     };
 
+    const fadeIn = () => {
+      fadeAnim.setValue(0);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: config.interval / 4,
+        useNativeDriver: true,
+      }).start();
+    };
+
     const handler = setInterval(() => {
       getQuote();
+      fadeIn();
     }, config.interval);
 
     getQuote();
+    fadeIn();
 
     return () => {
       clearInterval(handler);
     };
-  }, []);
+  }, [fadeAnim]);
 
   return {quote, fadeAnim};
 };

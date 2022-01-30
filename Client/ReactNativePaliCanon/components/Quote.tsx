@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, useColorScheme, View} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {StyleSheet, useColorScheme, View, Animated} from 'react-native';
 import QuoteText from './QuoteText';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -9,6 +9,15 @@ import Citation from './Citation';
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const {quote} = useQuote();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 10000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   let touchY: number;
   let touchX: number;
@@ -28,8 +37,8 @@ const Quote = () => {
   });
 
   return (
-    <View
-      style={styles.topContainer}
+    <Animated.View
+      style={{...styles.topContainer, opacity: fadeAnim}}
       onTouchStart={e => {
         touchX = e.nativeEvent.pageX;
         touchY = e.nativeEvent.pageY;
@@ -51,7 +60,7 @@ const Quote = () => {
       <View>
         <Citation citation={quote?.citation} />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

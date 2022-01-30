@@ -23,7 +23,6 @@ const App = () => {
     },
     contentControllerStyle: {
       flex: 1,
-      backgroundColor: 'yellow',
     },
   });
 

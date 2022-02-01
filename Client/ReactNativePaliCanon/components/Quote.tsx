@@ -9,13 +9,14 @@ import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {quote, fadeAnim} = useQuote();
+  const {quote, nextQuote, fadeAnim} = useQuote();
   const gesture = Gesture.Pan()
     .onStart(() => {
       console.log('pan start');
     })
     .onEnd(e => {
       console.log(`pan end X:${e.translationX} Y:${e.translationY}`);
+      nextQuote();
     });
 
   const styles = StyleSheet.create({

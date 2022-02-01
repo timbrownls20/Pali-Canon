@@ -6,7 +6,7 @@ interface IConfig {
 }
 
 const config: IConfig = {
-  api: 'http://palicanon.codebuckets.com.au/api/quote',
+  api: 'http://palicanon.codebuckets.com.au/api',
   interval: 2000,
   imageNumber: null,
   imageCount: 10,

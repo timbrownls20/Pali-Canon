@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Animated} from 'react-native';
 import config from '../config';
 import {QuoteResponse} from '../model/QuoteResponse';
+import {VerseResponse} from '../model/VerseResponse';
 
 enum Phase {
   GetQuote = 1,
@@ -11,13 +12,31 @@ enum Phase {
 }
 
 const useQuote = () => {
+  const bookCode = 'dhp';
   const [quote, setQuote] = useState<QuoteResponse>();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  const nextQuote = () => {
+    const url = `${config.api}/sutta/next/${bookCode}/${quote?.verseNumber}`;
+    console.log(url);
+    axios
+      .get<VerseResponse>(url)
+      .then(response => {
+        const nextQuoteResponse = new QuoteResponse().fromVerse(response.data);
+        console.log(nextQuoteResponse);
+        setQuote(nextQuoteResponse);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     const getQuote = () => {
+      const url = `${config.api}/quote/${bookCode}`;
+      console.log(url);
       axios
-        .get(config.api)
+        .get<QuoteResponse>(url)
         .then(response => {
           setQuote(response.data);
         })
@@ -64,7 +83,7 @@ const useQuote = () => {
     };
   }, [fadeAnim]);
 
-  return {quote, fadeAnim};
+  return {quote, nextQuote, fadeAnim};
 };
 
 export default useQuote;

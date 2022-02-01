@@ -12,7 +12,6 @@ enum Phase {
 
 const useQuote = () => {
   const [quote, setQuote] = useState<QuoteResponse>();
-  //const [count, setCount] = useState<number>(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -50,8 +49,6 @@ const useQuote = () => {
     const handler = setInterval(() => {
       let phase = (count % 10) + 1;
 
-      console.log(`count ${count} phase ${phase}`);
-
       if (phase === Phase.GetQuote) {
         getQuote();
       } else if (phase === Phase.ShowQuote) {
@@ -61,14 +58,7 @@ const useQuote = () => {
       }
 
       count = count + 1;
-
-      // getQuote();
-      // fadeIn();
     }, config.interval);
-
-    // getQuote();
-    // fadeIn();
-
     return () => {
       clearInterval(handler);
     };

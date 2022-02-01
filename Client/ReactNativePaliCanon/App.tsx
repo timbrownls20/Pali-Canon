@@ -9,6 +9,7 @@ import {
 import Quote from './components/Quote';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -29,12 +30,14 @@ const App = () => {
   return (
     <SafeAreaView style={styles.backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.scrollViewStyle}
-        contentContainerStyle={styles.contentControllerStyle}>
-        <Quote />
-      </ScrollView>
+      <GestureHandlerRootView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollViewStyle}
+          contentContainerStyle={styles.contentControllerStyle}>
+          <Quote />
+        </ScrollView>
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 };

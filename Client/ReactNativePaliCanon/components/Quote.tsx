@@ -3,16 +3,17 @@ import {StyleSheet, useColorScheme, View, Animated} from 'react-native';
 import QuoteText from './QuoteText';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import useQuote from '../hooks/useQuote';
+import useQuote, {Mode} from '../hooks/useQuote';
 import Citation from './Citation';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {quote, nextQuote, fadeAnim} = useQuote();
+  const {quote, nextQuote, fadeAnim, setMode} = useQuote();
   const gesture = Gesture.Pan()
     .onStart(() => {
       console.log('pan start');
+      setMode(Mode.Stop);
     })
     .onEnd(e => {
       console.log(`pan end X:${e.translationX} Y:${e.translationY}`);

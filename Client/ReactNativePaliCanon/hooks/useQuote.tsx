@@ -11,9 +11,16 @@ enum Phase {
   HideQuote = 9,
 }
 
+export enum Mode {
+  Start = 1,
+  Stop = 2,
+  Reset = 3,
+}
+
 const useQuote = () => {
   const bookCode = 'dhp';
   const [quote, setQuote] = useState<QuoteResponse>();
+  const [mode, setMode] = useState<Mode>(Mode.Start);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const nextQuote = () => {
@@ -63,9 +70,7 @@ const useQuote = () => {
       }).start();
     };
 
-    let count: number = 0;
-
-    const handler = setInterval(() => {
+    const quoteCycle = () => {
       let phase = (count % 10) + 1;
 
       if (phase === Phase.GetQuote) {
@@ -77,13 +82,22 @@ const useQuote = () => {
       }
 
       count = count + 1;
-    }, config.interval);
-    return () => {
-      clearInterval(handler);
     };
-  }, [fadeAnim]);
 
-  return {quote, nextQuote, fadeAnim};
+    let count: number = 0;
+
+    let handler: NodeJS.Timer | null = null;
+
+    if (mode === Mode.Start) {
+      handler = setInterval(quoteCycle, config.interval);
+    } else if (mode === Mode.Stop) {
+      clearInterval(handler!);
+    }
+
+    return () => clearInterval(handler!);
+  }, [fadeAnim, mode]);
+
+  return {quote, nextQuote, fadeAnim, setMode};
 };
 
 export default useQuote;

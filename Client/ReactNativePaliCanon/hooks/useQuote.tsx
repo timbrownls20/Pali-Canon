@@ -38,6 +38,27 @@ const useQuote = () => {
       });
   };
 
+  const previousQuote = () => {
+    //.. previous quote missing in API so workaround until API is changed
+    let verseBeforePrevious: number = quote?.verseNumber! - 2;
+    if (verseBeforePrevious === 0) {
+      verseBeforePrevious = 0;
+    }
+
+    const url = `${config.api}/sutta/next/${bookCode}/${verseBeforePrevious}`;
+    console.log(url);
+    axios
+      .get<VerseResponse>(url)
+      .then(response => {
+        const nextQuoteResponse = new QuoteResponse().fromVerse(response.data);
+        console.log(nextQuoteResponse);
+        setQuote(nextQuoteResponse);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     const getQuote = () => {
       const url = `${config.api}/quote/${bookCode}`;
@@ -97,7 +118,7 @@ const useQuote = () => {
     return () => clearInterval(handler!);
   }, [fadeAnim, mode]);
 
-  return {quote, nextQuote, fadeAnim, setMode};
+  return {quote, nextQuote, previousQuote, fadeAnim, setMode};
 };
 
 export default useQuote;

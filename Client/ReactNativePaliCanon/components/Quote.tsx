@@ -6,18 +6,28 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import useQuote, {Mode} from '../hooks/useQuote';
 import Citation from './Citation';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
+import {Swipe} from '../services/Swipe';
 
 const Quote = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {quote, nextQuote, fadeAnim, setMode} = useQuote();
+  const {quote, nextQuote, previousQuote, fadeAnim, setMode} = useQuote();
   const gesture = Gesture.Pan()
     .onStart(() => {
       console.log('pan start');
       setMode(Mode.Stop);
+      fadeAnim.setValue(1);
     })
     .onEnd(e => {
-      console.log(`pan end X:${e.translationX} Y:${e.translationY}`);
-      nextQuote();
+      const swipe = new Swipe(e.translationX, e.translationY);
+      console.log(
+        `pan end:: right swipe: ${swipe.isRightSwipe()},left ${swipe.isLeftSwipe()}`,
+      );
+
+      if (swipe.isRightSwipe()) {
+        nextQuote();
+      } else {
+        previousQuote();
+      }
     });
 
   const styles = StyleSheet.create({

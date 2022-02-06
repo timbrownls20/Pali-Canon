@@ -36,9 +36,10 @@ const Quote = () => {
       flex: 1,
     },
     quoteContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
-      opacity: 1,
+      padding: 15,
+      backgroundColor: 'rgba(52, 52, 52, 0.2)',
+      borderRadius: 5,
+      maxWidth: '90%',
     },
   });
 

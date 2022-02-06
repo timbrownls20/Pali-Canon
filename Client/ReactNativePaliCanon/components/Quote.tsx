@@ -1,15 +1,12 @@
 import React from 'react';
-import {StyleSheet, useColorScheme, View, Animated} from 'react-native';
+import {StyleSheet, View, Animated} from 'react-native';
 import QuoteText from './QuoteText';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import useQuote, {Mode} from '../hooks/useQuote';
 import Citation from './Citation';
 import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import {Swipe} from '../services/Swipe';
 
 const Quote = () => {
-  const isDarkMode = useColorScheme() === 'dark';
   const {quote, nextQuote, previousQuote, fadeAnim, setMode} = useQuote();
   const gesture = Gesture.Pan()
     .onStart(() => {
@@ -32,31 +29,30 @@ const Quote = () => {
 
   const styles = StyleSheet.create({
     topContainer: {
-      backgroundColor: isDarkMode ? Colors.black : Colors.white,
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
+      backgroundColor: 'rgba(52, 52, 52, 0)',
       flex: 1,
     },
     quoteContainer: {
       marginTop: 32,
       paddingHorizontal: 24,
+      opacity: 1,
     },
   });
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View
-        style={{...styles.topContainer, opacity: fadeAnim}}
-        onTouchStart={() => console.log('touch start')}>
+      <View style={{...styles.topContainer}}>
         <View />
-        <View style={styles.quoteContainer}>
+        <Animated.View style={{...styles.quoteContainer, opacity: fadeAnim}}>
           <QuoteText text={quote?.text} />
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View style={{opacity: fadeAnim}}>
           <Citation citation={quote?.citation} />
-        </View>
-      </Animated.View>
+        </Animated.View>
+      </View>
     </GestureDetector>
   );
 };

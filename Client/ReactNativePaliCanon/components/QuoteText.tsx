@@ -10,6 +10,7 @@ const Quote = ({text}: IQuoteProps) => {
     quote: {
       fontSize: 20,
       fontWeight: '600',
+      color: 'white',
     },
   });
 

@@ -7,19 +7,16 @@ import {
   useColorScheme,
 } from 'react-native';
 import Quote from './components/Quote';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import BackgroundImage from './components/BackgroundImage';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const styles = StyleSheet.create({
     backgroundStyle: {
-      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
       flex: 1,
     },
     scrollViewStyle: {
-      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
       height: '100%',
     },
     contentControllerStyle: {
@@ -35,7 +32,9 @@ const App = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollViewStyle}
           contentContainerStyle={styles.contentControllerStyle}>
-          <Quote />
+          <BackgroundImage>
+            <Quote />
+          </BackgroundImage>
         </ScrollView>
       </GestureHandlerRootView>
     </SafeAreaView>

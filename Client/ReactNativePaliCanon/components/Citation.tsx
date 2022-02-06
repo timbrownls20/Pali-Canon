@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   citation: {
     margin: 32,
     fontSize: 9,
+    color: 'white',
   },
 });
 

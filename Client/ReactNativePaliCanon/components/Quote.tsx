@@ -51,7 +51,7 @@ const Quote = () => {
           <QuoteText text={quote?.text} />
         </Animated.View>
         <Animated.View style={{opacity: fadeAnim}}>
-          <Citation citation={quote?.citation} />
+          <Citation quote={quote} />
         </Animated.View>
       </View>
     </GestureDetector>

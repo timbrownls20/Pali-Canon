@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
+import {QuoteResponse} from '../model/QuoteResponse';
 
 interface ICitationProps {
-  citation: string | undefined;
+  quote: QuoteResponse | undefined;
 }
 
 const styles = StyleSheet.create({
@@ -13,8 +14,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Citation = ({citation}: ICitationProps) => {
-  return <Text style={styles.citation}>{citation}</Text>;
+const Citation = ({quote}: ICitationProps) => {
+  return (
+    <Text style={styles.citation}>
+      {quote ? `Verse ${quote.verseNumber}. ${quote.citation}` : ''}
+    </Text>
+  );
 };
 
 export default Citation;
